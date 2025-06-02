@@ -1,0 +1,83 @@
+math 11
+
+
+EVOSUITE PREFIX
+
+@Test(timeout = 4000)
+  public void test1()  throws Throwable  {
+      double[] doubleArray0 = new double[3];
+      doubleArray0[0] = (-438.19603501);
+      doubleArray0[1] = 2551.186382593726;
+      doubleArray0[2] = 1672.737874114;
+      double[][] doubleArray1 = new double[3][0];
+      doubleArray1[0] = doubleArray0;
+      doubleArray1[1] = doubleArray0;
+      doubleArray1[2] = doubleArray0;
+      MultivariateNormalDistribution multivariateNormalDistribution0 = new MultivariateNormalDistribution(doubleArray0, doubleArray1);
+      double double0 = multivariateNormalDistribution0.density(doubleArray0);
+
+
+
+
+
+
+
+EVOSUITE ASSERTION (REGRESSION ORACLE)
+
+assertEquals(9.56638233871764E9, double0, 0.01);
+      assertArrayEquals(new double[] {(-438.19603501), 2551.186382593726, 1672.737874114}, doubleArray0, 0.01);
+  }
+
+
+
+
+
+
+DEV-WRITTEN PREFIX (DEFECTS4J)
+
+/**                                                              * Test the accuracy of the distribution when calculating densities.
+     */
+    @Test
+    public void testUnivariateDistribution() {                      final double[] mu = { -1.5 };                               final double[][] sigma = { { 1 } };                                                                                     final MultivariateNormalDistribution multi = new MultivariateNormalDistribution(mu, sigma);                                                                                         final NormalDistribution uni = new NormalDistribution(mu[0], sigma[0][0]);                                              final Random rng = new Random();                            final int numCases = 100;                                   final double tol = Math.ulp(1d); 
+
+
+
+
+DEV-WRITTEN ASSERTION (DEFECTS4J)
+
+for (int i = 0; i < numCases; i++) {
+            final double v = rng.nextDouble() * 10 - 5;
+            Assert.assertEquals(uni.density(v), multi.density(new double[] { v }), tol);
+        }
+    }
+
+
+
+
+
+
+METHOD UNDER TEST
+
+
+/** {@inheritDoc} */
+    public double density(final double[] vals) throws DimensionMismatchException {
+        final int dim = getDimension();
+        if (vals.length != dim) {
+            throw new DimensionMismatchException(vals.length, dim);
+        }
+
+        return FastMath.pow(2 * FastMath.PI, -dim / 2) *
+            FastMath.pow(covarianceMatrixDeterminant, -0.5) *
+            getExponentTerm(vals);
+    }
+
+
+
+
+
+
+NOTES/EDIT DISTANCE?
+
+
+- Both assertions compare the expected vs. actual values returned by .density(), just the regression oracle obviously asserts over the wrong value
+- edit distance ultimately pretty small 
