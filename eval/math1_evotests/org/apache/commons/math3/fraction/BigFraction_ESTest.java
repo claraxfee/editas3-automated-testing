@@ -135,129 +135,149 @@ public class BigFraction_ESTest extends BigFraction_ESTest_scaffolding {
       }
   }
 
+
+  @Test(timeout = 4000)
+  public void test14()  throws Throwable  {
+	  BigFraction bigFraction0 = null;
+	  try {
+		  bigFraction0 = new BigFraction((-538.35158406333), (-538.35158406333), (-2145968132));
+		  fail("Expecting exception: IllegalStateException");
+
+	  } catch(IllegalStateException e) {
+		  //
+		  // illegal state: Unable to convert -538.352 to fraction after -2,145,968,132 iterations
+		  //
+		  verifyException("org.apache.commons.math3.fraction.BigFraction", e);
+	  }
+  }
+
   @Test(timeout = 4000)
   public void test15()  throws Throwable  {
-      BigFraction bigFraction0 = BigFraction.getReducedFraction(2147483616, (-1363));
-      assertEquals((short) (-2692), bigFraction0.shortValue());
+	  BigFraction bigFraction0 = BigFraction.getReducedFraction(2147483616, (-1363));
+	  assertEquals((short) (-2692), bigFraction0.shortValue());
   }
 
   @Test(timeout = 4000)
   public void test16()  throws Throwable  {
-      BigFraction bigFraction0 = new BigFraction(0.7602695000000494);
-      double double0 = bigFraction0.percentageValue();
-      assertEquals(76.02695000000494, double0, 0.01);
+	  BigFraction bigFraction0 = new BigFraction(0.7602695000000494);
+	  double double0 = bigFraction0.percentageValue();
+	  assertEquals(76.02695000000494, double0, 0.01);
   }
 
   @Test(timeout = 4000)
   public void test17()  throws Throwable  {
-      BigFraction bigFraction0 = BigFraction.TWO_FIFTHS;
-      long long0 = bigFraction0.getDenominatorAsLong();
-      assertEquals(5L, long0);
+	  BigFraction bigFraction0 = BigFraction.TWO_FIFTHS;
+	  long long0 = bigFraction0.getDenominatorAsLong();
+	  assertEquals(5L, long0);
   }
 
   @Test(timeout = 4000)
   public void test18()  throws Throwable  {
-      BigFraction bigFraction0 = BigFraction.ONE;
-      BigFraction bigFraction1 = bigFraction0.TWO_FIFTHS.subtract((-30));
-      assertEquals((byte)30, bigFraction1.byteValue());
+	  BigFraction bigFraction0 = BigFraction.ONE;
+	  BigFraction bigFraction1 = bigFraction0.TWO_FIFTHS.subtract((-30));
+	  assertEquals((byte)30, bigFraction1.byteValue());
   }
 
   @Test(timeout = 4000)
   public void test19()  throws Throwable  {
-      BigFraction bigFraction0 = BigFraction.TWO_THIRDS;
-      BigInteger bigInteger0 = bigFraction0.getDenominator();
-      assertEquals((byte)3, bigInteger0.byteValue());
+	  BigFraction bigFraction0 = BigFraction.TWO_THIRDS;
+	  BigInteger bigInteger0 = bigFraction0.getDenominator();
+	  assertEquals((byte)3, bigInteger0.byteValue());
   }
 
   @Test(timeout = 4000)
   public void test20()  throws Throwable  {
-      BigFraction bigFraction0 = new BigFraction(595.10812085);
-      BigFraction bigFraction1 = bigFraction0.MINUS_ONE.abs();
-      BigFraction bigFraction2 = bigFraction1.subtract(bigFraction0);
-      assertEquals((short) (-594), bigFraction2.shortValue());
+	  BigFraction bigFraction0 = new BigFraction(595.10812085);
+	  BigFraction bigFraction1 = bigFraction0.MINUS_ONE.abs();
+	  BigFraction bigFraction2 = bigFraction1.subtract(bigFraction0);
+	  assertEquals((short) (-594), bigFraction2.shortValue());
   }
 
   @Test(timeout = 4000)
   public void test21()  throws Throwable  {
-      BigFraction bigFraction0 = BigFraction.ONE_HALF;
-      long long0 = bigFraction0.THREE_QUARTERS.longValue();
-      assertEquals(0L, long0);
+	  BigFraction bigFraction0 = BigFraction.ONE_HALF;
+	  long long0 = bigFraction0.THREE_QUARTERS.longValue();
+	  assertEquals(0L, long0);
   }
 
   @Test(timeout = 4000)
   public void test22()  throws Throwable  {
-      BigFraction bigFraction0 = new BigFraction(595.10812085);
-      BigFraction bigFraction1 = bigFraction0.ONE_THIRD.multiply((-406));
-      assertEquals((short)595, bigFraction0.shortValue());
-      assertEquals((short) (-135), bigFraction1.shortValue());
+	  BigFraction bigFraction0 = new BigFraction(595.10812085);
+	  BigFraction bigFraction1 = bigFraction0.ONE_THIRD.multiply((-406));
+	  assertEquals((short)595, bigFraction0.shortValue());
+	  assertEquals((short) (-135), bigFraction1.shortValue());
   }
 
   @Test(timeout = 4000)
   public void test23()  throws Throwable  {
-      BigFraction bigFraction0 = BigFraction.ONE_HALF;
-      // Undeclared exception!
-      try { 
-        bigFraction0.ONE_THIRD.bigDecimalValue(930, 1224);
-        fail("Expecting exception: IllegalArgumentException");
-      
-      } catch(IllegalArgumentException e) {
-         //
-         // Invalid rounding mode
-         //
-         verifyException("java.math.BigDecimal", e);
-      }
+	  BigFraction bigFraction0 = BigFraction.ONE_HALF;
+	  // Undeclared exception!
+	  try { 
+		  bigFraction0.ONE_THIRD.bigDecimalValue(930, 1224);
+		  fail("Expecting exception: IllegalArgumentException");
+
+	  } catch(IllegalArgumentException e) {
+		  //
+		  // Invalid rounding mode
+		  //
+		  verifyException("java.math.BigDecimal", e);
+	  }
   }
 
   @Test(timeout = 4000)
   public void test24()  throws Throwable  {
-      BigFraction bigFraction0 = new BigFraction(0.7602695000000494);
-      // Undeclared exception!
-      try { 
-        bigFraction0.ONE_THIRD.bigDecimalValue(2071);
-        fail("Expecting exception: IllegalArgumentException");
-      
-      } catch(IllegalArgumentException e) {
-         //
-         // Invalid rounding mode
-         //
-         verifyException("java.math.BigDecimal", e);
-      }
+	  BigFraction bigFraction0 = new BigFraction(0.7602695000000494);
+	  // Undeclared exception!
+	  try { 
+		  bigFraction0.ONE_THIRD.bigDecimalValue(2071);
+		  fail("Expecting exception: IllegalArgumentException");
+
+	  } catch(IllegalArgumentException e) {
+		  //
+		  // Invalid rounding mode
+		  //
+		  verifyException("java.math.BigDecimal", e);
+	  }
   }
 
   @Test(timeout = 4000)
   public void test25()  throws Throwable  {
-      BigFraction bigFraction0 = BigFraction.TWO_QUARTERS;
-      int int0 = bigFraction0.getDenominatorAsInt();
-      assertEquals(2, int0);
+	  BigFraction bigFraction0 = BigFraction.TWO_QUARTERS;
+	  int int0 = bigFraction0.getDenominatorAsInt();
+	  assertEquals(2, int0);
   }
 
-  @Test(timeout = 4000)
+  //MODIFIED 
+  @Test(timeout = 4000) 
   public void test26()  throws Throwable  {
-      BigFraction bigFraction0 = null;
-      try {
-        bigFraction0 = new BigFraction(100.0, (-1));
-        fail("Expecting exception: IllegalStateException");
-      
-      } catch(IllegalStateException e) {
-         //
-         // illegal state: Overflow trying to convert 100 to fraction (-99/9,223,372,036,854,775,807)
-         //
-         verifyException("org.apache.commons.math3.fraction.BigFraction", e);
-      }
+	  BigFraction bigFraction0 = null;
+	  try {
+		  bigFraction0 = new BigFraction(100.0, (-1));
+		//   fail("Expecting exception: IllegalStateException");
+        assertNotNull(bigFraction0); //inserted 
+
+	  } catch(Exception e) { //changed from IllegalStateException
+		  //
+		  // illegal state: Overflow trying to convert 100 to fraction (-99/9,223,372,036,854,775,807)
+		  //
+		//   verifyException("org.apache.commons.math3.fraction.BigFraction", e);
+        fail("BigFraction constructor should handle this case gracefully without throwing exception. " +
+             "Got exception: " + e.getMessage()); //inserted 
+	  }
   }
 
   @Test(timeout = 4000)
   public void test27()  throws Throwable  {
-      BigFraction bigFraction0 = new BigFraction(595.10812085);
-      BigFraction bigFraction1 = bigFraction0.divide(1247L);
-      assertFalse(bigFraction1.equals((Object)bigFraction0));
-      assertEquals((short)595, bigFraction0.shortValue());
+	  BigFraction bigFraction0 = new BigFraction(595.10812085);
+	  BigFraction bigFraction1 = bigFraction0.divide(1247L);
+	  assertFalse(bigFraction1.equals((Object)bigFraction0));
+	  assertEquals((short)595, bigFraction0.shortValue());
   }
 
   @Test(timeout = 4000)
   public void test28()  throws Throwable  {
-      BigFraction bigFraction0 = new BigFraction(9218868437227405312L, 9218868437227405312L);
-      assertEquals((byte)1, bigFraction0.byteValue());
+	  BigFraction bigFraction0 = new BigFraction(9218868437227405312L, 9218868437227405312L);
+	  assertEquals((byte)1, bigFraction0.byteValue());
   }
 
   @Test(timeout = 4000)
