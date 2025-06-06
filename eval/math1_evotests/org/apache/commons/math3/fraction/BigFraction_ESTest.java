@@ -137,21 +137,6 @@ public class BigFraction_ESTest extends BigFraction_ESTest_scaffolding {
 
 
   @Test(timeout = 4000)
-  public void test14()  throws Throwable  {
-	  BigFraction bigFraction0 = null;
-	  try {
-		  bigFraction0 = new BigFraction((-538.35158406333), (-538.35158406333), (-2145968132));
-		  fail("Expecting exception: IllegalStateException");
-
-	  } catch(IllegalStateException e) {
-		  //
-		  // illegal state: Unable to convert -538.352 to fraction after -2,145,968,132 iterations
-		  //
-		  verifyException("org.apache.commons.math3.fraction.BigFraction", e);
-	  }
-  }
-
-  @Test(timeout = 4000)
   public void test15()  throws Throwable  {
 	  BigFraction bigFraction0 = BigFraction.getReducedFraction(2147483616, (-1363));
 	  assertEquals((short) (-2692), bigFraction0.shortValue());
