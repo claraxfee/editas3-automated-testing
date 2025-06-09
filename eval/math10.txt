@@ -65,7 +65,7 @@ Assert.assertEquals(FastMath.PI, pn.getValue(), 1.0e-15);
 
 
 
-
+assertArrayEquals(new double[] {Double.NaN, 0.0, 0.0}, doubleArray0, 0.01);
 METHOD UNDER TEST
 
 
