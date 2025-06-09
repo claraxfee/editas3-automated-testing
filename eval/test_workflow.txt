@@ -1,0 +1,119 @@
+test_workflow 
+
+workflow to check out buggy and fixed versions of a given defects4j bug, then run an evosuite test suite on both the buggy and fixed versions 
+
+
+below example is for Math 1
+
+** note: assumes you have downloaded tar files of evosuite test suites into the director original_tars, like this: 
+
+<myfolder>/
+	original_tars/
+		Math-1b-evosuite.100.tar.bz2
+	checked_out/
+		buggy/
+		fixed/	 
+
+
+** note: if you're doing this inside a git repo, checkout your bugs (step 1) outside the repo or .gitignore checked_out/, otherwise you have to deal with nested git repos 
+
+
+
+1. check out bugs, both buggy and fixed 
+
+	$ defects4j checkout -p Math -v 1b -w checked_out/buggy/math1 
+
+	$ defects4j checkout -p Math -v 1f -w checked_out/fixed/math1 
+
+
+
+2. try running editas2's evosuite test suites on the checked out bugs, just to make sure defects4j is working 
+
+	$ defects4j test -w checked_out/buggy/math1 -s original_tars/Math-1b-evosuite.100.tar.bz2
+
+	$ defects4j test -w checked_out/fixed/math1 -s original_tars/Math-1b-evosuite.100.tar.bz2 
+
+**note: expected behavior: should fail 0 tests on the fixed version. probably won't fail any tests on the buggy version either, unless by some miracle evosuite happened to catch a bug 
+
+
+
+
+3. untar / uncompress your evosuite test suites and move them to a new folder 
+
+	$ cd original_tars
+	$ tar xjvf Math-1b-evosuite.100.tar.bz2
+	$ mkdir ../math1_evotests
+	$ mv org/ ../math1_evotests
+	$ cd ..
+
+
+4. make changes 
+
+i.e. modify assertions within the evosuite test suites
+for this bug, found in math1_evotests/
+
+
+5. tar and bzip2 the evosuite tests so they can be used to test 
+
+	$ tar cvf math1.tar math1_evotests/ && bzip2 math1.tar
+
+
+
+
+6. try running on both buggy and fixed versions (????)  
+ 
+
+	$ defects4j test -w checked_out/buggy/math1 -s math1.tar.bz2
+
+
+everything compiles fine, but then it prints this at the end: 
+
+	run.gen.tests:
+     [echo] classes.dir: target/classes
+     [echo] build.home: target
+    [junit] TEST math1_evotests.org.apache.commons.math3.fraction.BigFraction_ESTest FAILED
+    [junit] TEST math1_evotests.org.apache.commons.math3.fraction.Fraction_ESTest FAILED
+    [junit] Tests FAILED
+
+BUILD SUCCESSFUL
+Total time: 1 second
+Failing tests: 2
+  - math1_evotests.org.apache.commons.math3.fraction.BigFraction_ESTest
+  - math1_evotests.org.apache.commons.math3.fraction.Fraction_ESTest 
+
+when i look at the failing_tests file in the checked_out/buggy/math1 folder, this is there: 
+
+--- math1_evotests.org.apache.commons.math3.fraction.BigFraction_ESTest
+java.lang.ClassNotFoundException: math1_evotests.org.apache.commons.math3.fraction.BigFraction_ESTest
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:315)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:374)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1060)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:884)
+--- math1_evotests.org.apache.commons.math3.fraction.Fraction_ESTest
+java.lang.ClassNotFoundException: math1_evotests.org.apache.commons.math3.fraction.Fraction_ESTest
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:315)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:374)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1060)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:884)
+
+seems to indicate something isn't being compiled right, if it can't find the class?? 
+
+already tried: 
+	- running defects4j compile -w checked_out/buggy/math1 and on fixed, then running defects4j test again 
+
+weird thing is that all steps up until step 6 are working, so defects4j test had worked before on the original tar file... maybe i am not tarring/bzip2ing correctly ?? not modifying the file correctly? 
+ 
+
+
+
+
+
+ 
