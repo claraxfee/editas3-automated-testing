@@ -252,13 +252,15 @@ public class BigFraction_ESTest extends BigFraction_ESTest_scaffolding {
     BigFraction fraction0 = null;
     try {
         fraction0 = new BigFraction((double) 100, 100);
-        assertNotNull(fraction0);
+        assertEquals(100, fraction0.getNumeratorAsInt());
+        assertEquals(1, fraction0.getDenominatorAsInt());
     
     
     } catch(Exception e) {
         fail("BigFraction constructor should handle this case gracefully without throwing exception. " +
             "Got exception: " + e.getMessage()); 
     }
+
   }
 
   @Test(timeout = 4000)

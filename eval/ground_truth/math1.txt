@@ -67,7 +67,9 @@ fraction0 = new BigFraction((double) 100, 100);
 
 TRUE ASSERTION (FAILS ON BUGGY, PASSES ON FIXED)
 
-assertNotNull(fraction0);
+assertEquals(100, fraction0.getNumeratorAsInt());
+assertEquals(1, fraction0.getDenominatorAsInt());
+
 
 
 
