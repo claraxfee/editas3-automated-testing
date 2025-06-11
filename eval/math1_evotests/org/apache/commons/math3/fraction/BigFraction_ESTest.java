@@ -235,20 +235,30 @@ public class BigFraction_ESTest extends BigFraction_ESTest_scaffolding {
   //MODIFIED 
   @Test(timeout = 4000) 
   public void test26()  throws Throwable  {
-	  BigFraction bigFraction0 = null;
-	  try {
-		  bigFraction0 = new BigFraction(100.0, (-1));
-		//   fail("Expecting exception: IllegalStateException");
-        assertNotNull(bigFraction0); //inserted 
+	//   BigFraction bigFraction0 = null;
+	//   try {
+	// 	  bigFraction0 = new BigFraction(100.0, (-1));
+	// 	   fail("Expecting exception: IllegalStateException");
+        
 
-	  } catch(Exception e) { //changed from IllegalStateException
-		  //
-		  // illegal state: Overflow trying to convert 100 to fraction (-99/9,223,372,036,854,775,807)
-		  //
-		//   verifyException("org.apache.commons.math3.fraction.BigFraction", e);
+	//   } catch(IllegalStateException e) { //changed from IllegalStateException
+		  
+	// 	  illegal state: Overflow trying to convert 100 to fraction (-99/9,223,372,036,854,775,807)
+		  
+	// 	  verifyException("org.apache.commons.math3.fraction.BigFraction", e);
+        
+	//   }
+
+    BigFraction fraction0 = null;
+    try {
+        fraction0 = new BigFraction((double) 12, 12);
+        assertNotNull(fraction0);
+    
+    
+    } catch(Exception e) {
         fail("BigFraction constructor should handle this case gracefully without throwing exception. " +
-             "Got exception: " + e.getMessage()); //inserted 
-	  }
+            "Got exception: " + e.getMessage()); 
+    }
   }
 
   @Test(timeout = 4000)

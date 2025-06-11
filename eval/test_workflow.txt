@@ -55,8 +55,8 @@ for this bug, found in math1_evotests/
 
 5. tar and bzip2 the evosuite tests so they can be used to test 
 
-	$ tar cvf math1.tar math1_evotests/ && bzip2 math1.tar
-
+	
+	$  tar cvjf Math-1b-evosuite.100.tar.bz2 math1_evotests/
 
 
 
