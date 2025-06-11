@@ -4,26 +4,23 @@ math 1
 
 EVOSUITE PREFIX 
 
-@Test(timeout = 4000)
-  public void test26()  throws Throwable  {
-      BigFraction bigFraction0 = null;
+  @Test(timeout = 4000)
+  public void test15()  throws Throwable  {
+      Fraction fraction0 = null;
       try {
-        bigFraction0 = new BigFraction(100.0, (-1));
+        fraction0 = new Fraction((double) 100, 100);
         fail("Expecting exception: IllegalStateException");
-      
-      }
-
 
 
 
 
 EVOSUITE ASSERTION (REGRESSION ORACLE) 
 
-catch(IllegalStateException e) {
+} catch(IllegalStateException e) {
          //
          // illegal state: Overflow trying to convert 100 to fraction (-99/9,223,372,036,854,775,807)
          //
-         verifyException("org.apache.commons.math3.fraction.BigFraction", e);
+         verifyException("org.apache.commons.math3.fraction.Fraction", e);
       }
   }
 
@@ -31,8 +28,7 @@ catch(IllegalStateException e) {
 
 
 
-
-TRUE PREFIX (DEFECTS4J, DEV-WRITTEN)
+DEV-WRITTEN PREFIX (DEFECTS4J)
 
 @Test
     public void testDigitLimitConstructor() throws ConvergenceException {
@@ -51,13 +47,27 @@ TRUE PREFIX (DEFECTS4J, DEV-WRITTEN)
 
 
 
-TRUE ASSERTION (DEFECTS4J, DEV-WRITTEN)
+DEV-WRITTEN ASSERTION (DEFECTS4J)
 
 // MATH-996
         assertFraction(1, 2, new BigFraction(0.5000000001, 10));
     }
 
 
+
+
+TRUE PREFIX 
+
+BigFraction fraction0 = null;
+fraction0 = new BigFraction((double) 100, 100);
+
+
+
+
+
+TRUE ASSERTION (FAILS ON BUGGY, PASSES ON FIXED)
+
+assertNotNull(fraction0);
 
 
 

@@ -251,7 +251,7 @@ public class BigFraction_ESTest extends BigFraction_ESTest_scaffolding {
 
     BigFraction fraction0 = null;
     try {
-        fraction0 = new BigFraction((double) 12, 12);
+        fraction0 = new BigFraction((double) 100, 100);
         assertNotNull(fraction0);
     
     
