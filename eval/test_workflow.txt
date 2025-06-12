@@ -56,64 +56,14 @@ for this bug, found in math1_evotests/
 5. tar and bzip2 the evosuite tests so they can be used to test 
 
 	
-	$  tar cvjf Math-1b-evosuite.100.tar.bz2 math1_evotests/
+	$ cd math1_evotests/
+	$ tar cvjf math1b.2.tar.bz2 .
 
 
 
-6. try running on both buggy and fixed versions (????)  
+6. try running on both buggy and fixed versions  
  
 
 	$ defects4j test -w checked_out/buggy/math1 -s math1.tar.bz2
 
 
-everything compiles fine, but then it prints this at the end: 
-
-	run.gen.tests:
-     [echo] classes.dir: target/classes
-     [echo] build.home: target
-    [junit] TEST math1_evotests.org.apache.commons.math3.fraction.BigFraction_ESTest FAILED
-    [junit] TEST math1_evotests.org.apache.commons.math3.fraction.Fraction_ESTest FAILED
-    [junit] Tests FAILED
-
-BUILD SUCCESSFUL
-Total time: 1 second
-Failing tests: 2
-  - math1_evotests.org.apache.commons.math3.fraction.BigFraction_ESTest
-  - math1_evotests.org.apache.commons.math3.fraction.Fraction_ESTest 
-
-when i look at the failing_tests file in the checked_out/buggy/math1 folder, this is there: 
-
---- math1_evotests.org.apache.commons.math3.fraction.BigFraction_ESTest
-java.lang.ClassNotFoundException: math1_evotests.org.apache.commons.math3.fraction.BigFraction_ESTest
-	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
-	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
-	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
-	at java.base/java.lang.Class.forName0(Native Method)
-	at java.base/java.lang.Class.forName(Class.java:315)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:374)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1060)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:884)
---- math1_evotests.org.apache.commons.math3.fraction.Fraction_ESTest
-java.lang.ClassNotFoundException: math1_evotests.org.apache.commons.math3.fraction.Fraction_ESTest
-	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
-	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
-	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
-	at java.base/java.lang.Class.forName0(Native Method)
-	at java.base/java.lang.Class.forName(Class.java:315)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:374)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1060)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:884)
-
-seems to indicate something isn't being compiled right, if it can't find the class?? 
-
-already tried: 
-	- running defects4j compile -w checked_out/buggy/math1 and on fixed, then running defects4j test again 
-
-weird thing is that all steps up until step 6 are working, so defects4j test had worked before on the original tar file... maybe i am not tarring/bzip2ing correctly ?? not modifying the file correctly? 
- 
-
-
-
-
-
- 
