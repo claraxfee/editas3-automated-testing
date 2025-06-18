@@ -53,7 +53,7 @@ Assert.assertTrue(optimizer.getIterations() > 0);
 
 TRUE ASSERTION 
 
-assertEquals(0, Integer.MAX_VALUE);
+assertEquals(int0, Integer.MAX_VALUE);
 
 
 
@@ -62,12 +62,12 @@ METHOD UNDER TEST
 
 /**
      * Gets the maximal number of iterations.
-     *
+    i *
      * @return the maximal number of iterations.
      */
     public int getMaxIterations() {
         return iterations.getMaximalCount();
-    }
+    
 
 
 
