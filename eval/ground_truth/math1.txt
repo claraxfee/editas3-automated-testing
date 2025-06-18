@@ -56,13 +56,6 @@ DEV-WRITTEN ASSERTION (DEFECTS4J)
 
 
 
-TRUE PREFIX 
-
-BigFraction fraction0 = null;
-fraction0 = new BigFraction((double) 100, 100);
-
-
-
 
 
 TRUE ASSERTION (FAILS ON BUGGY, PASSES ON FIXED)
