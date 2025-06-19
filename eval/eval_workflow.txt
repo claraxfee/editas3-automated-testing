@@ -1,0 +1,70 @@
+eval workflow to evaluate a test suite on a given defects4j bug 
+
+	-> check out buggy and fixed versions of a given defects4j bug
+	-> run your (evosuite) test suite on both the buggy and fixed versions 
+
+
+	** below example is for Math 1
+
+	** download the original evosuite test suite into the directory all_original_evotests: 
+
+	<myfolder>
+		original_tars/
+			Math-1b-evosuite.100.tar.bz2
+		checked_out/
+			buggy/
+				math1/
+			fixed/	 
+				math1/
+
+
+1. check out bugs, both buggy and fixed 
+
+	** if you're doing this inside a git repo, to avoid dealing with nested git repos:                                         checkout your bugs outside the repo (-w) or .gitignore checked_out/
+	
+	$ defects4j checkout -p Math -v 1b -w checked_out/buggy/math1 
+
+	$ defects4j checkout -p Math -v 1f -w checked_out/fixed/math1 
+
+
+
+2. (optional) try running editas2's evosuite test suites on the checked out bugs to: 
+	1. just make sure defects4j is working / projects are compiled correctly 
+	2. find good prefixes, which are tests that pass on the buggy but fail on the fixed  
+
+	** to see printed output after these tests, look in checked_out/fixed/math1/failed_tests
+
+	$ defects4j test -w checked_out/buggy/math1 -s original_tars/Math-1b-evosuite.100.tar.bz2
+
+	$ defects4j test -w checked_out/fixed/math1 -s original_tars/Math-1b-evosuite.100.tar.bz2 
+
+
+3. untar / uncompress your evosuite test suites and move them to a new folder 
+
+	$ cd all_original_evotests
+	$ tar xjvf Math-1b-evosuite.100.tar.bz2
+	$ mkdir ../math1_evotests
+	$ mv org/ ../math1_evotests
+	$ cd ..
+
+
+4. make changes 
+
+i.e. modify assertions within the evosuite test suites for this bug
+(can be found in math1_evotests/)
+
+
+5. tar and bzip2 the evosuite tests so they can be used to test 
+
+	
+	$ cd math1_evotests/
+	$ tar cvjf math1.1.tar.bz2 .
+
+
+
+6. try running on both buggy and fixed versions  
+ 
+
+	$ defects4j test -w checked_out/buggy/math1 -s math1.tar.bz2
+
+	$ defects4j test -w checked_out/fixed/math1 -s math1.tar.bz2
