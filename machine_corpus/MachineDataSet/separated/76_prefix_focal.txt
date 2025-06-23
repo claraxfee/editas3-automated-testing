@@ -1,0 +1,2 @@
+void test0 ( ) throws Throwable { Main main0 = new Main ( ) ; Consumer consumer0 = main0 . consumer ( ) ; "<AssertPlaceHolder>" ; } "<FocalMethod>" Consumer consumer ( ) { return new Consumer ( ) { void receive ( String msg ) { message = msg ; } } ; }
+void test0 ( ) throws Throwable { ProviderFactory providerFactory0 = new ProviderFactory ( ) ; "<AssertPlaceHolder>" ; } "<FocalMethod>" <UnknownFocalMethodText>

@@ -1,0 +1,2 @@
+assertEquals ( 31 , int0 )
+assertNotNull ( autoGrowingList0 )

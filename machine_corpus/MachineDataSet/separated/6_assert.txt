@@ -1,0 +1,4 @@
+assertEquals ( "provinceCode = null , provinceName = null" , string0 )
+assertEquals ( " , " , tProvince0 . getProvinceName ( ) )
+assertNull ( tProvince0 . getProvinceName ( ) )
+assertSame ( list1 , list0 )

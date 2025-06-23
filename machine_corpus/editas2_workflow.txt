@@ -1,0 +1,64 @@
+EditAs2 workflow
+
+	--> retrieve an dev-written test (prefix + assertion)
+	--> give edit model dev-written test, evosuite prefix
+	--> model produces asserton for given evosuite prefix 
+
+	** clone the Artifact-of-Assertion-ICSE22 repo first 
+	** config.txt, clean_data.py, prepare_data.py, etc in /home/edinella/Artifact-of-Assertion-ICSE22 on abox1
+
+0. setup
+
+	$ cd Artifact-of-Assertion-ICSE22
+	
+	$ unzip Result/NewDataSet.zip
+
+
+1. information retrieval (find the prefix&assertion most similar to method under test & evosuite prefix) 
+
+
+	1. put information into math1.txt 
+		1. evosuite prefix with "<AssertPlaceHolder>"; instead of assertion 
+			** if has a try-catch, remove all try-catch information i
+			** remove modifer, @Test
+			** close prefix with bracket   
+		2. <"FocalMethod">
+		3. method under test
+
+	2. clean with clean_data.py 
+		
+		$ python clean_data.py math1.txt > query_math1.txt
+
+	3. change the query filename in config.txt to query_math1.txt 
+		
+	4. run information retrieval, use tmux bc it takes forever
+		
+		$ mkdir out_math1
+		$ tmux 
+		
+			** this makes new tmux session, ctrl+b then press $ to rename it "ir" 
+
+		$ python Retrieval/IR.py config.txt out_math1
+			
+			** ctrl+b then d to detatch / exit tmux session 
+
+	5. results will be in out_math1/IRResultTest.txt 
+
+
+2. EditAs2 
+
+	1. copy IRResultTest.txt from IR artifact to EditAs2 repo 
+		
+		$ cp out_math1/IRResultTest.txt ../EditAs2/dataset 
+
+	2. prepare data to json file 
+		
+		$ prepare_data.py > sample.jsonl
+
+	3. run editAs2
+
+		$ cd ../scripts/ && bash test.sh && cd ../dataset  
+
+
+
+	
