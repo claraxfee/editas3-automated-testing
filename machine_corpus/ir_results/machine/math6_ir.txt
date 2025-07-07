@@ -1,0 +1,5 @@
+void test2 ( ) throws Throwable { ImageInputStreamJAI imageInputStreamJAI0 = new ImageInputStreamJAI ( ) ; int int0 = imageInputStreamJAI0 . X ( ) ; "<AssertPlaceHolder>" ; } "<FocalMethod>" public int X ( ) { return X ; }
+void test2 ( ) throws Throwable { SimplexSolver simplexSolver0 = new SimplexSolver ( ) ; int int0 = simplexSolver0 . getMaxIterations ( ) ; "<AssertPlaceHolder>" ; } "<FocalMethod>" /** * Gets the maximal number of iterations . * @return the maximal number of iterations . */ int getMaxIterations ( ) { return iterations . getMaximalCount ( ) ;
+assertEquals ( 0 , int0 )
+Assert.assertNull(sub1.intersection(sub2, true));
+
