@@ -1,0 +1,1 @@
+void test0 ( ) throws Throwable { Fichier fichier0 = new Fichier ( "a ? @g@vGz\"DG ; & 6D" ) ; "<AssertPlaceHolder>" ; } "<FocalMethod>" Fichier ( String fileName ) { file = fileName ; tabFile = new Vector < String > ( ) ; }

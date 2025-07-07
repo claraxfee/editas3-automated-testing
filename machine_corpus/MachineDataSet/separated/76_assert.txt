@@ -1,2 +1,0 @@
-assertNotNull ( consumer0 )
-assertNotNull ( providerFactory0 )
