@@ -1,0 +1,5 @@
+void testOf ( ) { BasisPoint perc = BasisPoint . of ( BigDecimal . ONE ) ; "<AssertPlaceHolder>" ; } "<FocalMethod>" void of ( ) { return new BasisPoint ( number ) ; }
+void test2 ( ) throws Throwable { SimplexSolver simplexSolver0 = new SimplexSolver ( ) ; int int0 = simplexSolver0 . getMaxIterations ( ) ; "<AssertPlaceHolder>" ; } "<FocalMethod>" /** * Gets the maximal number of iterations . * @return the maximal number of iterations . */ int getMaxIterations ( ) { return iterations . getMaximalCount ( ) ;
+assertNotNull ( perc )
+Assert.assertNull(sub1.intersection(sub2, true));
+
