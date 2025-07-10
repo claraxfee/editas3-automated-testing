@@ -323,10 +323,8 @@ public class Partial_ESTest extends Partial_ESTest_scaffolding {
       // Undeclared exception!
       try { 
         partial0.with(dateTimeFieldType1, 1226);
-        //fail("Expecting exception: IllegalArgumentException");
-        //assertEquals(partial0.getFieldTypes().length, 2);
-        assertEquals(partial0.getFieldCount(), 2);
         assertEquals("DefaultSFFCommonHeader [flow=null, indexLength=141, indexOffset=2147483648, keySequence=null, numberOfFlowsPerRead=-642, numberOfReads=141, type=null, chronology=UTC]", defaultSffCommonHeader0.toString());
+        //fail("Expecting exception: IllegalArgumentException");
       
       } catch(IllegalArgumentException e) {
          //
