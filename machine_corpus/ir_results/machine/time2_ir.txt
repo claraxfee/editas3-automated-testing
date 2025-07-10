@@ -1,0 +1,5 @@
+void test3 ( ) throws Throwable { ViewManager viewManager0 = ViewManager . getInstance ( ) ; int int0 = viewManager0 . getDefaultMaxFetchSize ( ) ; "<AssertPlaceHolder>" ; } "<FocalMethod>" public int getDefaultMaxFetchSize ( ) { return ApplicationParameters . getAsInt ( "framework.persistence.jdbc.view.tuning.defaultMaxFetchSize" , 0 ) ; }
+void test08 ( ) throws Throwable { DurationFieldType durationFieldType0 = DurationFieldType . halfdays ( ) ; JulianChronology julianChronology0 = JulianChronology . getInstanceUTC ( ) ; DurationField durationField0 = durationFieldType0 . getField ( julianChronology0 ) ; UnsupportedDurationField unsupportedDurationField0 = UnsupportedDurationField . getInstance ( durationFieldType0 ) ; int int0 = unsupportedDurationField0 . compareTo ( durationField0 ) ; "<AssertPlaceHolder>" ; } <"FocalMethod"> /** * Always returns zero , indicating that sort order is not relevent . * * @return zero always */ public int compareTo ( DurationField durationField ) { return 0 ; }
+assertEquals ( "" , oraclePoolImpl0 . getPoolName ( ) )
+Assert.assertNull(sub1.intersection(sub2, true));
+
