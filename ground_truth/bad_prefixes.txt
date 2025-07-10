@@ -2,3 +2,9 @@
 
 math 4 
 	tried: 1,2,10
+
+
+
+time 12
+
+	tried: 1,2,3

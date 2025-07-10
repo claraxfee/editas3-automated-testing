@@ -324,7 +324,8 @@ public class Partial_ESTest extends Partial_ESTest_scaffolding {
       try { 
         partial0.with(dateTimeFieldType1, 1226);
         //fail("Expecting exception: IllegalArgumentException");
-        assertNotNull(partial0);
+        //assertEquals(partial0.getFieldTypes().length, 2);
+        assertEquals(partial0.getFieldCount(), 2);
       
       } catch(IllegalArgumentException e) {
          //

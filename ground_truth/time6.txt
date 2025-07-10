@@ -1,0 +1,56 @@
+time6
+
+
+
+EVOSUITE PREFIX 
+
+@Test(timeout = 4000)
+  public void test06()  throws Throwable  {
+      GJChronology gJChronology0 = GJChronology.getInstance();
+      Years years0 = Years.THREE;
+      long long0 = gJChronology0.add((ReadablePeriod) years0, (long) (-1268), (-1268));
+
+
+
+
+EVOSUITE ASSERTION (REGRESSION ORACLE) 
+
+assertEquals((-120012451623268L), long0);
+
+
+
+
+TRUE ASSERTION (PASSES ON FIXED, FAILS ON BUGGY) 
+
+
+assertEquals((-120043987623268L)), long0);
+
+
+
+
+
+
+METHOD UNDER TEST 
+
+
+public long add(long instant, int value) {
+            if (instant >= iCutover) {
+                instant = iGregorianField.add(instant, value);
+                if (instant < iCutover) {
+                    // Only adjust if gap fully crossed.
+                    if (instant + iGapDuration < iCutover) {
+                        instant = gregorianToJulian(instant);
+                    }
+                }
+            } else {
+                instant = iJulianField.add(instant, value);
+                if (instant >= iCutover) {
+                    // Only adjust if gap fully crossed.
+                    if (instant - iGapDuration >= iCutover) {
+                        // no special handling for year zero as cutover always after year zero
+                        instant = julianToGregorian(instant);
+                    }
+                }
+            }
+            return instant;
+        }

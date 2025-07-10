@@ -1,0 +1,41 @@
+time2
+
+**this seems to be identical to time 1, but there's actually two (related?? unsure) minor bugs, this one is in the compareTo of UnsupportedDurationField.java**
+
+
+EVOSUITE PREFIX 
+@Test(timeout = 4000)
+  public void test08()  throws Throwable  {
+      DurationFieldType durationFieldType0 = DurationFieldType.halfdays();
+      JulianChronology julianChronology0 = JulianChronology.getInstanceUTC();
+      DurationField durationField0 = durationFieldType0.getField(julianChronology0);
+      UnsupportedDurationField unsupportedDurationField0 = UnsupportedDurationField.getInstance(durationFieldType0);
+      int int0 = unsupportedDurationField0.compareTo(durationField0);
+
+
+EVOSUITE ASSERTION (REGRESSION ORACLE)
+
+assertEquals(0, int0);
+
+
+
+
+TRUE ASSERTION (FAILS ON BUGGY, PASSES ON FIXED) 
+
+assertEquals(1, int0); 
+
+
+
+
+METHOD UNDER TEST 
+
+
+ /**
+     * Always returns zero, indicating that sort order is not relevent.
+     *
+     * @return zero always
+     */
+    public int compareTo(DurationField durationField) {
+        return 0;
+    }
+
