@@ -1,0 +1,5 @@
+void isZero ( ) { Vector2D zero = Vector2D . zero ( ) ; "<AssertPlaceHolder>" ; } "<FocalMethod>" void zero ( ) { return new Vector2D ( 0 , 0 ) ; }
+void test08 ( ) throws Throwable { DurationFieldType durationFieldType0 = DurationFieldType . halfdays ( ) ; JulianChronology julianChronology0 = JulianChronology . getInstanceUTC ( ) ; DurationField durationField0 = durationFieldType0 . getField ( julianChronology0 ) ; UnsupportedDurationField unsupportedDurationField0 = UnsupportedDurationField . getInstance ( durationFieldType0 ) ; int int0 = unsupportedDurationField0 . compareTo ( durationField0 ) ; "<AssertPlaceHolder>" ; } <"FocalMethod"> /** * Always returns zero , indicating that sort order is not relevent . * * @return zero always */ public int compareTo ( DurationField durationField ) { return 0 ; }
+Assert . assertTrue ( zero . isZero ( ) )
+Assert.assertNull(sub1.intersection(sub2, true));
+
