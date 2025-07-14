@@ -11,32 +11,63 @@ EVOSUITE_TAR="${PROJECT}${BUG_ID}.$EVOTEST_DIR.tar.bz2"
 #defects4j checkout -p $PROJECT -v ${BUG_ID}b -w checked_out/buggy/${BUG_ID_STR}
 #defects4j checkout -p $PROJECT -v ${BUG_ID}f -w checked_out/fixed/${BUG_ID_STR}
 
+
+echo ""
+echo "removing old evotest directory ${BUG_ID_STR}_evotests"
+rm -Rf ${BUG_ID_STR}_evotests
+
+echo ""
+echo ""
 echo "==================================================running original EvoSuite tests"
 echo "==================================================if a test passes on buggy but fails on fixed"
-echo "==================================================we've found a bug-triggering evosuite prefix"
+echo "==================================================weve found a bug-triggering evosuite prefix"
 defects4j test -w checked_out/buggy/${BUG_ID_STR} -s original_evotests/$EVOTEST_DIR/$EVOSUITE_TAR
 defects4j test -w checked_out/fixed/${BUG_ID_STR} -s original_evotests/$EVOTEST_DIR/$EVOSUITE_TAR
+echo ""
+echo ""
 
+
+
+echo ""
+echo ""
 echo "==================================================extracting EvoSuite tests"
 mkdir -p ${PROJECT}${BUG_ID}_evotests
 cd original_evotests/$EVOTEST_DIR
 tar xjvf $EVOSUITE_TAR
-cp -r org ../../${PROJECT}${BUG_ID}_evotests
+mv org ../../${PROJECT}${BUG_ID}_evotests
 cd ../..
+echo ""
+echo "" 
 
+echo ""
+echo "" 
 echo "==================================================make changes in ${PROJECT}${BUG_ID}_evotests/org/..."
 read -p "==================================================press Enter to continue after editing..."
 
+
+
+echo ""
+echo ""
 echo "==================================================tarring and bzip2-ing modified tests"
 cd ${PROJECT}${BUG_ID}_evotests
 tar cvjf ../${PROJECT}${BUG_ID}.tar.bz2 .
 cd ..
+echo "" 
+echo "" 
 
+echo ""
+echo ""
 echo "==================================================running modified test suite on buggy version"
 defects4j test -w checked_out/buggy/${BUG_ID_STR} -s ${PROJECT}${BUG_ID}.tar.bz2
+echo ""
+echo ""
 
+echo ""
+echo ""
 echo "==================================================running modified test suite on fixed version"
 defects4j test -w checked_out/fixed/${BUG_ID_STR} -s ${PROJECT}${BUG_ID}.tar.bz2
+echo ""
+echo "" 
 
 echo "done! check failed_tests/ in fixed version directory to see failing test output"
 
