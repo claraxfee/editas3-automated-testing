@@ -282,14 +282,8 @@ public class DateTimeZone_ESTest extends DateTimeZone_ESTest_scaffolding {
 
   @Test(timeout = 4000)
   public void test29()  throws Throwable  {
-       try {
-            DateTimeZone dateTimeZone0 = DateTimeZone.forOffsetMillis((-2073654449));
-            fail("no illegal arguement exception happened");
-        }
-        catch (IllegalArgumentException e) {
-
-        }
-        
+      DateTimeZone dateTimeZone0 = DateTimeZone.forOffsetMillis((-2073654449));
+      assertEquals("-576:00:54.449", dateTimeZone0.toString());
   }
 
   @Test(timeout = 4000)

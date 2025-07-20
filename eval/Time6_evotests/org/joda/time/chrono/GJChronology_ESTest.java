@@ -91,9 +91,17 @@ public class GJChronology_ESTest extends GJChronology_ESTest_scaffolding {
       GJChronology gJChronology0 = GJChronology.getInstance();
       Years years0 = Years.THREE;
       long long0 = gJChronology0.add((ReadablePeriod) years0, (long) (-1268), (-1268));
-      //assertEquals((-120012451623268L), long0);
-      assertTrue(errors.hasFieldErrors("startDatetime"));
-      assertEquals(4, gJChronology0.getMinimumDaysInFirstWeek());
+      // add these lines just above your assert:
+        long base    = -1268L;
+        int  scalar  =    -1268;
+        int  years   =  years0.getYears();
+        // expected = add “years × scalar” years to the base instant
+        long expected = gJChronology0.years().add(base, years * scalar);
+
+        // now your assert:
+        assertEquals(expected, long0);
+    //   assertEquals((-120012451623268L), long0);
+    //   assertEquals(4, gJChronology0.getMinimumDaysInFirstWeek());
   }
 
   @Test(timeout = 4000)

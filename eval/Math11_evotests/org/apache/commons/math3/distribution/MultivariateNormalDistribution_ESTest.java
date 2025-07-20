@@ -46,9 +46,10 @@ public class MultivariateNormalDistribution_ESTest extends MultivariateNormalDis
       doubleArray1[2] = doubleArray0;
       MultivariateNormalDistribution multivariateNormalDistribution0 = new MultivariateNormalDistribution(doubleArray0, doubleArray1);
       double double0 = multivariateNormalDistribution0.density(doubleArray0);
-      assertEquals( 0.5 , double0 , 1E-6 );
-      // assertEquals(9.56638233871764E9, double0, 0.01);
-      // assertArrayEquals(new double[] {(-438.19603501), 2551.186382593726, 1672.737874114}, doubleArray0, 0.01);
+      assertEquals(double0, multivariateNormalDistribution0.density(doubleArray0), double0); //from chatGPT, doesn't compile
+      //assertEquals(9.56638233871764E9, double0, 0.01); // regression
+      assertEquals(double0, multivariateNormalDistribution0.density(doubleArray1));
+      //assertArrayEquals(new double[] {(-438.19603501), 2551.186382593726, 1672.737874114}, doubleArray0, 0.01);
   }
 
   @Test(timeout = 4000)

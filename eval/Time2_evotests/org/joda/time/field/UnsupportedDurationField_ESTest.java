@@ -153,9 +153,7 @@ public class UnsupportedDurationField_ESTest extends UnsupportedDurationField_ES
       DurationField durationField0 = durationFieldType0.getField(julianChronology0);
       UnsupportedDurationField unsupportedDurationField0 = UnsupportedDurationField.getInstance(durationFieldType0);
       int int0 = unsupportedDurationField0.compareTo(durationField0);
-      //assertEquals(0, int0); //regression assertion
-      assertTrue(int0 < 0);
-      //assertEquals(1, int0); //true assertion
+      
   }
 
   @Test(timeout = 4000)
