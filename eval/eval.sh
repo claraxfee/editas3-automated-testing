@@ -7,11 +7,12 @@ EVOTEST_DIR="$3"
 BUG_ID_STR="${PROJECT}${BUG_ID}"
 EVOSUITE_TAR="${PROJECT}${BUG_ID}.$EVOTEST_DIR.tar.bz2"
 
-#echo "checking out buggy and fixed versions"
-#defects4j checkout -p $PROJECT -v ${BUG_ID}b -w checked_out/buggy/${BUG_ID_STR}
-#defects4j checkout -p $PROJECT -v ${BUG_ID}f -w checked_out/fixed/${BUG_ID_STR}
+echo "checking out buggy and fixed versions"
+defects4j checkout -p $PROJECT -v ${BUG_ID}b -w checked_out/buggy/${BUG_ID_STR}
+defects4j checkout -p $PROJECT -v ${BUG_ID}f -w checked_out/fixed/${BUG_ID_STR}
 
 
+echo ""
 echo ""
 echo "removing old evotest directory ${BUG_ID_STR}_evotests"
 rm -Rf ${BUG_ID_STR}_evotests
