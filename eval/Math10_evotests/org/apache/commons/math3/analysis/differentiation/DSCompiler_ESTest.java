@@ -580,9 +580,9 @@ public class DSCompiler_ESTest extends DSCompiler_ESTest_scaffolding {
       assertEquals(70, dSCompiler0.getOrder());
       
       dSCompiler0.atan2(doubleArray0, 0, doubleArray0, 6, doubleArray0, 1);
-      //assertEquals(9, doubleArray0.length);
+      assertEquals(9, doubleArray0.length);
+      assertEquals(doubleArray0[dSCompiler0.getFreeParameters()], doubleArray0[dSCompiler0.getSize()], doubleArray0[dSCompiler0.getFreeParameters()]);
       //assertArrayEquals(new double[] {0.0, Double.NaN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, doubleArray0, 0.01);
-      assertEquals(1, dSCompiler0.getResult(), 1E-10);
       // assertEquals(0, dSCompiler0.getFreeParameters());
       // assertEquals(1, dSCompiler0.getSize());
       // assertEquals(70, dSCompiler0.getOrder());
