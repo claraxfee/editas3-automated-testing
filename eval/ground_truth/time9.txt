@@ -1,0 +1,50 @@
+time 9 
+
+
+EVOSUITE PREFIX 
+
+
+ @Test(timeout = 4000)
+  public void test29()  throws Throwable  {
+      DateTimeZone dateTimeZone0 = DateTimeZone.forOffsetMillis((-2073654449));
+
+
+
+
+
+EVOSUITE ASSERTION (REGRESSION ORACLE) 
+
+
+assertEquals("-576:00:54.449", dateTimeZone0.toString());
+  
+
+
+
+
+TRUE ASSERTION 
+
+assertThrows(IllegalArguementException e);
+
+
+
+
+
+
+METHOD UNDER TEST
+
+
+/**
+     * Gets a time zone instance for the specified offset to UTC in milliseconds.
+     *
+     * @param millisOffset  the offset in millis from UTC, from -23:59:59.999 to +23:59:59.999
+     * @return the DateTimeZone object for the offset
+     */
+    public static DateTimeZone forOffsetMillis(int millisOffset) {
+        String id = printOffset(millisOffset);
+        return fixedOffsetZone(id, millisOffset);
+    }
+
+
+
+
+
