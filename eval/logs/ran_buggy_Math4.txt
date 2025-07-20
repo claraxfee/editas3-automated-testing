@@ -1,0 +1,125 @@
+Extract test suite......................................................... OK
+Running ant (compile.gen.tests)............................................ OK
+Buildfile: /usr/local/bin/defects4j/framework/projects/defects4j.build.xml
+[hastarget] Warning: Nashorn engine is planned to be removed from a future JDK release
+
+init:
+     [echo] -------- Commons MATH 3.1-SNAPSHOT --------
+    [mkdir] Created dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target
+    [mkdir] Created dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes
+    [mkdir] Created dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/test-classes
+     [copy] Copying 2 files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes
+
+compile:
+    [javac] Compiling 792 source files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes
+    [javac] warning: [options] bootstrap class path not set in conjunction with -source 6
+    [javac] warning: [options] source value 6 is obsolete and will be removed in a future release
+    [javac] warning: [options] target value 1.6 is obsolete and will be removed in a future release
+    [javac] warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+    [javac] Note: Some input files use or override a deprecated API.
+    [javac] Note: Recompile with -Xlint:deprecation for details.
+    [javac] 4 warnings
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optim/nonlinear/scalar/gradient/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optimization/univariate/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/stat/regression/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/geometry/euclidean/oned/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optimization/linear/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/exception/util/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/util/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/analysis/integration/gauss/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/ml/clustering/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/stat/descriptive/moment/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/analysis/function/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/dfp/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/stat/descriptive/rank/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/ode/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/transform/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/analysis/interpolation/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/analysis/integration/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/geometry/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optim/linear/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optimization/fitting/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/ode/nonstiff/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/linear/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/filter/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/stat/correlation/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optimization/direct/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/distribution/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/special/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/stat/clustering/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/stat/inference/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/fitting/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/ml/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optimization/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/stat/ranking/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/stat/descriptive/summary/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/analysis/polynomials/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/fraction/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/genetics/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/stat/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/geometry/euclidean/threed/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/primes/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/geometry/partitioning/utilities/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/exception/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optim/nonlinear/vector/jacobian/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/distribution/fitting/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/complex/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/random/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/analysis/differentiation/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/analysis/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optim/nonlinear/scalar/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/geometry/partitioning/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/ode/sampling/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/geometry/euclidean/twod/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/stat/descriptive/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optimization/general/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optim/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/analysis/solvers/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optim/nonlinear/vector/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/ml/distance/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/optim/univariate/package-info.class
+    [javac] Creating empty /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/target/classes/org/apache/commons/math3/ode/events/package-info.class
+
+compile.gen.tests:
+     [echo] classes.dir: target/classes
+     [echo] build.home: target
+    [mkdir] Created dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/.classes_testgen
+    [javac] /usr/local/bin/defects4j/framework/projects/defects4j.build.xml:268: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 4 source files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/.classes_testgen
+
+BUILD SUCCESSFUL
+Total time: 6 seconds
+Running ant (run.gen.tests)................................................ OK
+Buildfile: /usr/local/bin/defects4j/framework/projects/defects4j.build.xml
+[hastarget] Warning: Nashorn engine is planned to be removed from a future JDK release
+
+init:
+     [echo] -------- Commons MATH 3.1-SNAPSHOT --------
+
+compile:
+
+compile.gen.tests:
+     [echo] classes.dir: target/classes
+     [echo] build.home: target
+   [delete] Deleting directory /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/.classes_testgen
+    [mkdir] Created dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/.classes_testgen
+    [javac] /usr/local/bin/defects4j/framework/projects/defects4j.build.xml:268: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 4 source files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math4/.classes_testgen
+
+run.gen.tests:
+     [echo] classes.dir: target/classes
+     [echo] build.home: target
+    [junit] SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+    [junit] SLF4J: Defaulting to no-operation (NOP) logger implementation
+    [junit] SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+    [junit] WARNING: An illegal reflective access operation has occurred
+    [junit] WARNING: Illegal reflective access by org.evosuite.runtime.GuiSupport (file:/usr/local/bin/defects4j/framework/lib/test_generation/runtime/evosuite-standalone-runtime-1.1.0.jar) to field java.awt.GraphicsEnvironment.headless
+    [junit] WARNING: Please consider reporting this to the maintainers of org.evosuite.runtime.GuiSupport
+    [junit] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+    [junit] WARNING: All illegal access operations will be denied in a future release
+
+BUILD SUCCESSFUL
+Total time: 2 seconds
+Failing tests: 0

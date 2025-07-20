@@ -1,0 +1,4 @@
+  - org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest::test76
+  - org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest::test75
+  - org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest::test73
+  - org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest::test12

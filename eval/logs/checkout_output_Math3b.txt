@@ -1,0 +1,112 @@
+Checking out 91d280b7 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math3'...
+done.
+Updating files:  51% (696/1346)Updating files:  52% (700/1346)Updating files:  53% (714/1346)Updating files:  54% (727/1346)Updating files:  55% (741/1346)Updating files:  56% (754/1346)Updating files:  57% (768/1346)Updating files:  58% (781/1346)Updating files:  59% (795/1346)Updating files:  60% (808/1346)Updating files:  61% (822/1346)Updating files:  62% (835/1346)Updating files:  63% (848/1346)Updating files:  64% (862/1346)Updating files:  65% (875/1346)Updating files:  66% (889/1346)Updating files:  67% (902/1346)Updating files:  68% (916/1346)Updating files:  69% (929/1346)Updating files:  70% (943/1346)Updating files:  71% (956/1346)Updating files:  72% (970/1346)Updating files:  73% (983/1346)Updating files:  74% (997/1346)Updating files:  75% (1010/1346)Updating files:  76% (1023/1346)Updating files:  77% (1037/1346)Updating files:  78% (1050/1346)Updating files:  79% (1064/1346)Updating files:  80% (1077/1346)Updating files:  81% (1091/1346)Updating files:  82% (1104/1346)Updating files:  83% (1118/1346)Updating files:  84% (1131/1346)Updating files:  85% (1145/1346)Updating files:  86% (1158/1346)Updating files:  87% (1172/1346)Updating files:  88% (1185/1346)Updating files:  89% (1198/1346)Updating files:  90% (1212/1346)Updating files:  91% (1225/1346)Updating files:  92% (1239/1346)Updating files:  93% (1252/1346)Updating files:  94% (1266/1346)Updating files:  95% (1279/1346)Updating files:  96% (1293/1346)Updating files:  97% (1306/1346)Updating files:  98% (1320/1346)Updating files:  99% (1333/1346)Updating files: 100% (1346/1346)Updating files: 100% (1346/1346), done.
+Note: switching to '91d280b7300b0f601cd76a880c26784a822f96b8'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 91d280b73 MATH-1005 Array of length 1 must be handled as a special case.
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math3/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Math3/.git/
+[detached HEAD 3329e7665] D4J_Math_3_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Run post-checkout hook..................................................... OK
+[detached HEAD 0634cd22d] D4J_Math_3_POST_FIX_COMPILABLE
+ 4 files changed, 736 insertions(+), 2 deletions(-)
+ create mode 100644 build.xml.bak
+ create mode 100644 src/main/java/org/apache/commons/math3/stat/correlation/StorelessBivariateCovariance.java.bak
+ create mode 100644 src/main/java/org/apache/commons/math3/stat/correlation/StorelessCovariance.java.bak
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD e33ba42a2] D4J_Math_3_FIXED_VERSION
+ 15 files changed, 3644 insertions(+), 81 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 src/test/java/org/apache/commons/math3/distribution/CauchyDistributionTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/distribution/WeibullDistributionTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/BOBYQAOptimizerTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/optimization/direct/BOBYQAOptimizerTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/optimization/direct/CMAESOptimizerTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/stat/descriptive/summary/SumTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/util/FastMathTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD 88aa09515] D4J_Math_3_BUGGY_VERSION
+ 2 files changed, 1 insertion(+), 4 deletions(-)
+Diff 91d280b7:7cdc540a..................................................... OK
+diff --git a/src/changes/changes.xml b/src/changes/changes.xml
+index cededa04e..8124135d8 100644
+--- a/src/changes/changes.xml
++++ b/src/changes/changes.xml
+@@ -51,9 +51,6 @@ If the output is not quite correct, check for invisible trailing spaces!
+   </properties>
+   <body>
+     <release version="x.y" date="TBD" description="TBD">
+-      <action dev="erans" type="fix" issue="MATH-1005" due-to="Roman Werpachowski">
+-        Fixed "MathArrays.linearCombination" when array length is 1.
+-      </action>
+       <action dev="erans" type="add" issue="MATH-997">
+         Implemented Gauss-Hermite quadrature scheme (in package
+         "o.a.c.m.analysis.integration.gauss").
+diff --git a/src/main/java/org/apache/commons/math3/util/MathArrays.java b/src/main/java/org/apache/commons/math3/util/MathArrays.java
+index 8f83d96a5..1aa56cc7d 100644
+--- a/src/main/java/org/apache/commons/math3/util/MathArrays.java
++++ b/src/main/java/org/apache/commons/math3/util/MathArrays.java
+@@ -818,11 +818,6 @@ public class MathArrays {
+             throw new DimensionMismatchException(len, b.length);
+         }
+ 
+-        if (len == 1) {
+-            // Revert to scalar multiplication.
+-            return a[0] * b[0];
+-        }
+-
+         final double[] prodHigh = new double[len];
+         double prodLowSum = 0;
+ 
+diff --git a/src/test/java/org/apache/commons/math3/util/MathArraysTest.java b/src/test/java/org/apache/commons/math3/util/MathArraysTest.java
+index 7d6b8128b..e16afbc41 100644
+--- a/src/test/java/org/apache/commons/math3/util/MathArraysTest.java
++++ b/src/test/java/org/apache/commons/math3/util/MathArraysTest.java
+@@ -582,15 +582,6 @@ public class MathArraysTest {
+         }
+     }
+ 
+-    // MATH-1005
+-    @Test
+-    public void testLinearCombinationWithSingleElementArray() {
+-        final double[] a = { 1.23456789 };
+-        final double[] b = { 98765432.1 };
+-
+-        Assert.assertEquals(a[0] * b[0], MathArrays.linearCombination(a, b), 0d);
+-    }
+-
+     @Test
+     public void testLinearCombination1() {
+         final double[] a = new double[] {
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD 01860df3b] D4J_Math_3_PRE_FIX_REVISION
+ 3 files changed, 17 deletions(-)
+Check out program version: Math-3b......................................... OK
+Previous HEAD position was 01860df3b D4J_Math_3_PRE_FIX_REVISION
+HEAD is now at 88aa09515 D4J_Math_3_BUGGY_VERSION

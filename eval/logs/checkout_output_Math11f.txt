@@ -1,0 +1,126 @@
+Checking out cedf0d27 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Math11'...
+done.
+Updating files:  47% (642/1346)Updating files:  48% (647/1346)Updating files:  49% (660/1346)Updating files:  50% (673/1346)Updating files:  51% (687/1346)Updating files:  52% (700/1346)Updating files:  53% (714/1346)Updating files:  54% (727/1346)Updating files:  55% (741/1346)Updating files:  56% (754/1346)Updating files:  57% (768/1346)Updating files:  58% (781/1346)Updating files:  59% (795/1346)Updating files:  60% (808/1346)Updating files:  61% (822/1346)Updating files:  62% (835/1346)Updating files:  63% (848/1346)Updating files:  64% (862/1346)Updating files:  65% (875/1346)Updating files:  66% (889/1346)Updating files:  67% (902/1346)Updating files:  68% (916/1346)Updating files:  69% (929/1346)Updating files:  70% (943/1346)Updating files:  71% (956/1346)Updating files:  72% (970/1346)Updating files:  73% (983/1346)Updating files:  74% (997/1346)Updating files:  75% (1010/1346)Updating files:  76% (1023/1346)Updating files:  77% (1037/1346)Updating files:  78% (1050/1346)Updating files:  79% (1064/1346)Updating files:  80% (1077/1346)Updating files:  81% (1091/1346)Updating files:  82% (1104/1346)Updating files:  83% (1118/1346)Updating files:  84% (1131/1346)Updating files:  85% (1145/1346)Updating files:  86% (1158/1346)Updating files:  87% (1172/1346)Updating files:  88% (1185/1346)Updating files:  89% (1198/1346)Updating files:  90% (1212/1346)Updating files:  91% (1225/1346)Updating files:  92% (1239/1346)Updating files:  92% (1249/1346)Updating files:  93% (1252/1346)Updating files:  94% (1266/1346)Updating files:  95% (1279/1346)Updating files:  96% (1293/1346)Updating files:  97% (1306/1346)Updating files:  98% (1320/1346)Updating files:  99% (1333/1346)Updating files: 100% (1346/1346)Updating files: 100% (1346/1346), done.
+Note: switching to 'cedf0d27f9e9341a9e9fa8a192735a0c2e11be40'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at cedf0d27f MATH-929 Fixed truncated value. Thanks to Piotr Wydrych. Added unit test: comparing density values with univariate normal distribution.
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Math11/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Math11/.git/
+[detached HEAD 44e1b40bf] D4J_Math_11_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Run post-checkout hook..................................................... OK
+[detached HEAD 4ade690f1] D4J_Math_11_POST_FIX_COMPILABLE
+ 4 files changed, 695 insertions(+), 2 deletions(-)
+ create mode 100644 build.xml.bak
+ create mode 100644 src/main/java/org/apache/commons/math3/stat/correlation/StorelessBivariateCovariance.java.bak
+ create mode 100644 src/main/java/org/apache/commons/math3/stat/correlation/StorelessCovariance.java.bak
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD 1ccf3293c] D4J_Math_11_FIXED_VERSION
+ 15 files changed, 3630 insertions(+), 81 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 src/test/java/org/apache/commons/math3/distribution/CauchyDistributionTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/distribution/WeibullDistributionTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/BOBYQAOptimizerTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/optimization/direct/BOBYQAOptimizerTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/optimization/direct/CMAESOptimizerTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/stat/descriptive/summary/SumTest.java.bak
+ create mode 100644 src/test/java/org/apache/commons/math3/util/FastMathTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD d1df1755a] D4J_Math_11_BUGGY_VERSION
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+Diff cedf0d27:fea4dd91..................................................... OK
+diff --git a/src/changes/changes.xml b/src/changes/changes.xml
+index fb58f546a..a61254cfa 100644
+--- a/src/changes/changes.xml
++++ b/src/changes/changes.xml
+@@ -55,9 +55,6 @@ This is a minor release: It combines bug fixes and new features.
+   Changes to existing features were made in a backwards-compatible
+   way such as to allow drop-in replacement of the v3.1[.1] JAR file.
+ ">
+-      <action dev="erans" type="fix" issue="MATH-929" due-to="Piotr Wydrych">
+-        Fixed truncated value in "MultivariateNormalDistribution".
+-      </action>
+       <action dev="erans" type="fix" issue="MATH-927" due-to="Dennis Hendriks">
+         Made "BitStreamGenerator" implement the "Serializable" interface.
+       </action>
+diff --git a/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java b/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java
+index fd18c281b..15706811b 100644
+--- a/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java
+@@ -180,7 +180,7 @@ public class MultivariateNormalDistribution
+             throw new DimensionMismatchException(vals.length, dim);
+         }
+ 
+-        return FastMath.pow(2 * FastMath.PI, -0.5 * dim) *
++        return FastMath.pow(2 * FastMath.PI, -dim / 2) *
+             FastMath.pow(covarianceMatrixDeterminant, -0.5) *
+             getExponentTerm(vals);
+     }
+diff --git a/src/test/java/org/apache/commons/math3/distribution/MultivariateNormalDistributionTest.java b/src/test/java/org/apache/commons/math3/distribution/MultivariateNormalDistributionTest.java
+index 96666187a..756c009c6 100644
+--- a/src/test/java/org/apache/commons/math3/distribution/MultivariateNormalDistributionTest.java
++++ b/src/test/java/org/apache/commons/math3/distribution/MultivariateNormalDistributionTest.java
+@@ -20,7 +20,6 @@ package org.apache.commons.math3.distribution;
+ import org.apache.commons.math3.stat.correlation.Covariance;
+ import org.apache.commons.math3.linear.RealMatrix;
+ 
+-import java.util.Random;
+ import org.junit.After;
+ import org.junit.Assert;
+ import org.junit.Before;
+@@ -131,24 +130,4 @@ public class MultivariateNormalDistributionTest {
+             Assert.assertEquals(correctDensities[i], densities[i], 1e-16);
+         }
+     }
+-
+-    /**
+-     * Test the accuracy of the distribution when calculating densities.
+-     */
+-    @Test
+-    public void testUnivariateDistribution() {
+-        final double[] mu = { -1.5 };
+-        final double[][] sigma = { { 1 } };
+- 
+-        final MultivariateNormalDistribution multi = new MultivariateNormalDistribution(mu, sigma);
+-
+-        final NormalDistribution uni = new NormalDistribution(mu[0], sigma[0][0]);
+-        final Random rng = new Random();
+-        final int numCases = 100;
+-        final double tol = Math.ulp(1d);
+-        for (int i = 0; i < numCases; i++) {
+-            final double v = rng.nextDouble() * 10 - 5;
+-            Assert.assertEquals(uni.density(v), multi.density(new double[] { v }), tol);
+-        }
+-    }
+ }
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD 3ac550aa7] D4J_Math_11_PRE_FIX_REVISION
+ 3 files changed, 1 insertion(+), 25 deletions(-)
+Check out program version: Math-11f........................................ OK
+Previous HEAD position was 3ac550aa7 D4J_Math_11_PRE_FIX_REVISION
+HEAD is now at 1ccf3293c D4J_Math_11_FIXED_VERSION

@@ -1,0 +1,199 @@
+Extract test suite......................................................... OK
+Running ant (compile.gen.tests)............................................ OK
+Buildfile: /usr/local/bin/defects4j/framework/projects/defects4j.build.xml
+
+initialise:
+
+compile:
+    [mkdir] Created dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/build
+    [javac] /usr/local/bin/defects4j/framework/projects/Chart/Chart.build.xml:57: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 654 source files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/build
+    [javac] warning: [options] bootstrap class path not set in conjunction with -source 6
+    [javac] warning: [options] source value 6 is obsolete and will be removed in a future release
+    [javac] warning: [options] target value 1.6 is obsolete and will be removed in a future release
+    [javac] warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+    [javac] Note: Some input files use or override a deprecated API.
+    [javac] Note: Recompile with -Xlint:deprecation for details.
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] 4 warnings
+     [copy] Copying 1 file to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/build/org/jfree/chart
+     [copy] Copying 12 files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/build/org/jfree/chart
+     [copy] Copying 9 files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/build/org/jfree/chart/plot
+     [copy] Copying 10 files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/build/org/jfree/chart/editor
+     [copy] Copying 5 files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/build/org/jfree/chart/ui
+
+compile.gen.tests:
+     [echo] classes.dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/build
+     [echo] build.home: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1
+    [mkdir] Created dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/.classes_testgen
+    [javac] /usr/local/bin/defects4j/framework/projects/defects4j.build.xml:268: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 2 source files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/.classes_testgen
+
+BUILD SUCCESSFUL
+Total time: 5 seconds
+Running ant (run.gen.tests)................................................ OK
+Buildfile: /usr/local/bin/defects4j/framework/projects/defects4j.build.xml
+
+initialise:
+
+compile:
+    [javac] /usr/local/bin/defects4j/framework/projects/Chart/Chart.build.xml:57: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+
+compile.gen.tests:
+     [echo] classes.dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/build
+     [echo] build.home: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1
+   [delete] Deleting directory /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/.classes_testgen
+    [mkdir] Created dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/.classes_testgen
+    [javac] /usr/local/bin/defects4j/framework/projects/defects4j.build.xml:268: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 2 source files to /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/.classes_testgen
+
+run.gen.tests:
+     [echo] classes.dir: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1/build
+     [echo] build.home: /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Chart1
+    [junit] SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+    [junit] SLF4J: Defaulting to no-operation (NOP) logger implementation
+    [junit] SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+    [junit] WARNING: An illegal reflective access operation has occurred
+    [junit] WARNING: Illegal reflective access by org.evosuite.runtime.GuiSupport (file:/usr/local/bin/defects4j/framework/lib/test_generation/runtime/evosuite-standalone-runtime-1.1.0.jar) to field java.awt.GraphicsEnvironment.headless
+    [junit] WARNING: Please consider reporting this to the maintainers of org.evosuite.runtime.GuiSupport
+    [junit] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+    [junit] WARNING: All illegal access operations will be denied in a future release
+    [junit] java.lang.Error: createUI() failed for javax.swing.JPopupMenu[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=0,maximumSize=,minimumSize=,preferredSize=,desiredLocationX=0,desiredLocationY=0,label=Chart:,lightWeightPopupEnabled=true,margin=,paintBorder=true] java.lang.reflect.InvocationTargetException
+    [junit] 	at java.desktop/javax.swing.UIDefaults.getUIError(UIDefaults.java:760)
+    [junit] 	at java.desktop/javax.swing.MultiUIDefaults.getUIError(MultiUIDefaults.java:131)
+    [junit] 	at java.desktop/javax.swing.UIDefaults.getUI(UIDefaults.java:811)
+    [junit] 	at java.desktop/javax.swing.UIManager.getUI(UIManager.java:1066)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.updateUI(JPopupMenu.java:220)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.<init>(JPopupMenu.java:188)
+    [junit] 	at org.jfree.chart.ChartPanel.createPopupMenu(ChartPanel.java:2733)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:764)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:709)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:663)
+    [junit] 	at org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest.test55(AbstractCategoryItemRenderer_ESTest.java:784)
+    [junit] 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    [junit] 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    [junit] 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    [junit] 	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+    [junit] 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+    [junit] 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    [junit] 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+    [junit] 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    [junit] 	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
+    [junit] 	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
+    [junit] 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+    [junit] 	at java.base/java.lang.Thread.run(Thread.java:829)
+    [junit] java.lang.Error: createUI() failed for javax.swing.JPopupMenu[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=0,maximumSize=,minimumSize=,preferredSize=,desiredLocationX=0,desiredLocationY=0,label=Chart:,lightWeightPopupEnabled=true,margin=,paintBorder=true] java.lang.reflect.InvocationTargetException
+    [junit] 	at java.desktop/javax.swing.UIDefaults.getUIError(UIDefaults.java:760)
+    [junit] 	at java.desktop/javax.swing.MultiUIDefaults.getUIError(MultiUIDefaults.java:131)
+    [junit] 	at java.desktop/javax.swing.UIDefaults.getUI(UIDefaults.java:811)
+    [junit] 	at java.desktop/javax.swing.UIManager.getUI(UIManager.java:1066)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.updateUI(JPopupMenu.java:220)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.<init>(JPopupMenu.java:188)
+    [junit] 	at org.jfree.chart.ChartPanel.createPopupMenu(ChartPanel.java:2733)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:764)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:709)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:593)
+    [junit] 	at org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest.test48(AbstractCategoryItemRenderer_ESTest.java:684)
+    [junit] 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    [junit] 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    [junit] 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    [junit] 	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+    [junit] 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+    [junit] 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    [junit] 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+    [junit] 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    [junit] 	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
+    [junit] 	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
+    [junit] 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+    [junit] 	at java.base/java.lang.Thread.run(Thread.java:829)
+    [junit] java.lang.Error: createUI() failed for javax.swing.JPopupMenu[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=0,maximumSize=,minimumSize=,preferredSize=,desiredLocationX=0,desiredLocationY=0,label=,lightWeightPopupEnabled=true,margin=,paintBorder=true] java.lang.reflect.InvocationTargetException
+    [junit] 	at java.desktop/javax.swing.UIDefaults.getUIError(UIDefaults.java:760)
+    [junit] 	at java.desktop/javax.swing.MultiUIDefaults.getUIError(MultiUIDefaults.java:131)
+    [junit] 	at java.desktop/javax.swing.UIDefaults.getUI(UIDefaults.java:811)
+    [junit] 	at java.desktop/javax.swing.UIManager.getUI(UIManager.java:1066)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.updateUI(JPopupMenu.java:220)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.<init>(JPopupMenu.java:188)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.<init>(JPopupMenu.java:173)
+    [junit] 	at java.desktop/javax.swing.JMenu.ensurePopupMenuCreated(JMenu.java:523)
+    [junit] 	at java.desktop/javax.swing.JMenu.add(JMenu.java:556)
+    [junit] 	at org.jfree.chart.ChartPanel.createPopupMenu(ChartPanel.java:2797)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:764)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:709)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:593)
+    [junit] 	at org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest.test48(AbstractCategoryItemRenderer_ESTest.java:684)
+    [junit] 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    [junit] 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    [junit] 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    [junit] 	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+    [junit] 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+    [junit] 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    [junit] 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+    [junit] 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    [junit] 	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
+    [junit] 	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
+    [junit] 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+    [junit] 	at java.base/java.lang.Thread.run(Thread.java:829)
+    [junit] java.lang.Error: createUI() failed for javax.swing.JPopupMenu[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=0,maximumSize=,minimumSize=,preferredSize=,desiredLocationX=0,desiredLocationY=0,label=,lightWeightPopupEnabled=true,margin=,paintBorder=true] java.lang.reflect.InvocationTargetException
+    [junit] 	at java.desktop/javax.swing.UIDefaults.getUIError(UIDefaults.java:760)
+    [junit] 	at java.desktop/javax.swing.MultiUIDefaults.getUIError(MultiUIDefaults.java:131)
+    [junit] 	at java.desktop/javax.swing.UIDefaults.getUI(UIDefaults.java:811)
+    [junit] 	at java.desktop/javax.swing.UIManager.getUI(UIManager.java:1066)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.updateUI(JPopupMenu.java:220)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.<init>(JPopupMenu.java:188)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.<init>(JPopupMenu.java:173)
+    [junit] 	at java.desktop/javax.swing.JMenu.ensurePopupMenuCreated(JMenu.java:523)
+    [junit] 	at java.desktop/javax.swing.JMenu.add(JMenu.java:556)
+    [junit] 	at org.jfree.chart.ChartPanel.createPopupMenu(ChartPanel.java:2822)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:764)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:709)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:593)
+    [junit] 	at org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest.test48(AbstractCategoryItemRenderer_ESTest.java:684)
+    [junit] 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    [junit] 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    [junit] 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    [junit] 	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+    [junit] 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+    [junit] 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    [junit] 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+    [junit] 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    [junit] 	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
+    [junit] 	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
+    [junit] 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+    [junit] 	at java.base/java.lang.Thread.run(Thread.java:829)
+    [junit] java.lang.Error: createUI() failed for javax.swing.JPopupMenu[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=0,maximumSize=,minimumSize=,preferredSize=,desiredLocationX=0,desiredLocationY=0,label=,lightWeightPopupEnabled=true,margin=,paintBorder=true] java.lang.reflect.InvocationTargetException
+    [junit] 	at java.desktop/javax.swing.UIDefaults.getUIError(UIDefaults.java:760)
+    [junit] 	at java.desktop/javax.swing.MultiUIDefaults.getUIError(MultiUIDefaults.java:131)
+    [junit] 	at java.desktop/javax.swing.UIDefaults.getUI(UIDefaults.java:811)
+    [junit] 	at java.desktop/javax.swing.UIManager.getUI(UIManager.java:1066)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.updateUI(JPopupMenu.java:220)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.<init>(JPopupMenu.java:188)
+    [junit] 	at java.desktop/javax.swing.JPopupMenu.<init>(JPopupMenu.java:173)
+    [junit] 	at java.desktop/javax.swing.JMenu.ensurePopupMenuCreated(JMenu.java:523)
+    [junit] 	at java.desktop/javax.swing.JMenu.add(JMenu.java:556)
+    [junit] 	at org.jfree.chart.ChartPanel.createPopupMenu(ChartPanel.java:2849)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:764)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:709)
+    [junit] 	at org.jfree.chart.ChartPanel.<init>(ChartPanel.java:593)
+    [junit] 	at org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest.test48(AbstractCategoryItemRenderer_ESTest.java:684)
+    [junit] 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    [junit] 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    [junit] 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    [junit] 	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+    [junit] 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+    [junit] 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    [junit] 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+    [junit] 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    [junit] 	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
+    [junit] 	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
+    [junit] 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+    [junit] 	at java.base/java.lang.Thread.run(Thread.java:829)
+    [junit] Test org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest FAILED
+
+BUILD SUCCESSFUL
+Total time: 3 seconds
+Failing tests: 4
+  - org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest::test76
+  - org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest::test75
+  - org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest::test73
+  - org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest::test12
