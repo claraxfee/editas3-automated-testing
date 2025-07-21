@@ -1,0 +1,4 @@
+0a1,3
+>   - com.google.javascript.jscomp.CheckSideEffects_ESTest::test07
+>   - com.google.javascript.jscomp.CheckSideEffects_ESTest::test06
+>   - com.google.javascript.jscomp.CheckSideEffects_ESTest::test08

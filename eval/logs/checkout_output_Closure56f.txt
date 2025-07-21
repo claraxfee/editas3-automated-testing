@@ -1,140 +1,0 @@
-Checking out 9e921fa9 to /home/cfee3/research/ssr/editas3-automated-testing OK
-Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure56'...
-done.
-Updating files:  32% (647/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  70% (1406/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
-Note: switching to '9e921fa973c603473f745fff76c44620fd7719e3'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at 9e921fa97 When getting a line from the source code according to the line number, if it happens to be the last line, and '\n' character is missing in the end of the file, we should still return the last line.
-Init local repository...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure56/.git/
-Tag post-fix revision...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure56/.git/
-[detached HEAD 04a6ae567] D4J_Closure_56_POST_FIX_REVISION
- 2 files changed, 4 insertions(+)
- create mode 100644 .defects4j.config
- create mode 100644 .gitignore
-Run post-checkout hook..................................................... OK
-[detached HEAD 7050ef84a] D4J_Closure_56_POST_FIX_COMPILABLE
- 2 files changed, 11 insertions(+), 11 deletions(-)
-Excluding broken/flaky tests............................................... OK
-Excluding broken/flaky tests............................................... OK
-Initialize fixed program version........................................... OK
-[detached HEAD bdf1b930c] D4J_Closure_56_FIXED_VERSION
- 5 files changed, 644 insertions(+), 79 deletions(-)
- create mode 100644 defects4j.build.properties
- create mode 100644 test/com/google/debugging/sourcemap/Base64VLQTest.java.bak
- create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
-Apply patch................................................................ OK
-Initialize buggy program version........................................... OK
-[detached HEAD 35bbc300b] D4J_Closure_56_BUGGY_VERSION
- 2 files changed, 1 insertion(+), 5 deletions(-)
-Diff 9e921fa9:f791e3a7..................................................... OK
-diff --git a/src/com/google/javascript/jscomp/SourceFile.java b/src/com/google/javascript/jscomp/SourceFile.java
-index 22414f63e..fdc952ad5 100644
---- a/src/com/google/javascript/jscomp/SourceFile.java
-+++ b/src/com/google/javascript/jscomp/SourceFile.java
-@@ -235,18 +235,8 @@ public class SourceFile implements StaticSourceFile, Serializable {
-     lastOffset = pos;
-     lastLine = lineNumber;
- 
--    if (js.indexOf('\n', pos) == -1) {
--      // If next new line cannot be found, there are two cases
--      // 1. pos already reaches the end of file, then null should be returned
--      // 2. otherwise, return the contents between pos and the end of file.
--      if (pos >= js.length()) {
--        return null;
--      } else {
--        return js.substring(pos, js.length());
--      }
--    } else {
--      return js.substring(pos, js.indexOf('\n', pos));
--    }
-+    return (js.indexOf('\n', pos) == -1) ? null :
-+        js.substring(pos, js.indexOf('\n', pos));
-   }
- 
-   /**
-diff --git a/test/com/google/javascript/jscomp/JSCompilerSourceExcerptProviderTest.java b/test/com/google/javascript/jscomp/JSCompilerSourceExcerptProviderTest.java
-index 2d988a3d6..e1efc2231 100644
---- a/test/com/google/javascript/jscomp/JSCompilerSourceExcerptProviderTest.java
-+++ b/test/com/google/javascript/jscomp/JSCompilerSourceExcerptProviderTest.java
-@@ -29,12 +29,10 @@ public class JSCompilerSourceExcerptProviderTest extends TestCase {
-         "foo:first line\nfoo:second line\nfoo:third line\n");
-     JSSourceFile bar = JSSourceFile.fromCode("bar",
-         "bar:first line\nbar:second line\nbar:third line\nbar:fourth line\n");
--    JSSourceFile foo2 = JSSourceFile.fromCode("foo2",
--        "foo2:first line\nfoo2:second line\nfoo2:third line");
-     Compiler compiler = new Compiler();
-     CompilerOptions options = new CompilerOptions();
-     compiler.init(
--        new JSSourceFile[] {}, new JSSourceFile[] {foo, bar, foo2}, options);
-+        new JSSourceFile[] {}, new JSSourceFile[] {foo, bar}, options);
-     this.provider = compiler;
-   }
- 
-@@ -61,13 +59,6 @@ public class JSCompilerSourceExcerptProviderTest extends TestCase {
-     assertEquals(null, provider.getSourceLine("bar", 5));
-   }
- 
--  public void testExceptNoNewLine() throws Exception {
--    assertEquals("foo2:first line", provider.getSourceLine("foo2", 1));
--    assertEquals("foo2:second line", provider.getSourceLine("foo2", 2));
--    assertEquals("foo2:third line", provider.getSourceLine("foo2", 3));
--    assertEquals(null, provider.getSourceLine("foo2", 4));
--  }
--
-   public void testExcerptRegion() throws Exception {
-     assertRegionWellFormed("foo", 1);
-     assertRegionWellFormed("foo", 2);
-diff --git a/test/com/google/javascript/jscomp/JsMessageExtractorTest.java b/test/com/google/javascript/jscomp/JsMessageExtractorTest.java
-index c88b37dee..89a5d0c32 100644
---- a/test/com/google/javascript/jscomp/JsMessageExtractorTest.java
-+++ b/test/com/google/javascript/jscomp/JsMessageExtractorTest.java
-@@ -56,10 +56,8 @@ public class JsMessageExtractorTest extends TestCase {
-       extractMessage("if (true) {}}");
-       fail("Expected exception");
-     } catch (RuntimeException e) {
--      assertTrue(e.getMessage().contains("JSCompiler errors\n"));
--      assertTrue(e.getMessage().contains(
--          "testcode:1: ERROR - Parse error. syntax error\n"));
--      assertTrue(e.getMessage().contains("if (true) {}}\n"));
-+      assertEquals("JSCompiler errors\n" +
-+          "testcode:1: ERROR - Parse error. syntax error\n", e.getMessage());
-     }
-   }
- 
-@@ -68,10 +66,8 @@ public class JsMessageExtractorTest extends TestCase {
-       extractMessage("", "if (true) {}}");
-       fail("Expected exception");
-     } catch (RuntimeException e) {
--      assertTrue(e.getMessage().contains("JSCompiler errors\n"));
--      assertTrue(e.getMessage().contains(
--          "testcode:2: ERROR - Parse error. syntax error\n"));
--      assertTrue(e.getMessage().contains("if (true) {}}\n"));
-+      assertEquals("JSCompiler errors\n" +
-+          "testcode:2: ERROR - Parse error. syntax error\n", e.getMessage());
-     }
-   }
- 
-Apply patch................................................................ OK
-Tag pre-fix revision....................................................... OK
-[detached HEAD e0849e025] D4J_Closure_56_PRE_FIX_REVISION
- 3 files changed, 7 insertions(+), 30 deletions(-)
-Check out program version: Closure-56f..................................... OK
-Previous HEAD position was e0849e025 D4J_Closure_56_PRE_FIX_REVISION
-HEAD is now at bdf1b930c D4J_Closure_56_FIXED_VERSION

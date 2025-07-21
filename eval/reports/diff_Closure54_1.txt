@@ -1,0 +1,4 @@
+0a1
+>   - com.google.javascript.rhino.jstype.FunctionType_ESTest::test27
+1a3
+>   - com.google.javascript.rhino.jstype.FunctionType_ESTest::test29

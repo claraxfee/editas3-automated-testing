@@ -1,191 +1,0 @@
-Checking out 03fee32a to /home/cfee3/research/ssr/editas3-automated-testing OK
-Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure74'...
-done.
-Updating files:  33% (679/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  70% (1420/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
-Note: switching to '03fee32a06ccf8257b2da67b9034270be38805ae'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at 03fee32a0 Fix more regressions caused by TRUE/FALSE denormalization. Fixes issue 413
-Init local repository...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure74/.git/
-Tag post-fix revision...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure74/.git/
-[detached HEAD 6f16e7e44] D4J_Closure_74_POST_FIX_REVISION
- 2 files changed, 4 insertions(+)
- create mode 100644 .defects4j.config
- create mode 100644 .gitignore
-Run post-checkout hook..................................................... OK
-[detached HEAD 3cb7219a2] D4J_Closure_74_POST_FIX_COMPILABLE
- 1 file changed, 9 insertions(+), 9 deletions(-)
-Excluding broken/flaky tests............................................... OK
-Excluding broken/flaky tests............................................... OK
-Initialize fixed program version........................................... OK
-[detached HEAD 9a3b18a3a] D4J_Closure_74_FIXED_VERSION
- 3 files changed, 505 insertions(+), 60 deletions(-)
- create mode 100644 defects4j.build.properties
- create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
-Apply patch................................................................ OK
-Initialize buggy program version........................................... OK
-[detached HEAD ed7bf9c43] D4J_Closure_74_BUGGY_VERSION
- 2 files changed, 3 insertions(+), 16 deletions(-)
-Diff 03fee32a:d5bf6b42..................................................... OK
-diff --git a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
-index 9d2f97a54..4295d9c32 100644
---- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
-+++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
-@@ -904,9 +904,8 @@ class PeepholeFoldConstants extends AbstractPeepholeOptimization {
-           && right.getString().equals("undefined"))
-           || (Token.VOID == right.getType()
-               && NodeUtil.isLiteralValue(right.getFirstChild(), false)));
--    int lhType = getNormalizedNodeType(left);
--    int rhType = getNormalizedNodeType(right);
--    switch (lhType) {
-+
-+    switch (left.getType()) {
-       case Token.VOID:
-         if (!NodeUtil.isLiteralValue(left.getFirstChild(), false)) {
-           return n;
-@@ -924,6 +923,7 @@ class PeepholeFoldConstants extends AbstractPeepholeOptimization {
-           result = compareToUndefined(left, op);
-           break;
-         }
-+        int rhType = right.getType();
-         if (rhType != Token.TRUE &&
-             rhType != Token.FALSE &&
-             rhType != Token.NULL) {
-@@ -932,12 +932,12 @@ class PeepholeFoldConstants extends AbstractPeepholeOptimization {
-         switch (op) {
-           case Token.SHEQ:
-           case Token.EQ:
--            result = lhType == rhType;
-+            result = left.getType() == right.getType();
-             break;
- 
-           case Token.SHNE:
-           case Token.NE:
--            result = lhType != rhType;
-+            result = left.getType() != right.getType();
-             break;
- 
-           case Token.GE:
-@@ -1068,23 +1068,6 @@ class PeepholeFoldConstants extends AbstractPeepholeOptimization {
-     return newNode;
-   }
- 
--  /**
--   * @return Translate NOT expressions into TRUE or FALSE when possible.
--   */
--  private int getNormalizedNodeType(Node n) {
--    int type = n.getType();
--    if (type == Token.NOT) {
--      TernaryValue value = NodeUtil.getPureBooleanValue(n);
--      switch (value) {
--        case TRUE:
--          return Token.TRUE;
--        case FALSE:
--          return Token.FALSE;
--      }
--    }
--    return type;
--  }
--
-   /**
-    * The result of the comparison as a Boolean or null if the
-    * result could not be determined.
-diff --git a/test/com/google/javascript/jscomp/PeepholeFoldConstantsTest.java b/test/com/google/javascript/jscomp/PeepholeFoldConstantsTest.java
-index ad698ebfc..78bd30a61 100644
---- a/test/com/google/javascript/jscomp/PeepholeFoldConstantsTest.java
-+++ b/test/com/google/javascript/jscomp/PeepholeFoldConstantsTest.java
-@@ -616,7 +616,7 @@ public class PeepholeFoldConstantsTest extends CompilerTestCase {
-     fold("x = -1 >= 9", "x = false");
- 
-     fold("x = true == true", "x = true");
--    fold("x = false == false", "x = true");
-+    fold("x = true == true", "x = true");
-     fold("x = false == null", "x = false");
-     fold("x = false == true", "x = false");
-     fold("x = true == null", "x = false");
-@@ -666,7 +666,7 @@ public class PeepholeFoldConstantsTest extends CompilerTestCase {
-     fold("x = y === y", "x = y===y");
- 
-     fold("x = true === true", "x = true");
--    fold("x = false === false", "x = true");
-+    fold("x = true === true", "x = true");
-     fold("x = false === null", "x = false");
-     fold("x = false === true", "x = false");
-     fold("x = true === null", "x = false");
-@@ -696,32 +696,6 @@ public class PeepholeFoldConstantsTest extends CompilerTestCase {
-     fold("true === null", "false");
-   }
- 
--  public void testFoldComparison3() {
--    fold("x = !1 == !0", "x = false");
--
--    fold("x = !0 == !0", "x = true");
--    fold("x = !1 == !1", "x = true");
--    fold("x = !1 == null", "x = false");
--    fold("x = !1 == !0", "x = false");
--    fold("x = !0 == null", "x = false");
--
--    fold("!0 == !0", "true");
--    fold("!1 == null", "false");
--    fold("!1 == !0", "false");
--    fold("!0 == null", "false");
--
--    fold("x = !0 === !0", "x = true");
--    fold("x = !1 === !1", "x = true");
--    fold("x = !1 === null", "x = false");
--    fold("x = !1 === !0", "x = false");
--    fold("x = !0 === null", "x = false");
--
--    fold("!0 === !0", "true");
--    fold("!1 === null", "false");
--    fold("!1 === !0", "false");
--    fold("!0 === null", "false");
--  }
--
-   public void testFoldGetElem() {
-     fold("x = [,10][0]", "x = void 0");
-     fold("x = [10, 20][0]", "x = 10");
-@@ -1072,8 +1046,6 @@ public class PeepholeFoldConstantsTest extends CompilerTestCase {
-           "void 0",
-           "true",
-           "false",
--          "!0",
--          "!1",
-           "0",
-           "1",
-           "''",
-@@ -1083,9 +1055,9 @@ public class PeepholeFoldConstantsTest extends CompilerTestCase {
-           "NaN",
-           "Infinity"
-           // TODO(nicksantos): Add more literals
--          // "-Infinity",
-+          //-Infinity
-           //"({})",
--          // "[]"
-+          //"[]",
-           //"[0]",
-           //"Object",
-           //"(function() {})"
-Apply patch................................................................ OK
-Tag pre-fix revision....................................................... OK
-[detached HEAD e60ad878e] D4J_Closure_74_PRE_FIX_REVISION
- 2 files changed, 9 insertions(+), 54 deletions(-)
-Check out program version: Closure-74f..................................... OK
-Previous HEAD position was e60ad878e D4J_Closure_74_PRE_FIX_REVISION
-HEAD is now at 9a3b18a3a D4J_Closure_74_FIXED_VERSION

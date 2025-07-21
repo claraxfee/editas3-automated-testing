@@ -1,292 +1,0 @@
-Checking out d1df9704 to /home/cfee3/research/ssr/editas3-automated-testing OK
-Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure98'...
-done.
-Updating files:  25% (506/2006)Updating files:  26% (522/2006)Updating files:  27% (542/2006)Updating files:  28% (562/2006)Updating files:  29% (582/2006)Updating files:  30% (602/2006)Updating files:  31% (622/2006)Updating files:  32% (642/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  57% (1147/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  85% (1713/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
-Note: switching to 'd1df970451b5a18956448097b3afb43f3a82263d'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at d1df97045 Change on 2010/06/09 by nicksantos
-Init local repository...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure98/.git/
-Tag post-fix revision...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure98/.git/
-[detached HEAD 8674fb186] D4J_Closure_98_POST_FIX_REVISION
- 2 files changed, 4 insertions(+)
- create mode 100644 .defects4j.config
- create mode 100644 .gitignore
-Apply patch................................................................ OK
-Run post-checkout hook..................................................... OK
-[detached HEAD 7ea17df24] D4J_Closure_98_POST_FIX_COMPILABLE
- 2 files changed, 6 insertions(+), 4 deletions(-)
-Excluding broken/flaky tests............................................... OK
-Excluding broken/flaky tests............................................... OK
-Initialize fixed program version........................................... OK
-[detached HEAD 17de89c99] D4J_Closure_98_FIXED_VERSION
- 3 files changed, 480 insertions(+), 60 deletions(-)
- create mode 100644 defects4j.build.properties
- create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
-Apply patch................................................................ OK
-Initialize buggy program version........................................... OK
-[detached HEAD d824b5e8e] D4J_Closure_98_BUGGY_VERSION
- 2 files changed, 1 insertion(+), 20 deletions(-)
-Diff d1df9704:d768bbc4..................................................... OK
-diff --git a/lib/protobuf_deploy.jar b/lib/protobuf_deploy.jar
-index 0ba2e33b8e3dc54433999a2a41ec7d117cac803e..6d3c117bd2dd4062080f7c55e0f68ec17be10412 100755
-GIT binary patch
-delta 1317
-zcmZA0drVtZ7y$6z(;gsgWo0eJ;-CW;hAk+92-~1g9MFxyNH)YxU?|IY423CHH#R$=
-zT_4al?H7Z4MI+$A%!~ly#5osm32q?MF`0x!*%C4nV2-euQcu0{=ITE;Ilu39?!D(s
-z^+_M~N>A!3J?iJiujz^lc5>B{-UzqQW;Q>LACfL{Lx-&g#o-<5h{*?KO{3cS51Wi<
-z&dlM<E%zrpb62@Ti;CIo<FZ_J+M5esD=JD-eamZq3M+#PREH*(Csr<My1RZ<IE9}S
-zdM2xl&AhF#dz<sRifYnCJK_o&`rHq{x;@jJbF{Q}eptV<U-w>OT&zZKYaO|?bL{jZ
-z>il#{gsWKK@s8c8iT|VL$++GZa>PfRb6f8nczv?Gr{iK|-XY1g(Q9Vm=+EgX<IlE^
-z^ozr<`#LqYsBb=hX)!OkF!!S|U(e>%6Ye{j=<ZtWUxT{C3*D7c)ob%v2K~L=*9R?c
-zNLB^Z)nrTjQbJ0G^2%@4PnX)??rqwqTuf-FSG7bhck(|zd!a;oBL%gcEgi4R9{K4D
-zM|J93yB~6k3xY#tTOPcdNO3rqDfm`KZ7|;Ta|iGGd0nl1R>azhYtTVIsGG19<l#I4
-z`2E~qkn6Dm<#XXk`@dYT$3-X>v*cGjR-xNLEKwP78nR0miG~XX(&rr+BSLs=!09OQ
-z8AkZ9=M+vt)A_V?p2BK0qoEgvckrS>SA|6oW5kgNy~?l%s*E_3N{91CT!y}@V*=}7
-zlZmt|)Y4)<#(N4@wLBS|Gm)M6k1`wsNp8|uY$lC|4GfFn6*H-~TWC3F#u>=m#w^I^
-z2}q`mB^4I@B62wx;lqH1v^d^L%bEpeqrLs~Vs?NR2GwnNJ1QDrBqFdm5iGQktu%}W
-zSP7CJcoMkLNVudOM^b!fY$q@J{S;l)IKvBp%3I{|WhqJFSxKdJniW%7$%wgM7zqVM
-zV8l=$@%I&)i=9{kYgU|0Wx?|{T!o^1tiTl;&OuxOP;PPp{z)YwfGu{MkNQOa=dv*T
-z1gvW&BW~Hrh?<E1CIrDo2RSUm8(3Tsg=KI|M@lX^NXfofR?HWR!y(j3{@7=m8QzZG
-zSI`Sl0uBSY5(hz@lhjW+N&QJB6N?17i<I6>U?c=;UF4UHK1a*TNq7@D^rUp&MLsTg
-z-FQD*P7MTO;DnoG-b|x252WL#>C9C(8Dh_%S)Pg42kwXnc6AUoXEH1Ra|hmrOj#_s
-x9}uIOCAl8FjWWRp9$b!0xvT)?#aqx!0ZYog<i3;^Gs1^KFO~+K-h(+D&fn>o*>C^=
-
-delta 1321
-zcmZ9KdrXs87{=Sv?-WKIDVG-L>Lws^QAPm;F>=2Qw5)7MP!yrV6{jGI2xd%*Lb<e+
-zw%lHvae|7A2sjXdZ4!iKxGhMhY*WFIEkm}*Kr&?x9I*4{OPX$fKELOC&ikD2J@c)?
-z(KcamDZ3PPaXgllhV9!p;rz0dk%JpW7vqLr*hOtra}L#IT{vZ%XLDyHIy38b{kL7i
-zk$uI<bK)<odgoYg-c$$jueyi3#T-sdT1uQ>N_swh`x&p;d&54%P?xp;mSItYzr-jJ
-zS*GRoIR6vo_4Ii<oLucU+43DPVpjF)Y>dm&-Yp@8$G=qW`$qXktgKAHJ$fVm>zv-l
-zxyFtsO+LYyg>3`+mX@Of`fG7Aadg||Ioa`1x8{Vz0H-6J7YmZ5D)39+dF5ft`$5}+
-z+COVQA!t$L$$wNSU9&q1GBwls?s0`A#l^DM?$@G+{?g?=PbTjr_l&KZSfBmOqcP}u
-zjz#3>#$e@O=P`kDq5A<Wa<3N{<AVdV&a0*q?#WNd7ed|r?E8cJcWiKuKF^g%T{$Ix
-zvifWtqpA=1U1)G^jz~F`d->)Bw@_Ue<Dtmd^p@6U@`~tbp4>hoY>yyeZJDBOvBS2n
-z)%QKYa{8G|$9CGK{=}X+b1AF#e&AT_UxQMSNGI2v>-K4Q?QW_xS&<ceUM!QHKndF|
-zETxL!b`6`w8b>hT#1@wqt#EpZR;W))tjrvr61*P`u0T^U7Q(d>ycIQbpsAb@Jg_ds
-zZ=+&tMwF#E1Z}b~BR`koKr~~|5FZteMWarP(5Y|~(s(i=&6DE8OBMD)0kJf318Eud
-zLqTzj5XVv0z(0if@KqTWq4eDhrpn2<dO0ILD8~WF`5-Nl(A9jnTY){HI-hcek2ECs
-zZUqUZe#l^`z?+d{87+3988w{|LQWOMgZN79i+<CXks%Fb3!f<H*_GsovsEU~0amF=
-z<2k*FSiy*%;=*1UkDX<3qZ)^?JK+~K&O)u-3@h%Y9OznJ=*}=hZWUk~FlulF+HW)?
-z@kYuD7PVyf4lNnJ?gz%}e?YwgIxY5PPs4x~XP}UAlVJ%%^leg3lkX#5Fu1XZ!-upb
-z3PVj2c7R^mJGbzEZ{;-ERpHWqv6#8Lx{5^PJUF7q>p`X?WgpdXgs_lAs#)rY$Fnhc
-z;p`zW=x`2lT+J|VJ&s`az+pW;fGj;|<^^-^m|I^-(qaQiKk@>D0lPz*0ZZ5upf}*%
-z$lIG{uLG|dOVC;gEgWId2fILa3CWdLlia*NeVPzvf9F`ht!nZ@69UZ0_x_lIH)=@U
-zdo#RKLw?lER>odai+OOrhF*5CiNv6(P?HdVF%(<C$F*cjkHgLINI1cN(|9V<49n`s
-jI;P-c9jP89H5oiusUwf=MuLf0!LE8N<i1SAEEelu{`vwk
-
-diff --git a/src/com/google/javascript/jscomp/CollapseProperties.java b/src/com/google/javascript/jscomp/CollapseProperties.java
-index b29886e0d..0e3c98640 100644
---- a/src/com/google/javascript/jscomp/CollapseProperties.java
-+++ b/src/com/google/javascript/jscomp/CollapseProperties.java
-@@ -214,7 +214,7 @@ class CollapseProperties implements CompilerPass {
-           collector.getReferenceCollection(aliasVar);
-       if (aliasRefs.isWellDefined()
-           && aliasRefs.firstReferenceIsAssigningDeclaration()
--          && aliasRefs.isAssignedOnceInLifetime()) {
-+          && aliasRefs.isAssignedOnce()) {
-         // The alias is well-formed, so do the inlining now.
-         int size = aliasRefs.references.size();
-         Set<Node> newNodes = Sets.newHashSetWithExpectedSize(size - 1);
-diff --git a/src/com/google/javascript/jscomp/InlineVariables.java b/src/com/google/javascript/jscomp/InlineVariables.java
-index c14c84560..b9538c350 100644
---- a/src/com/google/javascript/jscomp/InlineVariables.java
-+++ b/src/com/google/javascript/jscomp/InlineVariables.java
-@@ -178,7 +178,7 @@ class InlineVariables implements CompilerPass {
-           // another pass that handles unused variables much more elegantly.
-           if (referenceInfo != null && referenceInfo.references.size() >= 2 &&
-               referenceInfo.isWellDefined() &&
--              referenceInfo.isAssignedOnceInLifetime()) {
-+              referenceInfo.isAssignedOnce()) {
-             Reference init = referenceInfo.getInitializingReference();
-             Node value = init.getAssignedValue();
-             if (value != null && value.getType() == Token.NAME) {
-@@ -270,7 +270,7 @@ class InlineVariables implements CompilerPass {
-       // reference data is out of sync. We're better off just waiting for
-       // the next pass.)
-       if (!staleVars.contains(v) && referenceInfo.isWellDefined() &&
--          referenceInfo.isAssignedOnceInLifetime()) {
-+          referenceInfo.isAssignedOnce()) {
-         List<Reference> refs = referenceInfo.references;
-         for (int i = 1 /* start from a read */; i < refs.size(); i++) {
-           Node nameNode = refs.get(i).getNameNode();
-@@ -425,7 +425,7 @@ class InlineVariables implements CompilerPass {
-         return false;
-       }
- 
--      if (!refInfo.isAssignedOnceInLifetime()) {
-+      if (!refInfo.isAssignedOnce()) {
-         return false;
-       }
- 
-diff --git a/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java b/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
-index da4ed3e0a..1e4b0ae92 100644
---- a/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
-+++ b/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
-@@ -348,46 +348,22 @@ class ReferenceCollectingCallback implements ScopedCallback, CompilerPass {
-     }
- 
-     /**
--     * @return Whether the variable is only assigned a value once for its
--     *     lifetime.
-+     * @return Whether the variable is only assigned a value once.
-      */
--    boolean isAssignedOnceInLifetime() {
--      Reference ref = getOneAndOnlyAssignment();
--      if (ref == null) {
--        return false;
--      }
--
--      // Make sure this assignment is not in a loop.
--      for (BasicBlock block = ref.getBasicBlock();
--           block != null; block = block.getParent()) {
--        if (block.isFunction) {
--          break;
--        } else if (block.isLoop) {
--          return false;
--        }
--      }
--
--      return true;
--    }
--
--    /**
--     * @return The one and only assignment. Returns if there are 0 or 2+
--     *    assignments.
--     */
--    private Reference getOneAndOnlyAssignment() {
--      Reference assignment = null;
-+    boolean isAssignedOnce() {
-+      boolean assigned = false;
-       int size = references.size();
-       for (int i = 0; i < size; i++) {
-         Reference ref = references.get(i);
-         if (ref.isLvalue() || ref.isInitializingDeclaration()) {
--          if (assignment == null) {
--            assignment = ref;
-+          if (!assigned) {
-+            assigned = true;
-           } else {
--            return null;
-+            return false;
-           }
-         }
-       }
--      return assignment;
-+      return assigned;
-     }
- 
-     /**
-@@ -477,7 +453,7 @@ class ReferenceCollectingCallback implements ScopedCallback, CompilerPass {
-     }
- 
-    /**
--    * @return For an assignment, variable declaration, or function declaration
-+    * @return For an assignment, variable declaration, or function declaration 
-     * return the assigned value, otherwise null.
-     */
-     Node getAssignedValue() {
-@@ -547,16 +523,6 @@ class ReferenceCollectingCallback implements ScopedCallback, CompilerPass {
-      */
-     private final boolean isHoisted;
- 
--    /**
--     * Whether this block denotes a function scope.
--     */
--    private final boolean isFunction;
--
--    /**
--     * Whether this block denotes a loop.
--     */
--    private final boolean isLoop;
--
-     /**
-      * Creates a new block.
-      * @param parent The containing block.
-@@ -567,17 +533,6 @@ class ReferenceCollectingCallback implements ScopedCallback, CompilerPass {
- 
-       // only named functions may be hoisted.
-       this.isHoisted = NodeUtil.isHoistedFunctionDeclaration(root);
--
--      this.isFunction = root.getType() == Token.FUNCTION;
--
--      if (root.getParent() != null) {
--        int pType = root.getParent().getType();
--        this.isLoop = pType == Token.DO ||
--            pType == Token.WHILE ||
--            pType == Token.FOR;
--      } else {
--        this.isLoop = false;
--      }
-     }
- 
-     BasicBlock getParent() {
-diff --git a/test/com/google/javascript/jscomp/InlineVariablesTest.java b/test/com/google/javascript/jscomp/InlineVariablesTest.java
-index 7c2d91e96..f4742731a 100644
---- a/test/com/google/javascript/jscomp/InlineVariablesTest.java
-+++ b/test/com/google/javascript/jscomp/InlineVariablesTest.java
-@@ -593,38 +593,6 @@ public class InlineVariablesTest extends CompilerTestCase {
-          "var x; x = this.foo(); this.bar(); function f() { this.baz(x); }");
-   }
- 
--  public void testInlineAliasesInLoop() {
--    test(
--        "function f() { " +
--        "  var x = extern();" +
--        "  for (var i = 0; i < 5; i++) {" +
--        "    (function() {" +
--        "       var y = x; window.setTimeout(function() { extern(y); }, 0);" +
--        "     })();" +
--        "  }" +
--        "}",
--        "function f() { " +
--        "  var x = extern();" +
--        "  for (var i = 0; i < 5; i++) {" +
--        "    (function() {" +
--        "       window.setTimeout(function() { extern(x); }, 0);" +
--        "     })();" +
--        "  }" +
--        "}");
--  }
--
--  public void testNoInlineAliasesInLoop() {
--    testSame(
--        "function f() { " +
--        "  for (var i = 0; i < 5; i++) {" +
--        "    var x = extern();" +
--        "    (function() {" +
--        "       var y = x; window.setTimeout(function() { extern(y); }, 0);" +
--        "     })();" +
--        "  }" +
--        "}");
--  }
--
-   public void testNoInlineAliases1() {
-     testSame(
-         "var x = this.foo(); this.bar(); var y = x; x = 3; this.baz(y);");
-Apply patch................................................................ OK
-/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure98/.defects4j.diff:155: trailing whitespace.
-    * @return For an assignment, variable declaration, or function declaration 
-warning: 1 line adds whitespace errors.
-Tag pre-fix revision....................................................... OK
-[detached HEAD 700d1e91f] D4J_Closure_98_PRE_FIX_REVISION
- 5 files changed, 12 insertions(+), 89 deletions(-)
-Check out program version: Closure-98f..................................... OK
-Previous HEAD position was 700d1e91f D4J_Closure_98_PRE_FIX_REVISION
-HEAD is now at 17de89c99 D4J_Closure_98_FIXED_VERSION

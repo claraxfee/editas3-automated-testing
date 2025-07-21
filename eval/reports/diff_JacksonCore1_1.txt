@@ -1,0 +1,7 @@
+0a1,6
+>   - com.fasterxml.jackson.core.io.NumberInput_ESTest::test02
+>   - com.fasterxml.jackson.core.io.NumberInput_ESTest::test00
+>   - com.fasterxml.jackson.core.util.TextBuffer_ESTest::test35
+>   - com.fasterxml.jackson.core.util.TextBuffer_ESTest::test36
+>   - com.fasterxml.jackson.core.util.TextBuffer_ESTest::test37
+>   - com.fasterxml.jackson.core.util.TextBuffer_ESTest::test34

@@ -1,0 +1,2 @@
+1a2
+>   - com.google.javascript.jscomp.MakeDeclaredNamesUnique_ESTest::test05

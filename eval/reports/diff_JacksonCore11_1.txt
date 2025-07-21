@@ -1,0 +1,5 @@
+0a1,4
+>   - com.fasterxml.jackson.core.sym.ByteQuadsCanonicalizer_ESTest::test43
+>   - com.fasterxml.jackson.core.sym.ByteQuadsCanonicalizer_ESTest::test45
+>   - com.fasterxml.jackson.core.sym.ByteQuadsCanonicalizer_ESTest::test44
+>   - com.fasterxml.jackson.core.sym.ByteQuadsCanonicalizer_ESTest::test50

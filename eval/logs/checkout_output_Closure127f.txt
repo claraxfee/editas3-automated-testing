@@ -1,267 +1,0 @@
-Checking out 211dc016 to /home/cfee3/research/ssr/editas3-automated-testing OK
-Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure127'...
-done.
-Updating files:  34% (687/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  72% (1456/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
-Note: switching to '211dc0161ae737f59cac22f30b048d56a059d14b'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at 211dc0161 Fix tests and code in UCE that do unsound optimizations in finally blocks.
-Init local repository...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure127/.git/
-Tag post-fix revision...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure127/.git/
-[detached HEAD bd6960e3e] D4J_Closure_127_POST_FIX_REVISION
- 2 files changed, 4 insertions(+)
- create mode 100644 .defects4j.config
- create mode 100644 .gitignore
-Run post-checkout hook..................................................... OK
-[detached HEAD 5e333988a] D4J_Closure_127_POST_FIX_COMPILABLE
- 2 files changed, 14 insertions(+), 14 deletions(-)
-Excluding broken/flaky tests............................................... OK
-Excluding broken/flaky tests............................................... OK
-Initialize fixed program version........................................... OK
-[detached HEAD 5eb36e276] D4J_Closure_127_FIXED_VERSION
- 7 files changed, 3384 insertions(+), 111 deletions(-)
- create mode 100644 defects4j.build.properties
- create mode 100644 test/com/google/debugging/sourcemap/Base64VLQTest.java.bak
- create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
- create mode 100644 test/com/google/javascript/jscomp/IntegrationTest.java.bak
-Apply patch................................................................ OK
-Initialize buggy program version........................................... OK
-[detached HEAD 09f558dbb] D4J_Closure_127_BUGGY_VERSION
- 2 files changed, 2 insertions(+), 11 deletions(-)
-Diff 211dc016:437a9e47..................................................... OK
-diff --git a/src/com/google/javascript/jscomp/UnreachableCodeElimination.java b/src/com/google/javascript/jscomp/UnreachableCodeElimination.java
-index e6d88a8bf..4cd164159 100644
---- a/src/com/google/javascript/jscomp/UnreachableCodeElimination.java
-+++ b/src/com/google/javascript/jscomp/UnreachableCodeElimination.java
-@@ -167,23 +167,13 @@ class UnreachableCodeElimination implements CompilerPass {
-                 outEdges.get(0).getValue() == Branch.UNCOND);
-             Node fallThrough = computeFollowing(n);
-             Node nextCfgNode = outEdges.get(0).getDestination().getValue();
--            if (nextCfgNode == fallThrough && !inFinally(n.getParent(), n)) {
-+            if (nextCfgNode == fallThrough) {
-               removeNode(n);
-             }
-           }
-       }
-     }
- 
--    private boolean inFinally(Node parent, Node child) {
--      if (parent == null || parent.isFunction()) {
--        return false;
--      } else if (NodeUtil.isTryFinallyNode(parent, child)) {
--        return true;
--      } else {
--        return inFinally(parent.getParent(), parent);
--      }
--    }
--
-     private Node computeFollowing(Node n) {
-       Node next = ControlFlowAnalysis.computeFollowNode(n);
-       while (next != null && next.isBlock()) {
-diff --git a/test/com/google/javascript/jscomp/UnreachableCodeEliminationTest.java b/test/com/google/javascript/jscomp/UnreachableCodeEliminationTest.java
-index d6785b0f3..4493c8d0f 100644
---- a/test/com/google/javascript/jscomp/UnreachableCodeEliminationTest.java
-+++ b/test/com/google/javascript/jscomp/UnreachableCodeEliminationTest.java
-@@ -285,7 +285,7 @@ public class UnreachableCodeEliminationTest extends CompilerTestCase {
-   }
- 
-   public void testIssue4177428a() {
--    testSame(
-+    test(
-         "f = function() {\n" +
-         "  var action;\n" +
-         "  a: {\n" +
-@@ -294,15 +294,28 @@ public class UnreachableCodeEliminationTest extends CompilerTestCase {
-         "      proto = new Proto\n" +
-         "    } finally {\n" +
-         "      action = proto;\n" +
--        "      break a\n" +  // Keep this...
-+        "      break a\n" +  // Remove this...
-         "    }\n" +
-         "  }\n" +
--        "  alert(action)\n" + // and this.
--        "};");
-+        "  alert(action)\n" + // but not this.
-+        "};",
-+        "f = function() {\n" +
-+        "  var action;\n" +
-+        "  a: {\n" +
-+        "    var proto = null;\n" +
-+        "    try {\n" +
-+        "      proto = new Proto\n" +
-+        "    } finally {\n" +
-+        "      action = proto;\n" +
-+        "    }\n" +
-+        "  }\n" +
-+        "  alert(action)\n" +  // but not this.
-+        "};"
-+        );
-   }
- 
-   public void testIssue4177428b() {
--    testSame(
-+    test(
-         "f = function() {\n" +
-         "  var action;\n" +
-         "  a: {\n" +
-@@ -312,17 +325,34 @@ public class UnreachableCodeEliminationTest extends CompilerTestCase {
-         "      proto = new Proto\n" +
-         "    } finally {\n" +
-         "      action = proto;\n" +
--        "      break a\n" +  // Keep this...
-+        "      break a\n" +  // Remove this...
-         "    }\n" +
-         "    } finally {\n" +
-         "    }\n" +
-         "  }\n" +
--        "  alert(action)\n" + // and this.
--        "};");
-+        "  alert(action)\n" + // but not this.
-+        "};",
-+        "f = function() {\n" +
-+        "  var action;\n" +
-+        "  a: {\n" +
-+        "    var proto = null;\n" +
-+        "    try {\n" +
-+        "    try {\n" +
-+        "      proto = new Proto\n" +
-+        "    } finally {\n" +
-+        "      action = proto;\n" +
-+        "      break a\n" +  // Remove this...
-+        "    }\n" +
-+        "    } finally {\n" +
-+        "    }\n" +
-+        "  }\n" +
-+        "  alert(action)\n" +  // but not this.
-+        "};"
-+        );
-   }
- 
-   public void testIssue4177428c() {
--    testSame(
-+    test(
-         "f = function() {\n" +
-         "  var action;\n" +
-         "  a: {\n" +
-@@ -333,16 +363,32 @@ public class UnreachableCodeEliminationTest extends CompilerTestCase {
-         "      proto = new Proto\n" +
-         "    } finally {\n" +
-         "      action = proto;\n" +
--        "      break a\n" +  // Keep this...
-+        "      break a\n" +  // Remove this...
-         "    }\n" +
-         "    }\n" +
-         "  }\n" +
--        "  alert(action)\n" + // and this.
--        "};");
-+        "  alert(action)\n" + // but not this.
-+        "};",
-+        "f = function() {\n" +
-+        "  var action;\n" +
-+        "  a: {\n" +
-+        "    var proto = null;\n" +
-+        "    try {\n" +
-+        "    } finally {\n" +
-+        "    try {\n" +
-+        "      proto = new Proto\n" +
-+        "    } finally {\n" +
-+        "      action = proto;\n" +
-+        "    }\n" +
-+        "    }\n" +
-+        "  }\n" +
-+        "  alert(action)\n" +  // but not this.
-+        "};"
-+        );
-   }
- 
-   public void testIssue4177428_continue() {
--    testSame(
-+    test(
-         "f = function() {\n" +
-         "  var action;\n" +
-         "  a: do {\n" +
-@@ -351,11 +397,24 @@ public class UnreachableCodeEliminationTest extends CompilerTestCase {
-         "      proto = new Proto\n" +
-         "    } finally {\n" +
-         "      action = proto;\n" +
--        "      continue a\n" +  // Keep this...
-+        "      continue a\n" +  // Remove this...
-         "    }\n" +
-         "  } while(false)\n" +
--        "  alert(action)\n" + // and this.
--        "};");
-+        "  alert(action)\n" + // but not this.
-+        "};",
-+        "f = function() {\n" +
-+        "  var action;\n" +
-+        "  a: do {\n" +
-+        "    var proto = null;\n" +
-+        "    try {\n" +
-+        "      proto = new Proto\n" +
-+        "    } finally {\n" +
-+        "      action = proto;\n" +
-+        "    }\n" +
-+        "  } while (false)\n" +
-+        "  alert(action)\n" +
-+        "};"
-+        );
-   }
- 
-   public void testIssue4177428_return() {
-@@ -368,10 +427,10 @@ public class UnreachableCodeEliminationTest extends CompilerTestCase {
-         "      proto = new Proto\n" +
-         "    } finally {\n" +
-         "      action = proto;\n" +
--        "      return\n" +  // Keep this...
-+        "      return\n" +  // Remove this...
-         "    }\n" +
-         "  }\n" +
--        "  alert(action)\n" + // and remove this.
-+        "  alert(action)\n" + // and this.
-         "};",
-         "f = function() {\n" +
-         "  var action;\n" +
-@@ -381,7 +440,6 @@ public class UnreachableCodeEliminationTest extends CompilerTestCase {
-         "      proto = new Proto\n" +
-         "    } finally {\n" +
-         "      action = proto;\n" +
--        "      return\n" +
-         "    }\n" +
-         "  }\n" +
-         "};"
-@@ -412,12 +470,4 @@ public class UnreachableCodeEliminationTest extends CompilerTestCase {
-   public void testForInLoop() {
-     testSame("for(var x in y) {}");
-   }
--
--  public void testDontRemoveBreakInTryFinally() throws Exception {
--    testSame("function f() {b:try{throw 9} finally {break b} return 1;}");
--  }
--
--  public void testDontRemoveBreakInTryFinallySwitch() throws Exception {
--    testSame("function f() {b:try{throw 9} finally {switch(x) {case 1: break b} } return 1;}");
--  }
- }
-Apply patch................................................................ OK
-Tag pre-fix revision....................................................... OK
-[detached HEAD dfff3a0f6] D4J_Closure_127_PRE_FIX_REVISION
- 2 files changed, 78 insertions(+), 38 deletions(-)
-Check out program version: Closure-127f.................................... OK
-Previous HEAD position was dfff3a0f6 D4J_Closure_127_PRE_FIX_REVISION
-HEAD is now at 5eb36e276 D4J_Closure_127_FIXED_VERSION

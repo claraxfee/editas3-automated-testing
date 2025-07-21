@@ -1,339 +1,0 @@
-Checking out aedce359 to /home/cfee3/research/ssr/editas3-automated-testing OK
-Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure47'...
-done.
-Updating files:  27% (559/2006)Updating files:  28% (562/2006)Updating files:  29% (582/2006)Updating files:  30% (602/2006)Updating files:  31% (622/2006)Updating files:  32% (642/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  61% (1239/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  94% (1900/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
-Note: switching to 'aedce35970673f20696d5721acba13e986cc764c'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at aedce3597 Fix how source line numbers are stored in the source files. Fixes issue 575
-Init local repository...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure47/.git/
-Tag post-fix revision...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure47/.git/
-[detached HEAD 78fc02e3c] D4J_Closure_47_POST_FIX_REVISION
- 2 files changed, 4 insertions(+)
- create mode 100644 .defects4j.config
- create mode 100644 .gitignore
-Run post-checkout hook..................................................... OK
-[detached HEAD ac4c5c54e] D4J_Closure_47_POST_FIX_COMPILABLE
- 2 files changed, 11 insertions(+), 11 deletions(-)
-Excluding broken/flaky tests............................................... OK
-Excluding broken/flaky tests............................................... OK
-Initialize fixed program version........................................... OK
-[detached HEAD 7633f12f5] D4J_Closure_47_FIXED_VERSION
- 5 files changed, 657 insertions(+), 79 deletions(-)
- create mode 100644 defects4j.build.properties
- create mode 100644 test/com/google/debugging/sourcemap/Base64VLQTest.java.bak
- create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
-Apply patch................................................................ OK
-Initialize buggy program version........................................... OK
-[detached HEAD 7bb55935c] D4J_Closure_47_BUGGY_VERSION
- 3 files changed, 4 insertions(+), 9 deletions(-)
-Diff aedce359:c5d7b308..................................................... OK
-diff --git a/src/com/google/debugging/sourcemap/FilePosition.java b/src/com/google/debugging/sourcemap/FilePosition.java
-index f84320a0b..cc7243bb8 100644
---- a/src/com/google/debugging/sourcemap/FilePosition.java
-+++ b/src/com/google/debugging/sourcemap/FilePosition.java
-@@ -20,6 +20,9 @@ package com.google.debugging.sourcemap;
-  * Represents a position in a source file.
-  *
-  */
-+/**
-+ * Represents a position in a source file.
-+ */
- public class FilePosition {
-   private final int line;
-   private final int column;
-@@ -30,18 +33,15 @@ public class FilePosition {
-   }
- 
-   /**
--   * Returns the line number of this position.
--   * Note: The v1 and v2 source maps use a line number with the first line
--   * being 1, whereas the v3 source map corrects this and uses a first line
--   * number of 0 to be consistent with the column representation.
-+   * Returns the line number of this postion.
-    */
-   public int getLine() {
-     return line;
-   }
- 
-   /**
--   * @return the character index on the line
--   * of this position, with the first column being 0.
-+   * Returns the character index on the line
-+   * of this position.
-    */
-   public int getColumn() {
-     return column;
-diff --git a/src/com/google/debugging/sourcemap/SourceMapConsumerV3.java b/src/com/google/debugging/sourcemap/SourceMapConsumerV3.java
-index 5ee9108cc..3b07ae455 100644
---- a/src/com/google/debugging/sourcemap/SourceMapConsumerV3.java
-+++ b/src/com/google/debugging/sourcemap/SourceMapConsumerV3.java
-@@ -483,11 +483,10 @@ public class SourceMapConsumerV3 implements SourceMapConsumer,
-     if (entry.getSourceFileId() == UNMAPPED) {
-       return null;
-     } else {
--      // Adjust the line/column here to be start at 1.
-       Builder x = OriginalMapping.newBuilder()
-         .setOriginalFile(sources[entry.getSourceFileId()])
--        .setLineNumber(entry.getSourceLine() + 1)
--        .setColumnPosition(entry.getSourceColumn() + 1);
-+        .setLineNumber(entry.getSourceLine())
-+        .setColumnPosition(entry.getSourceColumn());
-       if (entry.getNameId() != UNMAPPED) {
-         x.setIdentifier(names[entry.getNameId()]);
-       }
-diff --git a/src/com/google/javascript/jscomp/SourceMap.java b/src/com/google/javascript/jscomp/SourceMap.java
-index 719240815..04ff62338 100644
---- a/src/com/google/javascript/jscomp/SourceMap.java
-+++ b/src/com/google/javascript/jscomp/SourceMap.java
-@@ -22,8 +22,6 @@ import com.google.debugging.sourcemap.FilePosition;
- import com.google.debugging.sourcemap.SourceMapFormat;
- import com.google.debugging.sourcemap.SourceMapGenerator;
- import com.google.debugging.sourcemap.SourceMapGeneratorFactory;
--import com.google.debugging.sourcemap.SourceMapGeneratorV1;
--import com.google.debugging.sourcemap.SourceMapGeneratorV2;
- import com.google.javascript.rhino.Node;
- 
- import java.io.IOException;
-@@ -131,19 +129,9 @@ public class SourceMap {
- 
-     String originalName = (String) node.getProp(Node.ORIGINALNAME_PROP);
- 
--    // Strangely, Rhino source lines are one based but columns are
--    // zero based.
--    // We don't change this for the v1 or v2 source maps but for
--    // v3 we make them both 0 based.
--    int lineBaseOffset = 1;
--    if (generator instanceof SourceMapGeneratorV1
--        || generator instanceof SourceMapGeneratorV2) {
--      lineBaseOffset = 0;
--    }
--
-     generator.addMapping(
-         sourceFile, originalName,
--        new FilePosition(node.getLineno() - lineBaseOffset, node.getCharno()),
-+        new FilePosition(node.getLineno(), node.getCharno()),
-         outputStartPosition, outputEndPosition);
-   }
- 
-diff --git a/test/com/google/debugging/sourcemap/SourceMapGeneratorV1Test.java b/test/com/google/debugging/sourcemap/SourceMapGeneratorV1Test.java
-index 1d3c3a33d..b3b239942 100644
---- a/test/com/google/debugging/sourcemap/SourceMapGeneratorV1Test.java
-+++ b/test/com/google/debugging/sourcemap/SourceMapGeneratorV1Test.java
-@@ -25,10 +25,6 @@ import com.google.javascript.jscomp.SourceMap.Format;
-  */
- public class SourceMapGeneratorV1Test extends SourceMapTestCase {
- 
--  public SourceMapGeneratorV1Test() {
--    disableColumnValidation();
--  }
--
-   @Override
-   protected SourceMapConsumer getSourceMapConsumer() {
-     return new SourceMapConsumerV1();
-diff --git a/test/com/google/debugging/sourcemap/SourceMapGeneratorV2Test.java b/test/com/google/debugging/sourcemap/SourceMapGeneratorV2Test.java
-index 0932b54e4..370467ce5 100644
---- a/test/com/google/debugging/sourcemap/SourceMapGeneratorV2Test.java
-+++ b/test/com/google/debugging/sourcemap/SourceMapGeneratorV2Test.java
-@@ -28,10 +28,6 @@ import java.io.IOException;
-  */
- public class SourceMapGeneratorV2Test extends SourceMapTestCase {
- 
--  public SourceMapGeneratorV2Test() {
--    disableColumnValidation();
--  }
--
-   @Override
-   protected SourceMapConsumer getSourceMapConsumer() {
-     return new SourceMapConsumerV2();
-diff --git a/test/com/google/debugging/sourcemap/SourceMapGeneratorV3Test.java b/test/com/google/debugging/sourcemap/SourceMapGeneratorV3Test.java
-index 6e2f45e29..1d008f6f3 100644
---- a/test/com/google/debugging/sourcemap/SourceMapGeneratorV3Test.java
-+++ b/test/com/google/debugging/sourcemap/SourceMapGeneratorV3Test.java
-@@ -32,9 +32,6 @@ import java.util.List;
-  */
- public class SourceMapGeneratorV3Test extends SourceMapTestCase {
- 
--  public SourceMapGeneratorV3Test() {
--  }
--
-   @Override
-   protected SourceMapConsumer getSourceMapConsumer() {
-     return new SourceMapConsumerV3();
-@@ -57,7 +54,7 @@ public class SourceMapGeneratorV3Test extends SourceMapTestCase {
-                    "\"version\":3,\n" +
-                    "\"file\":\"testcode\",\n" +
-                    "\"lineCount\":1,\n" +
--                   "\"mappings\":\"AAAAA,QAASA,UAAS,EAAG;\",\n" +
-+                   "\"mappings\":\"AACAA,QAASA,UAAS,EAAG;\",\n" +
-                    "\"sources\":[\"testcode\"],\n" +
-                    "\"names\":[\"__BASIC__\"]\n" +
-                    "}\n");
-@@ -81,7 +78,7 @@ public class SourceMapGeneratorV3Test extends SourceMapTestCase {
-                    "\"version\":3,\n" +
-                    "\"file\":\"testcode\",\n" +
-                    "\"lineCount\":1,\n" +
--                   "\"mappings\":\"AAAAA,QAASA,UAAS,CAACC,UAAD,CAAaC,UAAb," +
-+                   "\"mappings\":\"AACAA,QAASA,UAAS,CAACC,UAAD,CAAaC,UAAb," +
-                        "CAAyB,CAAE,IAAIC,QAAU,SAAhB;\",\n" +
-                    "\"sources\":[\"testcode\"],\n" +
-                    "\"names\":[\"__BASIC__\",\"__PARAM1__\",\"__PARAM2__\"," +
-@@ -129,20 +126,6 @@ public class SourceMapGeneratorV3Test extends SourceMapTestCase {
-                    "}\n");
-   }
- 
--  public void testGoldenOutput0a() throws Exception {
--    // Empty source map test
--    checkSourceMap("a;",
--
--                   "{\n" +
--                   "\"version\":3,\n" +
--                   "\"file\":\"testcode\",\n" +
--                   "\"lineCount\":1,\n" +
--                   "\"mappings\":\"AAAAA;\",\n" +
--                   "\"sources\":[\"testcode\"],\n" +
--                   "\"names\":[\"a\"]\n" +
--                   "}\n");
--  }
--
-   public void testGoldenOutput1() throws Exception {
-     detailLevel = SourceMap.DetailLevel.ALL;
- 
-@@ -152,7 +135,7 @@ public class SourceMapGeneratorV3Test extends SourceMapTestCase {
-                    "\"version\":3,\n" +
-                    "\"file\":\"testcode\",\n" +
-                    "\"lineCount\":1,\n" +
--                   "\"mappings\":\"AAAAA,QAASA,EAAC,CAACC,GAAD,CAAMC,GAAN," +
-+                   "\"mappings\":\"AACAA,QAASA,EAAC,CAACC,GAAD,CAAMC,GAAN," +
-                        "CAAW,CAAED,GAAA,CAAMA,GAAN,CAAYC,GAAZ,CAAkB,CAAG," +
-                        "OAAOD,IAA9B;\",\n" +
-                    "\"sources\":[\"testcode\"],\n" +
-@@ -167,7 +150,7 @@ public class SourceMapGeneratorV3Test extends SourceMapTestCase {
-                    "\"version\":3,\n" +
-                    "\"file\":\"testcode\",\n" +
-                    "\"lineCount\":1,\n" +
--                   "\"mappings\":\"AAAAA,QAASA,EAATA,CAAWC,GAAXD,CAAgBE," +
-+                   "\"mappings\":\"AACAA,QAASA,EAATA,CAAWC,GAAXD,CAAgBE," +
-                        "GAAhBF,EAAuBC,GAAvBD,CAA6BC,GAA7BD,CAAmCE,GAAnCF," +
-                        "SAAmDC,IAAnDD;\",\n" +
-                    "\"sources\":[\"testcode\"],\n" +
-@@ -183,7 +166,7 @@ public class SourceMapGeneratorV3Test extends SourceMapTestCase {
-                    "\"version\":3,\n" +
-                    "\"file\":\"testcode\",\n" +
-                    "\"lineCount\":1,\n" +
--                   "\"mappings\":\"AAAAA,QAASA,EAAC,CAACC,GAAD,CAAMC,GAAN," +
-+                   "\"mappings\":\"AACAA,QAASA,EAAC,CAACC,GAAD,CAAMC,GAAN," +
-                        "CAAW,CAIrBD,GAAA,CAAMA,GAAN,CAAYC,GAAZ,CAAkBD," +
-                        "GAClB,OAAOA,IALc;\",\n" +
-                    "\"sources\":[\"testcode\"],\n" +
-@@ -199,7 +182,7 @@ public class SourceMapGeneratorV3Test extends SourceMapTestCase {
-                    "\"version\":3,\n" +
-                    "\"file\":\"testcode\",\n" +
-                    "\"lineCount\":1,\n" +
--                   "\"mappings\":\"AAAAA;\",\n" +
-+                   "\"mappings\":\"AACAA;\",\n" +
-                    "\"sources\":[\"c:\\\\myfile.js\"],\n" +
-                    "\"names\":[\"foo\"]\n" +
-                    "}\n");
-@@ -213,7 +196,7 @@ public class SourceMapGeneratorV3Test extends SourceMapTestCase {
-                    "\"version\":3,\n" +
-                    "\"file\":\"testcode\",\n" +
-                    "\"lineCount\":1,\n" +
--                   "\"mappings\":\"AAAAA,GAAOC,IAAOC;\",\n" +
-+                   "\"mappings\":\"AACAA,GAAOC,IAAOC;\",\n" +
-                    "\"sources\":[\"c:\\\\myfile.js\"],\n" +
-                    "\"names\":[\"foo\",\"boo\",\"goo\"]\n" +
-                    "}\n");
-@@ -259,7 +242,7 @@ public class SourceMapGeneratorV3Test extends SourceMapTestCase {
-         "\"version\":3,\n" +
-         "\"file\":\"testcode\",\n" +
-         "\"lineCount\":6,\n" +
--        "\"mappings\":\"A;;;;AAGA,IAAIA,IAAIC,CAAJD,CAAQ,mxCAARA;AAA8xCE," +
-+        "\"mappings\":\"A;;;;AAIA,IAAIA,IAAIC,CAAJD,CAAQ,mxCAARA;AAA8xCE," +
-             "CAA9xCF,CAAkyCG,CAAlyCH,CAAsyCI;\",\n" +
-         "\"sources\":[\"c:\\\\myfile.js\"],\n" +
-         "\"names\":[\"foo\",\"a\",\"c\",\"d\",\"e\"]\n" +
-@@ -303,7 +286,7 @@ public class SourceMapGeneratorV3Test extends SourceMapTestCase {
-         "\"version\":3,\n" +
-         "\"file\":\"testcode\",\n" +
-         "\"lineCount\":6,\n" +
--        "\"mappings\":\"A;;;;IAGIA,IAAIC,CAAJD;AAA8xCE,CAA9xCF,CAAkyCG," +
-+        "\"mappings\":\"A;;;;IAIIA,IAAIC,CAAJD;AAA8xCE,CAA9xCF,CAAkyCG," +
-             "CAAlyCH,CAAsyCI;\",\n" +
-         "\"sources\":[\"c:\\\\myfile.js\"],\n" +
-         "\"names\":[\"foo\",\"a\",\"c\",\"d\",\"e\"]\n" +
-diff --git a/test/com/google/debugging/sourcemap/SourceMapTestCase.java b/test/com/google/debugging/sourcemap/SourceMapTestCase.java
-index 694f93f40..802fef593 100644
---- a/test/com/google/debugging/sourcemap/SourceMapTestCase.java
-+++ b/test/com/google/debugging/sourcemap/SourceMapTestCase.java
-@@ -37,15 +37,7 @@ import java.util.Map.Entry;
-  */
- public abstract class SourceMapTestCase extends TestCase {
- 
--  private boolean validateColumns = true;
--
--  public SourceMapTestCase() {
--  }
--
--  void disableColumnValidation() {
--    validateColumns = false;
--  }
--
-+  public SourceMapTestCase() {}
- 
-   static final JSSourceFile[] EXTERNS = {
-       JSSourceFile.fromCode("externs", "")
-@@ -242,16 +234,6 @@ public abstract class SourceMapTestCase extends TestCase {
-       assertEquals(mapping.getLineNumber(),
-                    inputToken.position.getLine() + 1);
- 
--      int start = inputToken.position.getColumn() + 1;
--      if (inputToken.tokenName.startsWith("STR")) {
--        // include the preceding quote.
--        start--;
--      }
--
--      if (validateColumns) {
--        assertEquals(start, mapping.getColumnPosition());
--      }
--
-       // Ensure that if the token name does not being with an 'STR' (meaning a
-       // string) it has an original name.
-       if (!inputToken.tokenName.startsWith("STR")) {
-diff --git a/test/com/google/javascript/jscomp/SourceMapTest.java b/test/com/google/javascript/jscomp/SourceMapTest.java
-index 84f4492d6..10fcfd12e 100644
---- a/test/com/google/javascript/jscomp/SourceMapTest.java
-+++ b/test/com/google/javascript/jscomp/SourceMapTest.java
-@@ -31,9 +31,6 @@ import java.util.List;
-  */
- public class SourceMapTest extends SourceMapTestCase {
- 
--  public SourceMapTest() {
--  }
--
-   private List<SourceMap.LocationMapping> mappings;
- 
-   public void testPrefixReplacement1() throws IOException {
-Apply patch................................................................ OK
-Tag pre-fix revision....................................................... OK
-[detached HEAD d7581e83d] D4J_Closure_47_PRE_FIX_REVISION
- 8 files changed, 19 insertions(+), 78 deletions(-)
-Check out program version: Closure-47f..................................... OK
-Previous HEAD position was d7581e83d D4J_Closure_47_PRE_FIX_REVISION
-HEAD is now at 7633f12f5 D4J_Closure_47_FIXED_VERSION

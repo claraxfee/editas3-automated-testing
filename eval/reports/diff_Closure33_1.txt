@@ -1,0 +1,2 @@
+1a2
+>   - com.google.javascript.rhino.jstype.PrototypeObjectType_ESTest::test06

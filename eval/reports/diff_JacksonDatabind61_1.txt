@@ -1,0 +1,15 @@
+1a2,15
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test19
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test17
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test18
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test10
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test15
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test16
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test14
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test08
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test09
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test06
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test07
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test29
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test27
+>   - com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder_ESTest::test25

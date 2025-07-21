@@ -1,0 +1,5 @@
+0a1,4
+>   - com.google.javascript.jscomp.CheckGlobalThis_ESTest::test0
+>   - com.google.javascript.jscomp.CheckGlobalThis_ESTest::test1
+>   - com.google.javascript.jscomp.CheckGlobalThis_ESTest::test8
+>   - com.google.javascript.jscomp.CheckGlobalThis_ESTest::test7

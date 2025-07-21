@@ -1,0 +1,2 @@
+0a1
+>   - com.fasterxml.jackson.core.JsonPointer_ESTest::test23

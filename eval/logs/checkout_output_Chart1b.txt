@@ -1,3 +1,0 @@
-Checking out 2266 to /home/cfee3/research/ssr/editas3-automated-testing/eva svn: E200015: Caught signal
-svn: E200042: Additional errors:
-svn: E200015: Caught signal

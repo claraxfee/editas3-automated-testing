@@ -1,0 +1,2 @@
+0a1
+>   - com.google.javascript.rhino.jstype.ArrowType_ESTest::test10

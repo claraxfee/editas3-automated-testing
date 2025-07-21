@@ -1,0 +1,7 @@
+0a1,6
+>   - org.jfree.chart.plot.CategoryPlot_ESTest::test111
+>   - org.jfree.chart.plot.CategoryPlot_ESTest::test001
+>   - org.jfree.chart.plot.XYPlot_ESTest::test017
+>   - org.jfree.chart.plot.XYPlot_ESTest::test100
+>   - org.jfree.chart.plot.XYPlot_ESTest::test109
+>   - org.jfree.chart.plot.XYPlot_ESTest::test000

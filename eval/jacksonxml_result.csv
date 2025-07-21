@@ -1,0 +1,9 @@
+project,bug_id,bug_catching_prefix?,bug_catching_tests,evosuite_dir,exceptional?,exception
+JacksonXml,1,0,"",5,0,
+JacksonXml,2,0,"",5,0,
+JacksonXml,3,0,"",5,0,
+JacksonXml,4,1,"com.fasterxml.jackson.dataformat.xml.ser.XmlSerializerProvider_ESTest::test04
+com.fasterxml.jackson.dataformat.xml.ser.XmlSerializerProvider_ESTest::test07
+com.fasterxml.jackson.dataformat.xml.ser.XmlSerializerProvider_ESTest::test10",1,1,com.fasterxml.jackson.dataformat.xml.ser.XmlSerializerProvider_ESTest::test04: java.lang.NullPointerException; com.fasterxml.jackson.dataformat.xml.ser.XmlSerializerProvider_ESTest::test07: java.lang.NullPointerException; com.fasterxml.jackson.dataformat.xml.ser.XmlSerializerProvider_ESTest::test10: java.lang.NullPointerException
+JacksonXml,5,0,"",5,0,
+JacksonXml,6,0,"",5,0,

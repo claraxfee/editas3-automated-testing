@@ -1,0 +1,4 @@
+1,3d0
+<   - com.google.javascript.rhino.jstype.FunctionType_ESTest::test02
+<   - com.google.javascript.rhino.jstype.JSType_ESTest::test67
+<   - com.google.javascript.rhino.jstype.UnionType_ESTest::test10

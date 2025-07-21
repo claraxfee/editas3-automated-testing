@@ -1,0 +1,12 @@
+0a1,11
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test079
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test086
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test100
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test046
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test047
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test048
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test052
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test044
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test028
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test033
+>   - com.fasterxml.jackson.core.json.ReaderBasedJsonParser_ESTest::test023

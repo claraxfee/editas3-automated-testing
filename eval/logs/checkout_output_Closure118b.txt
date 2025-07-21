@@ -1,138 +1,0 @@
-Checking out f17961ae to /home/cfee3/research/ssr/editas3-automated-testing OK
-Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure118'...
-done.
-Updating files:  28% (571/2006)Updating files:  29% (582/2006)Updating files:  30% (602/2006)Updating files:  31% (622/2006)Updating files:  32% (642/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  61% (1237/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  94% (1900/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
-Note: switching to 'f17961ae4d3d7cf5ea291d82804239982d009ef7'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at f17961ae4 Fix DisambiguateProperties handling of quoted properties
-Init local repository...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure118/.git/
-Tag post-fix revision...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure118/.git/
-[detached HEAD 5bb877932] D4J_Closure_118_POST_FIX_REVISION
- 2 files changed, 4 insertions(+), 3 deletions(-)
- create mode 100644 .defects4j.config
-Run post-checkout hook..................................................... OK
-[detached HEAD 0229e9784] D4J_Closure_118_POST_FIX_COMPILABLE
- 2 files changed, 14 insertions(+), 14 deletions(-)
-Excluding broken/flaky tests............................................... OK
-Excluding broken/flaky tests............................................... OK
-Initialize fixed program version........................................... OK
-[detached HEAD 9855657fa] D4J_Closure_118_FIXED_VERSION
- 7 files changed, 3626 insertions(+), 111 deletions(-)
- create mode 100644 defects4j.build.properties
- create mode 100644 test/com/google/debugging/sourcemap/Base64VLQTest.java.bak
- create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
- create mode 100644 test/com/google/javascript/jscomp/IntegrationTest.java.bak
-Apply patch................................................................ OK
-Initialize buggy program version........................................... OK
-[detached HEAD 563736773] D4J_Closure_118_BUGGY_VERSION
- 2 files changed, 1 insertion(+), 4 deletions(-)
-Diff f17961ae:046e0b22..................................................... OK
-diff --git a/src/com/google/javascript/jscomp/DisambiguateProperties.java b/src/com/google/javascript/jscomp/DisambiguateProperties.java
-index 01293c989..52248611c 100644
---- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
-+++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
-@@ -488,13 +488,9 @@ class DisambiguateProperties<T> implements CompilerPass {
-      * Processes a OBJECTLIT node.
-      */
-     private void handleObjectLit(NodeTraversal t, Node n) {
--      for (Node child = n.getFirstChild();
--          child != null;
--          child = child.getNext()) {
-+      Node child = n.getFirstChild();
-+      while (child != null) {
-         // Maybe STRING, GET, SET
--        if (child.isQuotedString()) {
--          continue;
--        }
- 
-         // We should never see a mix of numbers and strings.
-         String name = child.getString();
-@@ -512,6 +508,7 @@ class DisambiguateProperties<T> implements CompilerPass {
-                 (type == null ? "null" : type.toString()), n.toString(), ""));
-           }
-         }
-+        child = child.getNext();
-       }
-     }
- 
-diff --git a/test/com/google/javascript/jscomp/DisambiguatePropertiesTest.java b/test/com/google/javascript/jscomp/DisambiguatePropertiesTest.java
-index c2d4b77fc..e72ac65e0 100644
---- a/test/com/google/javascript/jscomp/DisambiguatePropertiesTest.java
-+++ b/test/com/google/javascript/jscomp/DisambiguatePropertiesTest.java
-@@ -117,18 +117,6 @@ public class DisambiguatePropertiesTest extends CompilerTestCase {
-     testSets(true, js, js, expected);
-   }
- 
--  public void testOneType4() {
--    String js = ""
--        + "/** @constructor */ function Foo() {}\n"
--        + "Foo.prototype = {'a': 0};\n"
--        + "/** @type Foo */\n"
--        + "var F = new Foo;\n"
--        + "F['a'] = 0;";
--    String expected = "{}";
--    testSets(false, js, js, expected);
--    testSets(true, js, js, expected);
--  }
--
-   public void testPrototypeAndInstance() {
-     String js = ""
-         + "/** @constructor */ function Foo() {}\n"
-@@ -232,33 +220,6 @@ public class DisambiguatePropertiesTest extends CompilerTestCase {
-     testSets(true, js, output, "{a=[[Bar.prototype], [Foo.prototype]]}");
-   }
- 
--  public void testTwoTypes4() {
--    String js = ""
--        + "/** @constructor */ function Foo() {}\n"
--        + "Foo.prototype = {a: 0};"
--        + "/** @type Foo */\n"
--        + "var F = new Foo;\n"
--        + "F.a = 0;"
--        + "/** @constructor */ function Bar() {}\n"
--        + "Bar.prototype = {'a': 0};"
--        + "/** @type Bar */\n"
--        + "var B = new Bar;\n"
--        + "B['a'] = 0;";
--
--    String output = ""
--        + "function Foo(){}"
--        + "Foo.prototype = {a: 0};"
--        + "var F=new Foo;"
--        + "F.a=0;"
--        + "function Bar(){}"
--        + "Bar.prototype = {'a': 0};"
--        + "var B=new Bar;"
--        + "B['a']=0";
--
--    testSets(false, js, output, "{a=[[Foo.prototype]]}");
--    testSets(true, js, output, "{a=[[Foo.prototype]]}");
--  }
--
-   public void testTwoFields() {
-     String js = ""
-         + "/** @constructor */ function Foo() {}\n"
-Apply patch................................................................ OK
-Tag pre-fix revision....................................................... OK
-[detached HEAD f284060fd] D4J_Closure_118_PRE_FIX_REVISION
- 2 files changed, 3 insertions(+), 45 deletions(-)
-Check out program version: Closure-118b.................................... OK
-Previous HEAD position was f284060fd D4J_Closure_118_PRE_FIX_REVISION
-HEAD is now at 563736773 D4J_Closure_118_BUGGY_VERSION

@@ -1,0 +1,2 @@
+0a1
+>   - org.apache.commons.jxpath.ri.compiler.CoreOperationCompare_ESTest::test00

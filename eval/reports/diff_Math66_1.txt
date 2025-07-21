@@ -1,0 +1,5 @@
+0a1,4
+>   - org.apache.commons.math.optimization.univariate.BrentOptimizer_ESTest::test0
+>   - org.apache.commons.math.optimization.univariate.BrentOptimizer_ESTest::test8
+>   - org.apache.commons.math.optimization.univariate.BrentOptimizer_ESTest::test7
+>   - org.apache.commons.math.optimization.univariate.BrentOptimizer_ESTest::test4

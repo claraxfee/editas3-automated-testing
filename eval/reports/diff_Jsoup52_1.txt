@@ -1,0 +1,6 @@
+0a1,5
+>   - org.jsoup.nodes.XmlDeclaration_ESTest::test1
+>   - org.jsoup.nodes.XmlDeclaration_ESTest::test2
+>   - org.jsoup.nodes.XmlDeclaration_ESTest::test3
+>   - org.jsoup.nodes.XmlDeclaration_ESTest::test4
+>   - org.jsoup.parser.XmlTreeBuilder_ESTest::test7

@@ -1,215 +1,0 @@
-Checking out 4b065734 to /home/cfee3/research/ssr/editas3-automated-testing OK
-Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure89'...
-done.
-Updating files:  33% (679/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  70% (1422/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
-Note: switching to '4b065734d8afb5ab0d241ee5da22af0fa9d75ec3'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at 4b065734d Turn off collapsing for non-constructor function properties. Fixes issue 289.
-Init local repository...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure89/.git/
-Tag post-fix revision...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure89/.git/
-[detached HEAD 044dd38af] D4J_Closure_89_POST_FIX_REVISION
- 2 files changed, 4 insertions(+)
- create mode 100644 .defects4j.config
- create mode 100644 .gitignore
-Apply patch................................................................ OK
-Run post-checkout hook..................................................... OK
-[detached HEAD fdce5fcd2] D4J_Closure_89_POST_FIX_COMPILABLE
- 2 files changed, 10 insertions(+), 8 deletions(-)
-Excluding broken/flaky tests............................................... OK
-Excluding broken/flaky tests............................................... OK
-Initialize fixed program version........................................... OK
-[detached HEAD c75ee1b1e] D4J_Closure_89_FIXED_VERSION
- 3 files changed, 480 insertions(+), 60 deletions(-)
- create mode 100644 defects4j.build.properties
- create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
-Apply patch................................................................ OK
-Initialize buggy program version........................................... OK
-[detached HEAD 2c629134e] D4J_Closure_89_BUGGY_VERSION
- 3 files changed, 2 insertions(+), 5 deletions(-)
-Diff 4b065734:e7ad2425..................................................... OK
-diff --git a/src/com/google/javascript/jscomp/CollapseProperties.java b/src/com/google/javascript/jscomp/CollapseProperties.java
-index ddccf0db2..4e7ea97bf 100644
---- a/src/com/google/javascript/jscomp/CollapseProperties.java
-+++ b/src/com/google/javascript/jscomp/CollapseProperties.java
-@@ -481,10 +481,6 @@ class CollapseProperties implements CompilerPass {
-     Node greatGramps = gramps.getParent();
-     Node greatGreatGramps = greatGramps.getParent();
- 
--    if (rvalue != null && rvalue.getType() == Token.FUNCTION) {
--      checkForHosedThisReferences(rvalue, refName.docInfo, refName);
--    }
--
-     // Create the new alias node.
-     Node nameNode = NodeUtil.newName(
-         compiler.getCodingConvention(), alias, gramps.getFirstChild(),
-diff --git a/src/com/google/javascript/jscomp/GlobalNamespace.java b/src/com/google/javascript/jscomp/GlobalNamespace.java
-index 826833914..26b13e8be 100644
---- a/src/com/google/javascript/jscomp/GlobalNamespace.java
-+++ b/src/com/google/javascript/jscomp/GlobalNamespace.java
-@@ -467,11 +467,6 @@ class GlobalNamespace {
-      *     declaration
-      */
-     private boolean isConstructorOrEnumDeclaration(Node n, Node parent) {
--      // NOTE(nicksantos): This does not handle named constructors
--      // function a() {}
--      // For legacy reasons, we should not fix this, because we do not
--      // know who's depending on the current behavior.
--
-       JSDocInfo info;
-       int valueNodeType;
-       switch (parent.getType()) {
-@@ -916,8 +911,9 @@ class GlobalNamespace {
-         return false;
-       }
- 
--      // If this is aliased, then its properties can't be collapsed either.
--      if (aliasingGets > 0) {
-+      // If this is aliased, and its not a function, then its properties
-+      // can't be collapsed either.
-+      if (type != Type.FUNCTION && aliasingGets > 0) {
-         return false;
-       }
- 
-diff --git a/test/com/google/javascript/jscomp/CollapsePropertiesTest.java b/test/com/google/javascript/jscomp/CollapsePropertiesTest.java
-index 79f6dc0ea..a825b185f 100644
---- a/test/com/google/javascript/jscomp/CollapsePropertiesTest.java
-+++ b/test/com/google/javascript/jscomp/CollapsePropertiesTest.java
-@@ -276,50 +276,28 @@ public class CollapsePropertiesTest extends CompilerTestCase {
-   }
- 
-   public void testAliasCreatedForFunctionDepth1_1() {
--    testSame("var a = function(){}; a.b = 1; var c = a; c.b = 2; a.b != c.b;");
--  }
--
--  public void testAliasCreatedForCtorDepth1_1() {
--    // A constructor's properties *are* collapsed even if the function is
-+    // A function's properties *are* collapsed even if the function is
-     // referenced in a such a way that an alias is created for it,
-     // since a function with custom properties is considered a class and its
-     // non-prototype properties are considered static methods and variables.
-     // People don't typically iterate through static members of a class or
-     // refer to them using an alias for the class name.
--    test("/** @constructor */ var a = function(){}; a.b = 1; " +
--         "var c = a; c.b = 2; a.b != c.b;",
-+    test("var a = function(){}; a.b = 1; var c = a; c.b = 2; a.b != c.b;",
-          "var a = function(){}; var a$b = 1; var c = a; c.b = 2; a$b != c.b;");
-   }
- 
-   public void testAliasCreatedForFunctionDepth1_2() {
--    testSame("var a = function(){}; a.b = 1; f(a); a.b;");
--  }
--
--  public void testAliasCreatedForCtorDepth1_2() {
--    test("/** @constructor */ var a = function(){}; a.b = 1; f(a); a.b;",
-+    test("var a = function(){}; a.b = 1; f(a); a.b;",
-          "var a = function(){}; var a$b = 1; f(a); a$b;");
-   }
- 
-   public void testAliasCreatedForFunctionDepth1_3() {
--    testSame("var a = function(){}; a.b = 1; new f(a); a.b;");
--  }
--
--  public void testAliasCreatedForCtorDepth1_3() {
--    test("/** @constructor */ var a = function(){}; a.b = 1; new f(a); a.b;",
-+    test("var a = function(){}; a.b = 1; new f(a); a.b;",
-          "var a = function(){}; var a$b = 1; new f(a); a$b;");
-   }
- 
-   public void testAliasCreatedForFunctionDepth2() {
--    test(
--        "var a = {}; a.b = function() {}; a.b.c = 1; var d = a.b;" +
--        "a.b.c != d.c;",
--        "var a$b = function() {}; a$b.c = 1; var d = a$b;" +
--        "a$b.c != d.c;");
--  }
--
--  public void testAliasCreatedForCtorDepth2() {
--    test("var a = {}; /** @constructor */ a.b = function() {}; " +
--         "a.b.c = 1; var d = a.b;" +
-+    test("var a = {}; a.b = function() {}; a.b.c = 1; var d = a.b;" +
-          "a.b.c != d.c;",
-          "var a$b = function() {}; var a$b$c = 1; var d = a$b;" +
-          "a$b$c != d.c;");
-@@ -541,24 +519,8 @@ public class CollapsePropertiesTest extends CompilerTestCase {
-   }
- 
-   public void testAddPropertyToUncollapsibleFunctionInLocalScopeDepth1() {
--    testSame("function a() {} var c = a; (function() {a.b = 0;})(); a.b;");
--  }
--
--  public void testAddPropertyToUncollapsibleNamedCtorInLocalScopeDepth1() {
--    // This technically should be collapsed, according to the rules.
--    // We don't collapse named constructors for legacy reasons
--    // (this pass has been around too long, and we don't know who's
--    // depending on this behavior).
--    testSame(
--          "/** @constructor */ function a() {} var c = a; " +
--          "(function() {a.b = 0;})(); a.b;");
--  }
--
--  public void testAddPropertyToUncollapsibleCtorInLocalScopeDepth1() {
--    test("/** @constructor */ var a = function() {}; var c = a; " +
--         "(function() {a.b = 0;})(); a.b;",
--         "var a = function() {}; var a$b; " +
--         "var c = a; (function() {a$b = 0;})(); a$b;");
-+    test("function a() {} var c = a; (function() {a.b = 0;})(); a.b;",
-+         "function a() {} var a$b; var c = a; (function() {a$b = 0;})(); a$b;");
-   }
- 
-   public void testAddPropertyToUncollapsibleObjectInLocalScopeDepth2() {
-@@ -570,13 +532,6 @@ public class CollapsePropertiesTest extends CompilerTestCase {
- 
-   public void testAddPropertyToUncollapsibleFunctionInLocalScopeDepth2() {
-     test("var a = {}; a.b = function (){}; var d = a.b;" +
--         "(function() {a.b.c = 0;})(); a.b.c;",
--         "var a$b = function (){}; var d = a$b;" +
--         "(function() {a$b.c = 0;})(); a$b.c;");
--  }
--
--  public void testAddPropertyToUncollapsibleCtorInLocalScopeDepth2() {
--    test("var a = {}; /** @constructor */ a.b = function (){}; var d = a.b;" +
-          "(function() {a.b.c = 0;})(); a.b.c;",
-          "var a$b = function (){}; var a$b$c; var d = a$b;" +
-          "(function() {a$b$c = 0;})(); a$b$c;");
-@@ -607,15 +562,9 @@ public class CollapsePropertiesTest extends CompilerTestCase {
-   }
- 
-   public void testAddPropertyToChildOfUncollapsibleFunctionInLocalScope() {
--    testSame(
--        "function a() {} a.b = {x: 0}; var c = a;" +
--        "(function() {a.b.y = 0;})(); a.b.y;");
--  }
--
--  public void testAddPropertyToChildOfUncollapsibleCtorInLocalScope() {
--    test("/** @constructor */ var a = function() {}; a.b = {x: 0}; var c = a;" +
-+    test("function a() {} a.b = {x: 0}; var c = a;" +
-          "(function() {a.b.y = 0;})(); a.b.y;",
--         "var a = function() {}; var a$b$x = 0; var a$b$y; var c = a;" +
-+         "function a() {} var a$b$x = 0; var a$b$y; var c = a;" +
-          "(function() {a$b$y = 0;})(); a$b$y;");
-   }
- 
-Apply patch................................................................ OK
-Tag pre-fix revision....................................................... OK
-[detached HEAD 1e1e956b6] D4J_Closure_89_PRE_FIX_REVISION
- 3 files changed, 12 insertions(+), 71 deletions(-)
-Check out program version: Closure-89f..................................... OK
-Previous HEAD position was 1e1e956b6 D4J_Closure_89_PRE_FIX_REVISION
-HEAD is now at c75ee1b1e D4J_Closure_89_FIXED_VERSION

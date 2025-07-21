@@ -1,133 +1,0 @@
-Checking out 49e9565f to /home/cfee3/research/ssr/editas3-automated-testing OK
-Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure107'...
-done.
-Updating files:  28% (577/2006)Updating files:  29% (582/2006)Updating files:  30% (602/2006)Updating files:  31% (622/2006)Updating files:  32% (642/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  63% (1268/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  94% (1889/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
-Note: switching to '49e9565febba904484396e2aef7dbe86f55e9cc5'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at 49e9565fe Shut off i18n warnings if the user didn't ask for i18n. Fixes issue 1135 R=blickly
-Init local repository...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure107/.git/
-Tag post-fix revision...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure107/.git/
-[detached HEAD 3df7e72b1] D4J_Closure_107_POST_FIX_REVISION
- 2 files changed, 4 insertions(+), 3 deletions(-)
- create mode 100644 .defects4j.config
-Apply patch................................................................ OK
-Run post-checkout hook..................................................... OK
-[detached HEAD 0b84e94df] D4J_Closure_107_POST_FIX_COMPILABLE
- 3 files changed, 19 insertions(+), 16 deletions(-)
-Excluding broken/flaky tests............................................... OK
-Excluding broken/flaky tests............................................... OK
-Initialize fixed program version........................................... OK
-[detached HEAD 69f56ba0b] D4J_Closure_107_FIXED_VERSION
- 7 files changed, 3702 insertions(+), 111 deletions(-)
- create mode 100644 defects4j.build.properties
- create mode 100644 test/com/google/debugging/sourcemap/Base64VLQTest.java.bak
- create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
- create mode 100644 test/com/google/javascript/jscomp/IntegrationTest.java.bak
-Apply patch................................................................ OK
-Initialize buggy program version........................................... OK
-[detached HEAD ba61716cd] D4J_Closure_107_BUGGY_VERSION
- 2 files changed, 1 insertion(+), 2 deletions(-)
-Diff 49e9565f:aae547f4..................................................... OK
-diff --git a/src/com/google/javascript/jscomp/CommandLineRunner.java b/src/com/google/javascript/jscomp/CommandLineRunner.java
-index 3aae2e775..ee2dd58c8 100644
---- a/src/com/google/javascript/jscomp/CommandLineRunner.java
-+++ b/src/com/google/javascript/jscomp/CommandLineRunner.java
-@@ -856,10 +856,8 @@ public class CommandLineRunner extends
-       // run-time.
-       //
-       // In ADVANCED mode, goog.getMsg is going to be renamed anyway,
--      // so we might as well inline it. But shut off the i18n warnings,
--      // because the user didn't really ask for i18n.
-+      // so we might as well inline it.
-       options.messageBundle = new EmptyMessageBundle();
--      options.setWarningLevel(JsMessageVisitor.MSG_CONVENTIONS, CheckLevel.OFF);
-     }
- 
-     return options;
-diff --git a/src/com/google/javascript/jscomp/DefaultPassConfig.java b/src/com/google/javascript/jscomp/DefaultPassConfig.java
-index 9d8e963a1..9398f9ece 100644
---- a/src/com/google/javascript/jscomp/DefaultPassConfig.java
-+++ b/src/com/google/javascript/jscomp/DefaultPassConfig.java
-@@ -1027,7 +1027,7 @@ public class DefaultPassConfig extends PassConfig {
-           /* warn about message dupes */
-           true,
-           /* allow messages with goog.getMsg */
--          JsMessage.Style.CLOSURE,
-+          JsMessage.Style.getFromParams(true, false),
-           /* if we can't find a translation, don't worry about it. */
-           false);
-     }
-@@ -1042,7 +1042,7 @@ public class DefaultPassConfig extends PassConfig {
-           /* warn about message dupes */
-           true,
-           /* allow messages with goog.getMsg */
--          JsMessage.Style.CLOSURE);
-+          JsMessage.Style.getFromParams(true, false));
-     }
-   };
- 
-diff --git a/src/com/google/javascript/jscomp/JsMessageVisitor.java b/src/com/google/javascript/jscomp/JsMessageVisitor.java
-index 7837dcc7c..157f133e3 100644
---- a/src/com/google/javascript/jscomp/JsMessageVisitor.java
-+++ b/src/com/google/javascript/jscomp/JsMessageVisitor.java
-@@ -86,20 +86,6 @@ abstract class JsMessageVisitor extends AbstractPostOrderCallback
-       DiagnosticType.error("JSC_MSG_FALLBACK_ARG_ERROR",
-           "Could not find message entry for fallback argument {0}");
- 
--  /**
--   * Warnings that only apply to people who use MSG_ to denote
--   * messages. Note that this doesn't include warnings about
--   * proper use of goog.getMsg
--   */
--  static final DiagnosticGroup MSG_CONVENTIONS = new DiagnosticGroup(
--      "messageConventions",
--      MESSAGE_HAS_NO_DESCRIPTION,
--      MESSAGE_HAS_NO_TEXT,
--      MESSAGE_TREE_MALFORMED,
--      MESSAGE_HAS_NO_VALUE,
--      MESSAGE_DUPLICATE_KEY,
--      MESSAGE_NOT_INITIALIZED_USING_NEW_SYNTAX);
--
-   private static final String PH_JS_PREFIX = "{$";
-   private static final String PH_JS_SUFFIX = "}";
- 
-diff --git a/test/com/google/javascript/jscomp/CommandLineRunnerTest.java b/test/com/google/javascript/jscomp/CommandLineRunnerTest.java
-index 5eb352338..298933a2d 100644
---- a/test/com/google/javascript/jscomp/CommandLineRunnerTest.java
-+++ b/test/com/google/javascript/jscomp/CommandLineRunnerTest.java
-@@ -390,11 +390,6 @@ public class CommandLineRunnerTest extends TestCase {
-          "window.foo = 'foo';");
-   }
- 
--  public void testGetMsgWiringNoWarnings() throws Exception {
--    args.add("--compilation_level=ADVANCED_OPTIMIZATIONS");
--    test("/** @desc A bad foo. */ var MSG_FOO = 1;", "");
--  }
--
-   public void testCssNameWiring() throws Exception {
-     test("var goog = {}; goog.getCssName = function() {};" +
-          "goog.setCssNameMapping = function() {};" +
-Apply patch................................................................ OK
-Tag pre-fix revision....................................................... OK
-[detached HEAD 1332127c2] D4J_Closure_107_PRE_FIX_REVISION
- 4 files changed, 3 insertions(+), 24 deletions(-)
-Check out program version: Closure-107b.................................... OK
-Previous HEAD position was 1332127c2 D4J_Closure_107_PRE_FIX_REVISION
-HEAD is now at ba61716cd D4J_Closure_107_BUGGY_VERSION

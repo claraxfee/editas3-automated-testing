@@ -1,0 +1,3 @@
+0a1,2
+>   - org.joda.time.Partial_ESTest::test21
+>   - org.joda.time.field.UnsupportedDurationField_ESTest::test19
