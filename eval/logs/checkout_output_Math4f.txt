@@ -1,139 +1,0 @@
-Checking out d270055e to /home/cfee3/research/ssr/editas3-automated-testing OK
-Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Math4'...
-done.
-Updating files:  54% (728/1346)Updating files:  55% (741/1346)Updating files:  56% (754/1346)Updating files:  57% (768/1346)Updating files:  58% (781/1346)Updating files:  59% (795/1346)Updating files:  60% (808/1346)Updating files:  61% (822/1346)Updating files:  62% (835/1346)Updating files:  63% (848/1346)Updating files:  64% (862/1346)Updating files:  65% (875/1346)Updating files:  66% (889/1346)Updating files:  67% (902/1346)Updating files:  68% (916/1346)Updating files:  69% (929/1346)Updating files:  70% (943/1346)Updating files:  71% (956/1346)Updating files:  72% (970/1346)Updating files:  73% (983/1346)Updating files:  74% (997/1346)Updating files:  75% (1010/1346)Updating files:  76% (1023/1346)Updating files:  77% (1037/1346)Updating files:  78% (1050/1346)Updating files:  79% (1064/1346)Updating files:  80% (1077/1346)Updating files:  81% (1091/1346)Updating files:  82% (1104/1346)Updating files:  83% (1118/1346)Updating files:  84% (1131/1346)Updating files:  85% (1145/1346)Updating files:  86% (1158/1346)Updating files:  87% (1172/1346)Updating files:  88% (1185/1346)Updating files:  89% (1198/1346)Updating files:  90% (1212/1346)Updating files:  91% (1225/1346)Updating files:  92% (1239/1346)Updating files:  93% (1252/1346)Updating files:  94% (1266/1346)Updating files:  95% (1279/1346)Updating files:  96% (1293/1346)Updating files:  96% (1297/1346)Updating files:  97% (1306/1346)Updating files:  98% (1320/1346)Updating files:  99% (1333/1346)Updating files: 100% (1346/1346)Updating files: 100% (1346/1346), done.
-Note: switching to 'd270055e874148a2742604be36ab977eec030fba'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at d270055e8 Fixed NullPointerException in 2D and 3D sub-line intersections.
-Init local repository...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Math4/.git/
-Tag post-fix revision...................................................... OK
-Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Math4/.git/
-[detached HEAD 5881975b3] D4J_Math_4_POST_FIX_REVISION
- 2 files changed, 4 insertions(+)
- create mode 100644 .defects4j.config
- create mode 100644 .gitignore
-Run post-checkout hook..................................................... OK
-[detached HEAD 9051be88a] D4J_Math_4_POST_FIX_COMPILABLE
- 4 files changed, 736 insertions(+), 2 deletions(-)
- create mode 100644 build.xml.bak
- create mode 100644 src/main/java/org/apache/commons/math3/stat/correlation/StorelessBivariateCovariance.java.bak
- create mode 100644 src/main/java/org/apache/commons/math3/stat/correlation/StorelessCovariance.java.bak
-Excluding broken/flaky tests............................................... OK
-Excluding broken/flaky tests............................................... OK
-Excluding broken/flaky tests............................................... OK
-Initialize fixed program version........................................... OK
-[detached HEAD e26f0c121] D4J_Math_4_FIXED_VERSION
- 15 files changed, 3644 insertions(+), 81 deletions(-)
- create mode 100644 defects4j.build.properties
- create mode 100644 src/test/java/org/apache/commons/math3/distribution/CauchyDistributionTest.java.bak
- create mode 100644 src/test/java/org/apache/commons/math3/distribution/WeibullDistributionTest.java.bak
- create mode 100644 src/test/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/BOBYQAOptimizerTest.java.bak
- create mode 100644 src/test/java/org/apache/commons/math3/optimization/direct/BOBYQAOptimizerTest.java.bak
- create mode 100644 src/test/java/org/apache/commons/math3/optimization/direct/CMAESOptimizerTest.java.bak
- create mode 100644 src/test/java/org/apache/commons/math3/stat/descriptive/summary/SumTest.java.bak
- create mode 100644 src/test/java/org/apache/commons/math3/util/FastMathTest.java.bak
-Apply patch................................................................ OK
-Initialize buggy program version........................................... OK
-[detached HEAD 5365022e1] D4J_Math_4_BUGGY_VERSION
- 3 files changed, 1 insertion(+), 7 deletions(-)
-Diff d270055e:0ee81771..................................................... OK
-diff --git a/src/changes/changes.xml b/src/changes/changes.xml
-index 1b0155445..a50812f4b 100644
---- a/src/changes/changes.xml
-+++ b/src/changes/changes.xml
-@@ -51,9 +51,6 @@ If the output is not quite correct, check for invisible trailing spaces!
-   </properties>
-   <body>
-     <release version="x.y" date="TBD" description="TBD">
--      <action dev="luc" type="fix" issue="MATH-988" due-to="Andreas Huber">
--        Fixed NullPointerException in 2D and 3D sub-line intersections.
--      </action>
-       <action dev="psteitz" type="update" issue="MATH-987" due-to="Ajo Fod">
-         Added append method to SimpleRegression, making this class map/reducible.
-       </action>
-diff --git a/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubLine.java b/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubLine.java
-index aad7b65a5..a146cb661 100644
---- a/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubLine.java
-+++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubLine.java
-@@ -111,9 +111,6 @@ public class SubLine {
- 
-         // compute the intersection on infinite line
-         Vector3D v1D = line.intersection(subLine.line);
--        if (v1D == null) {
--            return null;
--        }
- 
-         // check location of point with respect to first sub-line
-         Location loc1 = remainingRegion.checkPoint(line.toSubSpace(v1D));
-diff --git a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/SubLine.java b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/SubLine.java
-index ea9e96a49..a9d621a44 100644
---- a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/SubLine.java
-+++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/SubLine.java
-@@ -115,9 +115,6 @@ public class SubLine extends AbstractSubHyperplane<Euclidean2D, Euclidean1D> {
- 
-         // compute the intersection on infinite line
-         Vector2D v2D = line1.intersection(line2);
--        if (v2D == null) {
--            return null;
--        }
- 
-         // check location of point with respect to first sub-line
-         Location loc1 = getRemainingRegion().checkPoint(line1.toSubSpace(v2D));
-diff --git a/src/test/java/org/apache/commons/math3/geometry/euclidean/threed/SubLineTest.java b/src/test/java/org/apache/commons/math3/geometry/euclidean/threed/SubLineTest.java
-index b941ffae7..f060cfb8f 100644
---- a/src/test/java/org/apache/commons/math3/geometry/euclidean/threed/SubLineTest.java
-+++ b/src/test/java/org/apache/commons/math3/geometry/euclidean/threed/SubLineTest.java
-@@ -152,13 +152,5 @@ public class SubLineTest {
-         Assert.assertNull(sub1.intersection(sub2, true));
-         Assert.assertNull(sub1.intersection(sub2, false));
-     }
--    
--    @Test
--    public void testIntersectionNotIntersecting() throws MathIllegalArgumentException {
--        SubLine sub1 = new SubLine(new Vector3D(1, 1, 1), new Vector3D(1.5, 1, 1));
--        SubLine sub2 = new SubLine(new Vector3D(2, 3, 0), new Vector3D(2, 3, 0.5));
--        Assert.assertNull(sub1.intersection(sub2, true));
--        Assert.assertNull(sub1.intersection(sub2, false));
--    }
- 
- }
-diff --git a/src/test/java/org/apache/commons/math3/geometry/euclidean/twod/SubLineTest.java b/src/test/java/org/apache/commons/math3/geometry/euclidean/twod/SubLineTest.java
-index 7a9defe56..bc276d130 100644
---- a/src/test/java/org/apache/commons/math3/geometry/euclidean/twod/SubLineTest.java
-+++ b/src/test/java/org/apache/commons/math3/geometry/euclidean/twod/SubLineTest.java
-@@ -144,12 +144,4 @@ public class SubLineTest {
-         Assert.assertNull(sub1.intersection(sub2, false));
-     }
- 
--    @Test
--    public void testIntersectionParallel() {
--        final SubLine sub1 = new SubLine(new Vector2D(0, 1), new Vector2D(0, 2));
--        final SubLine sub2 = new SubLine(new Vector2D(66, 3), new Vector2D(66, 4));
--        Assert.assertNull(sub1.intersection(sub2, true));
--        Assert.assertNull(sub1.intersection(sub2, false));
--    }
--
- }
-Apply patch................................................................ OK
-Tag pre-fix revision....................................................... OK
-[detached HEAD 962618e76] D4J_Math_4_PRE_FIX_REVISION
- 5 files changed, 25 deletions(-)
-Check out program version: Math-4f......................................... OK
-Previous HEAD position was 962618e76 D4J_Math_4_PRE_FIX_REVISION
-HEAD is now at e26f0c121 D4J_Math_4_FIXED_VERSION

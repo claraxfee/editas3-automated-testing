@@ -1,0 +1,307 @@
+Checking out b0e1b80b to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli1'...
+done.
+Note: switching to 'b0e1b80b6d4a10a9c9f46539bc4c7a3cce55886e'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at b0e1b80 Applying Brian Egge's fix and unit test from CLI-13.
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli1/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli1/.git/
+[detached HEAD cf0952f] D4J_Cli_1_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Run post-checkout hook..................................................... OK
+[detached HEAD 39906c0] D4J_Cli_1_POST_FIX_COMPILABLE
+ 2 files changed, 236 insertions(+), 19 deletions(-)
+ create mode 100644 build.xml.bak
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD 9f2ba03] D4J_Cli_1_FIXED_VERSION
+ 3 files changed, 632 insertions(+), 84 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 src/test/org/apache/commons/cli/BugsTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD f7183c2] D4J_Cli_1_BUGGY_VERSION
+ 2 files changed, 31 insertions(+), 32 deletions(-)
+Diff b0e1b80b:8f46f467..................................................... OK
+diff --git a/src/java/org/apache/commons/cli/CommandLine.java b/src/java/org/apache/commons/cli/CommandLine.java
+index 3c82942..6c1c278 100644
+--- a/src/java/org/apache/commons/cli/CommandLine.java
++++ b/src/java/org/apache/commons/cli/CommandLine.java
+@@ -16,11 +16,11 @@
+ package org.apache.commons.cli;
+ 
+ import java.util.Collection;
++import java.util.HashMap;
+ import java.util.Iterator;
+ import java.util.LinkedList;
+ import java.util.List;
+-import java.util.Set;
+-import java.util.HashSet;
++import java.util.Map;
+ 
+ /** 
+  * <p>Represents list of arguments parsed against
+@@ -43,10 +43,16 @@ public class CommandLine {
+     private List args = new LinkedList();
+ 
+     /** the processed options */
+-    private Set options = new HashSet();
++    private Map options = new HashMap();
++
++    /** the option name map */
++    private Map names = new HashMap();
+ 
+     /** Map of unique options for ease to get complete list of options */
+-//    private Set allOptions = new HashSet();
++    private Map hashcodeMap = new HashMap();
++
++    /** the processed options */
++    private Option[] optionsArray;
+ 
+     /**
+      * Creates a command line.
+@@ -64,7 +70,7 @@ public class CommandLine {
+      */
+     public boolean hasOption(String opt)
+     {
+-        return options.contains( resolveOption(opt));
++        return options.containsKey(opt);
+     }
+ 
+     /** 
+@@ -88,13 +94,12 @@ public class CommandLine {
+     {
+         String res = getOptionValue(opt);
+ 
+-        Option option = resolveOption(opt);
+-        if (option == null)
++        if (!options.containsKey(opt))
+         {
+             return null;
+         }
+ 
+-        Object type = option.getType();
++        Object type = ((Option) options.get(opt)).getType();
+ 
+         return (res == null)        ? null : TypeHandler.createValue(res, type);
+     }
+@@ -145,37 +150,20 @@ public class CommandLine {
+      */
+     public String[] getOptionValues(String opt)
+     {
+-        Option key = resolveOption( opt );
++        opt = Util.stripLeadingHyphens(opt);
+ 
+-        if (options.contains(key))
+-        {
+-            return key.getValues();
+-        }
++        String key = opt;
+ 
+-        return null;
++        if (names.containsKey(opt))
++        {
++            key = (String) names.get(opt);
+         }
+ 
+-    /**
+-     * <p>Retrieves the option object given the long or short option as a String</p>
+-     * @param opt short or long name of the option
+-     * @return Canonicalized option
+-     */
+-    private Option resolveOption( String opt )
+-    {
+-        opt = Util.stripLeadingHyphens(opt);
+-        for ( Iterator it = options.iterator(); it.hasNext(); )
++        if (options.containsKey(key))
+         {
+-            Option option = (Option) it.next();
+-            if (opt.equals(option.getOpt()))
+-            {
+-                return option;
+-            }
+-            if (opt.equals( option.getLongOpt()))
+-            {
+-                return option;
++            return ((Option) options.get(key)).getValues();
+         }
+ 
+-        }
+         return null;
+     }
+ 
+@@ -285,7 +273,20 @@ public class CommandLine {
+      */
+     void addOption(Option opt)
+     {
+-        options.add(opt);
++        hashcodeMap.put(new Integer(opt.hashCode()), opt);
++
++        String key = opt.getKey();
++
++        if (key == null)
++        {
++            key = opt.getLongOpt();
++        }
++        else
++        {
++            names.put(opt.getLongOpt(), key);
++        }
++
++        options.put(key, opt);
+     }
+ 
+     /**
+@@ -296,7 +297,7 @@ public class CommandLine {
+      */
+     public Iterator iterator()
+     {
+-        return options.iterator();
++        return hashcodeMap.values().iterator();
+     }
+ 
+     /**
+@@ -306,10 +307,11 @@ public class CommandLine {
+      */
+     public Option[] getOptions()
+     {
+-        Collection processed = options;
++        Collection processed = options.values();
++
+ 
+         // reinitialise array
+-        Option[] optionsArray = new Option[processed.size()];
++        optionsArray = new Option[processed.size()];
+ 
+         // return the array
+         return (Option[]) processed.toArray(optionsArray);
+diff --git a/src/java/org/apache/commons/cli/Option.java b/src/java/org/apache/commons/cli/Option.java
+index d2abc2b..5512858 100644
+--- a/src/java/org/apache/commons/cli/Option.java
++++ b/src/java/org/apache/commons/cli/Option.java
+@@ -596,39 +596,4 @@ public class Option {
+     {
+         return this.values.size() == 0;
+     }
+-
+-    public boolean equals( Object o )
+-    {
+-        if ( this == o )
+-        {
+-            return true;
+-        }
+-        if ( o == null || getClass() != o.getClass() )
+-        {
+-            return false;
+-        }
+-
+-        Option option = (Option) o;
+-
+-
+-        if ( opt != null ? !opt.equals( option.opt ) : option.opt != null )
+-        {
+-            return false;
+-        }
+-        if ( longOpt != null ? !longOpt.equals( option.longOpt ) : option.longOpt != null )
+-        {
+-            return false;
+-        }
+-
+-        return true;
+-    }
+-
+-    public int hashCode()
+-    {
+-        int result;
+-        result = ( opt != null ? opt.hashCode() : 0 );
+-        result = 31 * result + ( longOpt != null ? longOpt.hashCode() : 0 );
+-        return result;
+-    }
+-
+ }
+diff --git a/src/test/org/apache/commons/cli/bug/BugCLI13Test.java b/src/test/org/apache/commons/cli/bug/BugCLI13Test.java
+deleted file mode 100644
+index 7e63dfa..0000000
+--- a/src/test/org/apache/commons/cli/bug/BugCLI13Test.java
++++ /dev/null
+@@ -1,52 +0,0 @@
+-/*
+- * Licensed to the Apache Software Foundation (ASF) under one or more
+- * contributor license agreements.  See the NOTICE file distributed with
+- * this work for additional information regarding copyright ownership.
+- * The ASF licenses this file to You under the Apache License, Version 2.0
+- * (the "License"); you may not use this file except in compliance with
+- * the License.  You may obtain a copy of the License at
+- * 
+- *      http://www.apache.org/licenses/LICENSE-2.0
+- * 
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-package org.apache.commons.cli.bug;
+-
+-import junit.framework.TestCase;
+-import org.apache.commons.cli.CommandLine;
+-import org.apache.commons.cli.Option;
+-import org.apache.commons.cli.OptionBuilder;
+-import org.apache.commons.cli.Options;
+-import org.apache.commons.cli.ParseException;
+-import org.apache.commons.cli.PosixParser;
+-
+-/**
+- * @author brianegge
+- */
+-public class BugCLI13Test
+-    extends TestCase
+-{
+-    public void testCLI13()
+-        throws ParseException
+-    {
+-        final String debugOpt = "debug";
+-        Option debug = OptionBuilder
+-            .withArgName( debugOpt )
+-            .withDescription( "turn on debugging" )
+-            .withLongOpt( debugOpt )
+-            .hasArg()
+-            .create( 'd' );
+-        Options options = new Options();
+-        options.addOption( debug );
+-        CommandLine commandLine = new PosixParser().parse( options, new String[]{"-d", "true"} );
+-
+-        assertEquals("true", commandLine.getOptionValue( debugOpt ));
+-        assertEquals("true", commandLine.getOptionValue( 'd' ));
+-        assertTrue(commandLine.hasOption( 'd'));
+-        assertTrue(commandLine.hasOption( debugOpt));
+-    }
+-}
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD f90641d] D4J_Cli_1_PRE_FIX_REVISION
+ 3 files changed, 38 insertions(+), 123 deletions(-)
+ delete mode 100644 src/test/org/apache/commons/cli/bug/BugCLI13Test.java
+Check out program version: Cli-1b.......................................... OK
+Previous HEAD position was f90641d D4J_Cli_1_PRE_FIX_REVISION
+HEAD is now at f7183c2 D4J_Cli_1_BUGGY_VERSION

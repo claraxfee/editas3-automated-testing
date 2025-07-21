@@ -1,0 +1,160 @@
+Checking out 538fb688 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli13'...
+done.
+Note: switching to '538fb6889f0387a40b821cfb315685e929110736'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 538fb68 Applying Andrew's fix to CLI-61 and rolling back the getMessageKey addition to OptionException that was applied from CLI-145
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli13/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli13/.git/
+[detached HEAD 075e568] D4J_Cli_13_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Apply patch................................................................ OK
+Run post-checkout hook..................................................... OK
+[detached HEAD 4ec02c4] D4J_Cli_13_POST_FIX_COMPILABLE
+ 5 files changed, 350 insertions(+), 26 deletions(-)
+ create mode 100644 build.xml.bak
+ create mode 100644 src/test/org/apache/commons/cli2/bug/BugLoopingOptionLookAlikeTest.java.bak
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD b635385] D4J_Cli_13_FIXED_VERSION
+ 1 file changed, 8 insertions(+)
+ create mode 100644 defects4j.build.properties
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD e817cc7] D4J_Cli_13_BUGGY_VERSION
+ 4 files changed, 2 insertions(+), 11 deletions(-)
+Diff 538fb688:e2ba946e..................................................... OK
+diff --git a/src/java/org/apache/commons/cli2/OptionException.java b/src/java/org/apache/commons/cli2/OptionException.java
+index e5f867b..4617f3a 100644
+--- a/src/java/org/apache/commons/cli2/OptionException.java
++++ b/src/java/org/apache/commons/cli2/OptionException.java
+@@ -43,6 +43,9 @@ public class OptionException
+     /** The message explaining the Exception */
+     private final String message;
+ 
++    /** The id of the message */
++    private final String messageKey;
++
+     /**
+      * Creates a new OptionException.
+      *
+@@ -73,6 +76,7 @@ public class OptionException
+                            final String messageKey,
+                            final String value) {
+         this.option = option;
++        this.messageKey = messageKey;
+ 
+         if (messageKey != null) {
+             final StringBuffer buffer = new StringBuffer();
+@@ -105,4 +109,7 @@ public class OptionException
+         return message;
+     }
+ 
++    public String getMessageKey() {
++        return messageKey;
++    }
+ }
+diff --git a/src/java/org/apache/commons/cli2/WriteableCommandLine.java b/src/java/org/apache/commons/cli2/WriteableCommandLine.java
+index a70c8d6..a8f756d 100644
+--- a/src/java/org/apache/commons/cli2/WriteableCommandLine.java
++++ b/src/java/org/apache/commons/cli2/WriteableCommandLine.java
+@@ -36,16 +36,6 @@ public interface WriteableCommandLine extends CommandLine {
+      */
+     void addValue(final Option option, final Object value);
+ 
+-    /**
+-     * Retrieves the Argument values specified on the command line for the
+-     * specified Option, this doesn't return any values supplied
+-     * programmatically as defaults.
+-     *
+-     * @param option the Option associated with the values
+-     * @return a list of values or an empty List if none are found
+-     */
+-    List getUndefaultedValues(final Option option);
+-
+     /**
+      * Sets the default values for an Option in the CommandLine
+      * @param option the Option to add to
+diff --git a/src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java b/src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java
+index 97a5d11..bb1610e 100644
+--- a/src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java
++++ b/src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java
+@@ -129,18 +129,6 @@ public class WriteableCommandLineImpl
+         return valueList;
+     }
+ 
+-    public List getUndefaultedValues(Option option) {
+-      // First grab the command line values
+-      List valueList = (List) values.get(option);
+-
+-      // Finally use an empty list
+-      if (valueList == null) {
+-        valueList = Collections.EMPTY_LIST;
+-      }
+-
+-      return valueList;
+-    }
+-
+     public Boolean getSwitch(final Option option,
+                              final Boolean defaultValue) {
+         // First grab the command line values
+diff --git a/src/java/org/apache/commons/cli2/option/ArgumentImpl.java b/src/java/org/apache/commons/cli2/option/ArgumentImpl.java
+index f776f7e..0b05ad7 100644
+--- a/src/java/org/apache/commons/cli2/option/ArgumentImpl.java
++++ b/src/java/org/apache/commons/cli2/option/ArgumentImpl.java
+@@ -141,7 +141,7 @@ public class ArgumentImpl
+                               final Option option)
+         throws OptionException {
+         // count of arguments processed for this option.
+-        int argumentCount = commandLine.getUndefaultedValues(option).size();
++        int argumentCount = 0;
+ 
+         while (arguments.hasNext() && (argumentCount < maximum)) {
+             final String allValuesQuoted = (String) arguments.next();
+diff --git a/src/test/org/apache/commons/cli2/bug/BugLoopingOptionLookAlikeTest.java b/src/test/org/apache/commons/cli2/bug/BugLoopingOptionLookAlikeTest.java
+index 08bf81b..4c577ac 100644
+--- a/src/test/org/apache/commons/cli2/bug/BugLoopingOptionLookAlikeTest.java
++++ b/src/test/org/apache/commons/cli2/bug/BugLoopingOptionLookAlikeTest.java
+@@ -23,6 +23,7 @@ import junit.framework.TestCase;
+ import org.apache.commons.cli2.Argument;
+ import org.apache.commons.cli2.Group;
+ import org.apache.commons.cli2.OptionException;
++import org.apache.commons.cli2.resource.ResourceConstants;
+ import org.apache.commons.cli2.builder.ArgumentBuilder;
+ import org.apache.commons.cli2.builder.DefaultOptionBuilder;
+ import org.apache.commons.cli2.builder.GroupBuilder;
+@@ -73,7 +74,7 @@ public class BugLoopingOptionLookAlikeTest extends TestCase {
+             parser.parse(new String[] { "testfile.txt", "testfile.txt", "testfile.txt", "testfile.txt" });
+             fail("OptionException");
+         } catch (OptionException e) {
+-            assertEquals("Unexpected testfile.txt while processing ", e.getMessage());
++            assertEquals(ResourceConstants.ARGUMENT_UNEXPECTED_VALUE, e.getMessageKey());
+         }
+     }    
+ }
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD 643fa2f] D4J_Cli_13_PRE_FIX_REVISION
+ 5 files changed, 10 insertions(+), 24 deletions(-)
+Check out program version: Cli-13b......................................... OK
+Previous HEAD position was 643fa2f D4J_Cli_13_PRE_FIX_REVISION
+HEAD is now at e817cc7 D4J_Cli_13_BUGGY_VERSION

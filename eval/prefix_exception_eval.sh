@@ -10,26 +10,6 @@ fi
 
 BUG_ID_STR="${PROJECT}${BUG_ID}"
 
-#STEP 1: CHECKOUT======================================================================================================= 
-
-echo ""
-echo ""
-echo "REMOVING OLD CHECKOUTS"
-rm -Rf checked_out/buggy/${PROJECT}${BUG_ID}
-rm -Rf checked_out/fixed/${PROJECT}${BUG_ID}
-
-echo ""
-echo ""
-echo "CHECKING OUT BUGGY AND FIXED VERSIONS"
-defects4j checkout -p $PROJECT -v ${BUG_ID}b -w checked_out/buggy/${PROJECT}${BUG_ID} > logs/checkout_output_${PROJECT}${BUG_ID}b.txt 2>&1
-defects4j checkout -p $PROJECT -v ${BUG_ID}f -w checked_out/fixed/${PROJECT}${BUG_ID} > logs/checkout_output_${PROJECT}${BUG_ID}f.txt 2>&1
-
-
-#STEP 2: WGET=========================================================================================================== 
-
-echo ""
-echo ""
-echo "WGETTING EVOSUITE TESTS FROM EDITAS2 DIRECTORY"
 
 PREFIX_FLAG=0
 JOINED_TESTS=""
@@ -46,37 +26,30 @@ for EVOTEST_DIR in {1..10}; do
 
 	EVOSUITE_TAR="${PROJECT}${BUG_ID}.${EVOTEST_DIR}.tar.bz2"
 
-	cd original_evotests/${EVOTEST_DIR} 
 
-	wget https://github.com/Lhy-apple/EditAs2/raw/refs/heads/main/evaluator/TEval-plus/data/evosuite_buggy_regression_all/${EVOTEST_DIR}/generated/${PROJECT}/evosuite/${BUG_ID}/${PROJECT}-${BUG_ID}b-evosuite.${BUG_ID}00.tar.bz2 || { echo "wget failed for test set $EVOTEST_DIR"; cd ../../; continue; }
-
-	mv ${PROJECT}-${BUG_ID}b-evosuite.${BUG_ID}00.tar.bz2 ${PROJECT}${BUG_ID}.${EVOTEST_DIR}.tar.bz2 || { echo "mv failed for test set $EVOTEST_DIR"; cd ../../; continue; }
-
-	cd ../../
-
-	#STEP 3: FIND BUG TRIGGERING TESTS==============================================================================
+	#FIND BUG TRIGGERING TESTS==============================================================================
 	
 
 	echo ""
 	echo ""
 	echo "RUNNING ON BUGGY"
-	defects4j test -w checked_out/buggy/${BUG_ID_STR} -s original_evotests/$EVOTEST_DIR/$EVOSUITE_TAR > logs/ran_buggy_${PROJECT}${BUG_ID}.txt 2>&1
+	defects4j test -w checked_out/buggy/${BUG_ID_STR} -s original_evotests/$EVOTEST_DIR/$EVOSUITE_TAR > reports/ran_buggy_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt 2>&1
 
 
 	echo ""
 	echo ""
 	echo "RUNNING ON FIXED"
-	defects4j test -w checked_out/fixed/${BUG_ID_STR} -s original_evotests/$EVOTEST_DIR/$EVOSUITE_TAR > logs/ran_fixed_${PROJECT}${BUG_ID}.txt 2>&1
+	defects4j test -w checked_out/fixed/${BUG_ID_STR} -s original_evotests/$EVOTEST_DIR/$EVOSUITE_TAR > reports/ran_fixed_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt 2>&1
 
 	echo ""
 	echo ""
-	echo "searching for failing tests in logs/ran_buggy_${PROJECT}${BUG_ID}.txt"
-	awk '/^Failing tests:/ {n = $3; count = (n > 0) ? n : 0; next} count > 0 {print; count--}' logs/ran_buggy_${PROJECT}${BUG_ID}.txt > logs/failing_tests_buggy_${PROJECT}${BUG_ID}.txt
+	echo "searching for failing tests in reports/ran_buggy_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt"
+	awk '/^Failing tests:/ {n = $3; count = (n > 0) ? n : 0; next} count > 0 {print; count--}' reports/ran_buggy_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt > reports/failing_tests_buggy_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt
 
 	echo ""
 	echo ""
-	echo "searching for failing tests in logs/ran_fixed_${PROJECT}${BUG_ID}.txt"
-	awk '/^Failing tests:/ {n = $3; count = (n > 0) ? n : 0; next} count > 0 {print; count--}' logs/ran_fixed_${PROJECT}${BUG_ID}.txt > logs/failing_tests_fixed_${PROJECT}${BUG_ID}.txt
+	echo "searching for failing tests in reports/ran_fixed_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt"
+	awk '/^Failing tests:/ {n = $3; count = (n > 0) ? n : 0; next} count > 0 {print; count--}' reports/ran_fixed_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt > reports/failing_tests_fixed_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt
 
 	echo ""
 	echo ""
@@ -86,14 +59,14 @@ for EVOTEST_DIR in {1..10}; do
 	echo ""
 	echo ""
 	echo "DIFF"
-	diff logs/failing_tests_buggy_${PROJECT}${BUG_ID}.txt logs/failing_tests_fixed_${PROJECT}${BUG_ID}.txt > logs/diff_${PROJECT}${BUG_ID}.txt
-	diff logs/failing_tests_buggy_${PROJECT}${BUG_ID}.txt logs/failing_tests_fixed_${PROJECT}${BUG_ID}.txt
+	diff reports/failing_tests_buggy_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt reports/failing_tests_fixed_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt > reports/diff_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt
+	diff reports/failing_tests_buggy_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt reports/failing_tests_fixed_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt
 	
 	echo ""
 	echo ""
 	echo "BUG CATCHING TESTS"
-	BUG_CATCHING_TESTS=$(comm -23 <(sort logs/failing_tests_fixed_${PROJECT}${BUG_ID}.txt) <(sort logs/failing_tests_buggy_${PROJECT}${BUG_ID}.txt) | sed 's/^  - //')
-	comm -23 <(sort logs/failing_tests_fixed_${PROJECT}${BUG_ID}.txt) <(sort logs/failing_tests_buggy_${PROJECT}${BUG_ID}.txt) | sed 's/^  - //'
+	BUG_CATCHING_TESTS=$(comm -23 <(sort reports/failing_tests_fixed_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt) <(sort reports/failing_tests_buggy_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt) | sed 's/^  - //')
+	comm -23 <(sort logs/failing_tests_fixed_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt) <(sort reports/failing_tests_buggy_${PROJECT}${BUG_ID}_${EVOTEST_DIR}.txt) | sed 's/^  - //'
 
 	#any tests found?
 	if [[ -n "$BUG_CATCHING_TESTS" ]]; then
@@ -113,14 +86,14 @@ for EVOTEST_DIR in {1..10}; do
   		while IFS= read -r testname; do
     			testname_escaped=$(printf '%s\n' "$testname" | sed 's/\//\\\//g')
 
-    			# Extract the first line after the --- testname header
-    			# Check if it's an exception (not AssertionFailedError)
-    			EXC_LINE=$(awk -v test="--- $testname" '  $0 == test { getline; print; exit } ' "$FAILING_TESTS_FILE")
+    			# get the first line after the --- testname 
+    			# assume if not AssertionFailedError, must be an exception
+			EXC_LINE=$(awk -v test="--- $testname" '  $0 == test { getline; print; exit } ' "$FAILING_TESTS_FILE")
 
     			if [[ -n "$EXC_LINE" ]] && [[ "$EXC_LINE" != *"AssertionFailedError"* ]]; then
       				EXCEPTIONAL=1
       				EXCEPTION_TESTS+=("$testname")
-      				# Append exception message, remove newlines and commas (to keep CSV safe)
+      				# append exception message, remove newlines and commas
       				CLEAN_MSG=$(echo "$EXC_LINE" | tr -d '\n\r' | tr ',' ';')
       				if [[ -z "$EXCEPTION_MSGS" ]]; then
       					EXCEPTION_MSGS="$testname: $CLEAN_MSG"

@@ -1,0 +1,210 @@
+Checking out f6607996 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure95'...
+done.
+Updating files:  32% (656/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  68% (1376/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
+Note: switching to 'f6607996d6d3bd6820ce3848d147991b27600a12'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at f6607996d If a property is defined on a global name, but in a local scope, declare that property in the global scope. this goes most of the way towards fixing issue 66.
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure95/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure95/.git/
+[detached HEAD df3dc5a49] D4J_Closure_95_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Apply patch................................................................ OK
+Run post-checkout hook..................................................... OK
+[detached HEAD eebfb77f3] D4J_Closure_95_POST_FIX_COMPILABLE
+ 2 files changed, 8 insertions(+), 6 deletions(-)
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD 168e52972] D4J_Closure_95_FIXED_VERSION
+ 3 files changed, 480 insertions(+), 60 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD 46f6dfb1e] D4J_Closure_95_BUGGY_VERSION
+ 2 files changed, 1 insertion(+), 8 deletions(-)
+Diff f6607996:f93cdf97..................................................... OK
+diff --git a/src/com/google/javascript/jscomp/NodeUtil.java b/src/com/google/javascript/jscomp/NodeUtil.java
+index 8bf7ecff3..b6f5b24c4 100644
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -1644,20 +1644,6 @@ public final class NodeUtil {
+     return node;
+   }
+ 
+-  /**
+-   * Gets the root node of a qualified name. Must be either NAME or THIS.
+-   */
+-  static Node getRootOfQualifiedName(Node qName) {
+-    for (Node current = qName; true;
+-         current = current.getFirstChild()) {
+-      int type = current.getType();
+-      if (type == Token.NAME || type == Token.THIS) {
+-        return current;
+-      }
+-      Preconditions.checkState(type == Token.GETPROP);
+-    }
+-  }
+-
+   /**
+    * Sets the debug information (source file info and orignal name)
+    * on the given node.
+diff --git a/src/com/google/javascript/jscomp/TypedScopeCreator.java b/src/com/google/javascript/jscomp/TypedScopeCreator.java
+index c7005b2b3..dbb815cf9 100644
+--- a/src/com/google/javascript/jscomp/TypedScopeCreator.java
++++ b/src/com/google/javascript/jscomp/TypedScopeCreator.java
+@@ -892,24 +892,9 @@ final class TypedScopeCreator implements ScopeCreator {
+       String variableName = n.getQualifiedName();
+       Preconditions.checkArgument(!variableName.isEmpty());
+ 
+-      // If n is a property, then we should really declare it in the
+-      // scope where the root object appears. This helps out people
+-      // who declare "global" names in an anonymous namespace.
+-      Scope scopeToDeclareIn = scope;
+-      if (n.getType() == Token.GETPROP && !scope.isGlobal() &&
+-          isQnameRootedInGlobalScope(n)) {
+-        Scope globalScope = scope.getGlobalScope();
+-
+-        // don't try to declare in the global scope if there's
+-        // already a symbol there with this name.
+-        if (!globalScope.isDeclared(variableName, false)) {
+-          scopeToDeclareIn = scope.getGlobalScope();
+-        }
+-      }
+-
+       // declared in closest scope?
+-      if (scopeToDeclareIn.isDeclared(variableName, false)) {
+-        Var oldVar = scopeToDeclareIn.getVar(variableName);
++      if (scope.isDeclared(variableName, false)) {
++        Var oldVar = scope.getVar(variableName);
+         validator.expectUndeclaredVariable(
+             sourceName, n, parent, oldVar, variableName, type);
+       } else {
+@@ -917,7 +902,7 @@ final class TypedScopeCreator implements ScopeCreator {
+           setDeferredType(n, type);
+         }
+         CompilerInput input = compiler.getInput(sourceName);
+-        scopeToDeclareIn.declare(variableName, n, type, input, inferred);
++        scope.declare(variableName, n, type, input, inferred);
+ 
+         if (shouldDeclareOnGlobalThis) {
+           ObjectType globalThis =
+@@ -936,11 +921,11 @@ final class TypedScopeCreator implements ScopeCreator {
+ 
+         // If we're in the global scope, also declare var.prototype
+         // in the scope chain.
+-        if (scopeToDeclareIn.isGlobal() && type instanceof FunctionType) {
++        if (scope.isGlobal() && type instanceof FunctionType) {
+           FunctionType fnType = (FunctionType) type;
+           if (fnType.isConstructor() || fnType.isInterface()) {
+             FunctionType superClassCtor = fnType.getSuperClassConstructor();
+-            scopeToDeclareIn.declare(variableName + ".prototype", n,
++            scope.declare(variableName + ".prototype", n,
+                 fnType.getPrototype(), compiler.getInput(sourceName),
+                 /* declared iff there's an explicit supertype */
+                 superClassCtor == null ||
+@@ -951,20 +936,6 @@ final class TypedScopeCreator implements ScopeCreator {
+       }
+     }
+ 
+-    /**
+-     * Check if the given node is a property of a name in the global scope.
+-     */
+-    private boolean isQnameRootedInGlobalScope(Node n) {
+-      Node root = NodeUtil.getRootOfQualifiedName(n);
+-      if (root.getType() == Token.NAME) {
+-        Var var = scope.getVar(root.getString());
+-        if (var != null) {
+-          return var.isGlobal();
+-        }
+-      }
+-      return false;
+-    }
+-
+     /**
+      * Look for a type declaration on a GETPROP node.
+      *
+diff --git a/test/com/google/javascript/jscomp/TypeCheckTest.java b/test/com/google/javascript/jscomp/TypeCheckTest.java
+index c8cc8eff9..1424a3b52 100644
+--- a/test/com/google/javascript/jscomp/TypeCheckTest.java
++++ b/test/com/google/javascript/jscomp/TypeCheckTest.java
+@@ -4757,29 +4757,6 @@ public class TypeCheckTest extends CompilerTypeTestCase {
+         "};");
+   }
+ 
+-  public void testQualifiedNameInference5() throws Exception {
+-    testTypes(
+-        "var ns = {}; " +
+-        "(function() { " +
+-        "    /** @param {number} x */ ns.foo = function(x) {}; })();" +
+-        "(function() { ns.foo(true); })();",
+-        "actual parameter 1 of ns.foo does not match formal parameter\n" +
+-        "found   : boolean\n" +
+-        "required: number");
+-  }
+-
+-  public void testQualifiedNameInference6() throws Exception {
+-    testTypes(
+-        "var ns = {}; " +
+-        "/** @param {number} x */ ns.foo = function(x) {};" +
+-        "(function() { " +
+-        "    ns.foo = function(x) {};" +
+-        "    ns.foo(true); })();",
+-        "actual parameter 1 of ns.foo does not match formal parameter\n" +
+-        "found   : boolean\n" +
+-        "required: number");
+-  }
+-
+   public void testSheqRefinedScope() throws Exception {
+     Node n = parseAndTypeCheck(
+         "/** @constructor */function A() {}\n" +
+diff --git a/test/com/google/javascript/jscomp/TypedScopeCreatorTest.java b/test/com/google/javascript/jscomp/TypedScopeCreatorTest.java
+index 400293ffe..789c54646 100644
+--- a/test/com/google/javascript/jscomp/TypedScopeCreatorTest.java
++++ b/test/com/google/javascript/jscomp/TypedScopeCreatorTest.java
+@@ -772,18 +772,6 @@ public class TypedScopeCreatorTest extends CompilerTestCase {
+         "{}", findTokenType(Token.OBJECTLIT, globalScope).toString());
+   }
+ 
+-  public void testGlobalQualifiedNameInLocalScope() {
+-    testSame(
+-        "var ns = {}; " +
+-        "(function() { " +
+-        "    /** @param {number} x */ ns.foo = function(x) {}; })();" +
+-        "(function() { ns.foo(3); })();");
+-    assertNotNull(globalScope.getVar("ns.foo"));
+-    assertEquals(
+-        "function (number): undefined",
+-        globalScope.getVar("ns.foo").getType().toString());
+-  }
+-
+   private JSType findNameType(final String name, Scope scope) {
+     return findTypeOnMatchedNode(new Predicate<Node>() {
+       @Override public boolean apply(Node n) {
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD fc836d6e3] D4J_Closure_95_PRE_FIX_REVISION
+ 4 files changed, 5 insertions(+), 83 deletions(-)
+Check out program version: Closure-95b..................................... OK
+Previous HEAD position was fc836d6e3 D4J_Closure_95_PRE_FIX_REVISION
+HEAD is now at 46f6dfb1e D4J_Closure_95_BUGGY_VERSION

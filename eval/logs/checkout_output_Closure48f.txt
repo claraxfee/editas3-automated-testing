@@ -1,0 +1,177 @@
+Checking out 46da17d5 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure48'...
+done.
+Updating files:  26% (541/2006)Updating files:  27% (542/2006)Updating files:  28% (562/2006)Updating files:  29% (582/2006)Updating files:  30% (602/2006)Updating files:  31% (622/2006)Updating files:  32% (642/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  58% (1173/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  87% (1752/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
+Note: switching to '46da17d59abb4f9c48b6ffd31601c212490b970b'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 46da17d59 Fix issue 586. Distinguishing declared functions from inferred functions is really hard!
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure48/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure48/.git/
+[detached HEAD 6d7f25c8e] D4J_Closure_48_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Run post-checkout hook..................................................... OK
+[detached HEAD 3760f0d1b] D4J_Closure_48_POST_FIX_COMPILABLE
+ 2 files changed, 11 insertions(+), 11 deletions(-)
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD 6288ef38a] D4J_Closure_48_FIXED_VERSION
+ 5 files changed, 657 insertions(+), 79 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 test/com/google/debugging/sourcemap/Base64VLQTest.java.bak
+ create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD 563bca605] D4J_Closure_48_BUGGY_VERSION
+ 2 files changed, 5 insertions(+), 8 deletions(-)
+Diff 46da17d5:5524adbd..................................................... OK
+diff --git a/src/com/google/javascript/jscomp/TypedScopeCreator.java b/src/com/google/javascript/jscomp/TypedScopeCreator.java
+index 09aba12df..b29ff9c65 100644
+--- a/src/com/google/javascript/jscomp/TypedScopeCreator.java
++++ b/src/com/google/javascript/jscomp/TypedScopeCreator.java
+@@ -89,8 +89,6 @@ import javax.annotation.Nullable;
+  *
+  * When building scope information, also declares relevant information
+  * about types in the type registry.
+- *
+- * @author nicksantos@google.com (Nick Santos)
+  */
+ final class TypedScopeCreator implements ScopeCreator {
+   /**
+@@ -1196,22 +1194,14 @@ final class TypedScopeCreator implements ScopeCreator {
+      * Check if the given node is a property of a name in the global scope.
+      */
+     private boolean isQnameRootedInGlobalScope(Node n) {
+-      Scope scope = getQnameRootScope(n);
+-      return scope != null && scope.isGlobal();
+-    }
+-
+-    /**
+-     * Return the scope for the name of the given node.
+-     */
+-    private Scope getQnameRootScope(Node n) {
+       Node root = NodeUtil.getRootOfQualifiedName(n);
+       if (root.isName()) {
+         Var var = scope.getVar(root.getString());
+         if (var != null) {
+-          return var.getScope();
++          return var.isGlobal();
+         }
+       }
+-      return null;
++      return false;
+     }
+ 
+     /**
+@@ -1484,30 +1474,6 @@ final class TypedScopeCreator implements ScopeCreator {
+         return;
+       }
+ 
+-      // NOTE(nicksantos): Determining whether a property is declared or not
+-      // is really really obnoxious.
+-      //
+-      // The problem is that there are two (equally valid) coding styles:
+-      //
+-      // (function() {
+-      //   /* The authoritative definition of goog.bar. */
+-      //   goog.bar = function() {};
+-      // })();
+-      //
+-      // function f() {
+-      //   goog.bar();
+-      //   /* Reset goog.bar to a no-op. */
+-      //   goog.bar = function() {};
+-      // }
+-      //
+-      // In a dynamic language with first-class functions, it's very difficult
+-      // to know which one the user intended without looking at lots of
+-      // contextual information (the second example demonstrates a small case
+-      // of this, but there are some really pathological cases as well).
+-      //
+-      // The current algorithm checks if either the declaration has
+-      // jsdoc type information, or @const with a known type,
+-      // or a function literal with a name we haven't seen before.
+       boolean inferred = true;
+       if (info != null) {
+         // Determining declaration for #1 + #3 + #4
+@@ -1518,14 +1484,11 @@ final class TypedScopeCreator implements ScopeCreator {
+             || FunctionTypeBuilder.isFunctionTypeDeclaration(info));
+       }
+ 
+-      if (inferred && rhsValue != null && rhsValue.isFunction()) {
++      if (inferred) {
+         // Determining declaration for #2
+-        if (info != null) {
+-          inferred = false;
+-        } else if (!scope.isDeclared(qName, false) &&
+-                   n.isUnscopedQualifiedName()) {
+-          inferred = false;
+-        }
++        inferred = !(rhsValue != null &&
++            rhsValue.isFunction() &&
++            (info != null || !scope.isDeclared(qName, false)));
+       }
+ 
+       if (!inferred) {
+@@ -1546,7 +1509,8 @@ final class TypedScopeCreator implements ScopeCreator {
+         // If the property is already declared, the error will be
+         // caught when we try to declare it in the current scope.
+         defineSlot(n, parent, valueType, inferred);
+-      } else if (rhsValue != null && rhsValue.isTrue()) {
++      } else if (rhsValue != null &&
++          rhsValue.isTrue()) {
+         // We declare these for delegate proxy method properties.
+         FunctionType ownerType =
+             JSType.toMaybeFunctionType(getObjectSlot(ownerName));
+diff --git a/test/com/google/javascript/jscomp/TypeCheckTest.java b/test/com/google/javascript/jscomp/TypeCheckTest.java
+index cba4cbf9a..0849c4de2 100644
+--- a/test/com/google/javascript/jscomp/TypeCheckTest.java
++++ b/test/com/google/javascript/jscomp/TypeCheckTest.java
+@@ -5439,21 +5439,6 @@ public class TypeCheckTest extends CompilerTypeTestCase {
+         "Bar.prototype.__proto__ = Foo.prototype;");
+   }
+ 
+-  public void testIssue586() throws Exception {
+-    testTypes(
+-        "/** @constructor */" +
+-        "var MyClass = function() {};" +
+-        "/** @param {boolean} success */" +
+-        "MyClass.prototype.fn = function(success) {};" +
+-        "MyClass.prototype.test = function() {" +
+-        "  this.fn();" +
+-        "  this.fn = function() {};" +
+-        "};",
+-        "Function MyClass.prototype.fn: called with 0 argument(s). " +
+-        "Function requires at least 1 argument(s) " +
+-        "and no more than 1 argument(s).");
+-  }
+-
+   /**
+    * Tests that the || operator is type checked correctly, that is of
+    * the type of the first argument or of the second argument. See
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD 5efc29fe8] D4J_Closure_48_PRE_FIX_REVISION
+ 2 files changed, 8 insertions(+), 59 deletions(-)
+Check out program version: Closure-48f..................................... OK
+Previous HEAD position was 5efc29fe8 D4J_Closure_48_PRE_FIX_REVISION
+HEAD is now at 6288ef38a D4J_Closure_48_FIXED_VERSION

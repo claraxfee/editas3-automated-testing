@@ -1,0 +1,302 @@
+Checking out 4839e1ea to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure84'...
+done.
+Updating files:  33% (666/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  68% (1383/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
+Note: switching to '4839e1ea57f9a1a26debd2cc8f22beef7282b490'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 4839e1ea5 Don't let invalid LHS assignments to slip through. Fixes issue 215. Fixes issue 214.
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure84/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure84/.git/
+[detached HEAD 08c0a29f9] D4J_Closure_84_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Apply patch................................................................ OK
+Run post-checkout hook..................................................... OK
+[detached HEAD 0f0a003b0] D4J_Closure_84_POST_FIX_COMPILABLE
+ 2 files changed, 10 insertions(+), 8 deletions(-)
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD 4dea34564] D4J_Closure_84_FIXED_VERSION
+ 3 files changed, 505 insertions(+), 60 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD 1ca513e58] D4J_Closure_84_BUGGY_VERSION
+ 2 files changed, 1 insertion(+), 28 deletions(-)
+Diff 4839e1ea:9f8345af..................................................... OK
+diff --git a/src/com/google/javascript/jscomp/parsing/IRFactory.java b/src/com/google/javascript/jscomp/parsing/IRFactory.java
+index d2a4e5dce..3568fc5e4 100644
+--- a/src/com/google/javascript/jscomp/parsing/IRFactory.java
++++ b/src/com/google/javascript/jscomp/parsing/IRFactory.java
+@@ -337,15 +337,7 @@ public class IRFactory {
+ 
+     @Override
+     Node processAssignment(Assignment assignmentNode) {
+-      Node assign = processInfixExpression(assignmentNode);
+-      Node target = assign.getFirstChild();
+-      if (!validAssignmentTarget(target)) {
+-        errorReporter.error(
+-          "invalid assignment target",
+-          sourceName,
+-          target.getLineno(), "", 0);
+-      }
+-      return assign;
++      return processInfixExpression(assignmentNode);
+     }
+ 
+     @Override
+@@ -801,18 +793,6 @@ public class IRFactory {
+         operand.setDouble(-operand.getDouble());
+         return operand;
+       } else {
+-        if (type == Token.INC || type == Token.DEC) {
+-          if (!validAssignmentTarget(operand)) {
+-            String msg = (type == Token.INC)
+-                ? "invalid increment target"
+-                : "invalid decrement target";
+-            errorReporter.error(
+-              msg,
+-              sourceName,
+-              operand.getLineno(), "", 0);
+-          }
+-        }
+-
+         Node node = newNode(type, operand);
+         if (exprNode.isPostfix()) {
+           node.putBooleanProp(Node.INCRDECR_PROP, true);
+@@ -821,16 +801,6 @@ public class IRFactory {
+       }
+     }
+ 
+-    private boolean validAssignmentTarget(Node target) {
+-      switch (target.getType()) {
+-        case Token.NAME:
+-        case Token.GETPROP:
+-        case Token.GETELEM:
+-          return true;
+-      }
+-      return false;
+-    }
+-
+     @Override
+     Node processVariableDeclaration(VariableDeclaration declarationNode) {
+       Node node = newNode(Token.VAR);
+diff --git a/test/com/google/javascript/jscomp/CheckGlobalThisTest.java b/test/com/google/javascript/jscomp/CheckGlobalThisTest.java
+index 585df22cd..de413ddf5 100644
+--- a/test/com/google/javascript/jscomp/CheckGlobalThisTest.java
++++ b/test/com/google/javascript/jscomp/CheckGlobalThisTest.java
+@@ -85,11 +85,11 @@ public class CheckGlobalThisTest extends CompilerTestCase {
+   }
+ 
+   public void testStaticFunction6() {
+-    testSame("function a() { return function() { this.x = 8; } }");
++    testSame("function a() { return function() { this = 8; } }");
+   }
+ 
+   public void testStaticFunction7() {
+-    testSame("var a = function() { return function() { this.x = 8; } }");
++    testSame("var a = function() { return function() { this = 8; } }");
+   }
+ 
+   public void testStaticFunction8() {
+diff --git a/test/com/google/javascript/jscomp/DeadAssignmentsEliminationTest.java b/test/com/google/javascript/jscomp/DeadAssignmentsEliminationTest.java
+index 486fe5a7a..2d82661d6 100644
+--- a/test/com/google/javascript/jscomp/DeadAssignmentsEliminationTest.java
++++ b/test/com/google/javascript/jscomp/DeadAssignmentsEliminationTest.java
+@@ -91,7 +91,7 @@ public class DeadAssignmentsEliminationTest extends CompilerTestCase {
+     inFunction("var x; if(x=1==4&&1){}", "var x; if(1==4&&1) {}");
+     inFunction("var x; if(0&&(x=1)){}", "var x; if(0&&1){}");
+     inFunction("var x; if((x=2)&&(x=1)){}", "var x; if(2&&1){}");
+-    inFunction("var x; x=2; if(0&&(x=1)){}; x");
++    inFunction("var x; x=2; if(0&&x=1){}; x");
+ 
+     inFunction("var x,y; if( (x=1)+(y=2) > 3){}",
+         "var x,y; if( 1+2 > 3){}");
+diff --git a/test/com/google/javascript/jscomp/FlowSensitiveInlineVariablesTest.java b/test/com/google/javascript/jscomp/FlowSensitiveInlineVariablesTest.java
+index bc4ba6f1b..4eab4b4ba 100644
+--- a/test/com/google/javascript/jscomp/FlowSensitiveInlineVariablesTest.java
++++ b/test/com/google/javascript/jscomp/FlowSensitiveInlineVariablesTest.java
+@@ -103,10 +103,8 @@ public class FlowSensitiveInlineVariablesTest extends CompilerTestCase  {
+   }
+ 
+   public void testMultiDefinitionsInSameCfgNode() {
+-    noInline("var x; (x = 1) || (x = 2); print(x)");
+-    noInline("var x; x = (1 || (x = 2)); print(x)");
+-    noInline("var x;(x = 1) && (x = 2); print(x)");
+-    noInline("var x;x = (1 && (x = 2)); print(x)");
++    noInline("var x; x = 1 || x = 2; print(x)");
++    noInline("var x; x = 1 && x = 2; print(x)");
+     noInline("var x; x = 1 , x = 2; print(x)");
+   }
+ 
+@@ -365,7 +363,7 @@ public class FlowSensitiveInlineVariablesTest extends CompilerTestCase  {
+     inline("var x = 1; x = (x = x + 1)", "var x; x = (x = 1 + 1)");
+ 
+     noInline("var x = 1; x = (x = (x = 10) + x)");
+-    noInline("var x = 1; x = (f(x) + (x = 10) + x);");
++    noInline("var x = 1; x = (f(x) = (x = 10) + x);");
+     noInline("var x = 1; x=-1,foo(x)");
+     noInline("var x = 1; x-=1,foo(x)");
+   }
+diff --git a/test/com/google/javascript/jscomp/InlineFunctionsTest.java b/test/com/google/javascript/jscomp/InlineFunctionsTest.java
+index aa72d7a62..c92661e7c 100644
+--- a/test/com/google/javascript/jscomp/InlineFunctionsTest.java
++++ b/test/com/google/javascript/jscomp/InlineFunctionsTest.java
+@@ -1249,9 +1249,9 @@ public class InlineFunctionsTest extends CompilerTestCase {
+   }
+ 
+   public void testComplexInlineInExpresssions3() {
+-    test("function f(){a()}c=z=f()",
++    test("function f(){a()}c=f()=z",
+         "{var JSCompiler_inline_result$$0;a();}" +
+-        "c=z=JSCompiler_inline_result$$0");
++        "c=JSCompiler_inline_result$$0=z");
+   }
+ 
+   public void testComplexInlineInExpresssions4() {
+diff --git a/test/com/google/javascript/jscomp/LooseTypeCheckTest.java b/test/com/google/javascript/jscomp/LooseTypeCheckTest.java
+index 7488dec82..b2b3dded4 100644
+--- a/test/com/google/javascript/jscomp/LooseTypeCheckTest.java
++++ b/test/com/google/javascript/jscomp/LooseTypeCheckTest.java
+@@ -82,7 +82,7 @@ public class LooseTypeCheckTest extends CompilerTypeTestCase {
+   }
+ 
+   public void testTypeCheck2() throws Exception {
+-    testTypes("/**@return {void}*/function foo(){ var x=foo(); x--; }",
++    testTypes("/**@return {void}*/function foo(){ foo()--; }",
+         "increment/decrement\n" +
+         "found   : undefined\n" +
+         "required: number");
+diff --git a/test/com/google/javascript/jscomp/TypeCheckTest.java b/test/com/google/javascript/jscomp/TypeCheckTest.java
+index f2a279d65..8a42af994 100644
+--- a/test/com/google/javascript/jscomp/TypeCheckTest.java
++++ b/test/com/google/javascript/jscomp/TypeCheckTest.java
+@@ -78,7 +78,7 @@ public class TypeCheckTest extends CompilerTypeTestCase {
+   }
+ 
+   public void testTypeCheck2() throws Exception {
+-    testTypes("/**@return {void}*/function foo(){ var x=foo(); x--; }",
++    testTypes("/**@return {void}*/function foo(){ foo()--; }",
+         "increment/decrement\n" +
+         "found   : undefined\n" +
+         "required: number");
+diff --git a/test/com/google/javascript/jscomp/parsing/IRFactoryTest.java b/test/com/google/javascript/jscomp/parsing/IRFactoryTest.java
+index 6801b2700..6b982b54a 100644
+--- a/test/com/google/javascript/jscomp/parsing/IRFactoryTest.java
++++ b/test/com/google/javascript/jscomp/parsing/IRFactoryTest.java
+@@ -1013,51 +1013,7 @@ public class IRFactoryTest extends BaseJSTypeTestCase {
+     assertNodePosition(2, 0, bName);
+     assertNodePosition(3, 8, fnNode);
+     assertNodePosition(3, 8, fnName);
+-  }
+-
+-  final String INVALID_ASSIGNMENT_TARGET = "invalid assignment target";
+-  final String INVALID_INCREMENT_TARGET = "invalid increment target";
+-  final String INVALID_DECREMENT_TARGET = "invalid decrement target";
+-
+-  final String INVALID_INC_OPERAND = "Invalid increment operand";
+-  final String INVALID_DEC_OPERAND = "Invalid decrement operand";
+-
+-  public void testAssignmentValidation() {
+-    testNoParseError("x=1");
+-    testNoParseError("x.y=1");
+-    testNoParseError("f().y=1");
+-    testParseError("(x||y)=1", INVALID_ASSIGNMENT_TARGET);
+-    testParseError("(x?y:z)=1", INVALID_ASSIGNMENT_TARGET);
+-    testParseError("f()=1", INVALID_ASSIGNMENT_TARGET);
+-
+-    testNoParseError("x+=1");
+-    testNoParseError("x.y+=1");
+-    testNoParseError("f().y+=1");
+-    testParseError("(x||y)+=1", INVALID_ASSIGNMENT_TARGET);
+-    testParseError("(x?y:z)+=1", INVALID_ASSIGNMENT_TARGET);
+-    testParseError("f()+=1", INVALID_ASSIGNMENT_TARGET);
+-
+-    testParseError("f()++", INVALID_INCREMENT_TARGET);
+-    testParseError("f()--", INVALID_DECREMENT_TARGET);
+-    testParseError("++f()", INVALID_INCREMENT_TARGET);
+-    testParseError("--f()", INVALID_DECREMENT_TARGET);
+-  }
+-
+-  private void testNoParseError(String string) {
+-    testParseError(string, (String)null);
+-  }
+-  
+-  private void testParseError(String string, String error) {
+-    testParseError(string, error == null ? null : new String[] { error });
+-  }
+-  
+-  private void testParseError(String string, String[] errors) {
+-    Node root = newParse(string, new TestErrorReporter(errors, null));
+-    assertTrue("unexpected warnings reported",
+-        errorReporter.hasEncounteredAllWarnings());
+-    assertTrue("expected error were not reported",
+-        errorReporter.hasEncounteredAllErrors());
+-  }
++   }
+ 
+   private void assertMarkerPosition(Node n, int lineno, int charno) {
+     int count = 0;
+@@ -1085,10 +1041,6 @@ public class IRFactoryTest extends BaseJSTypeTestCase {
+   }
+ 
+   private Node newParse(String string) {
+-    return newParse(string, new TestErrorReporter(null, null));
+-  }
+-
+-  private Node newParse(String string, TestErrorReporter errorReporter) {
+     CompilerEnvirons environment = new CompilerEnvirons();
+ 
+     environment.setRecordingComments(true);
+@@ -1098,7 +1050,8 @@ public class IRFactoryTest extends BaseJSTypeTestCase {
+     AstRoot script = p.parse(string, null, 0);
+ 
+     Config config = ParserRunner.createConfig(true, es5mode);
+-    Node root = IRFactory.transformTree(script, string, config, errorReporter);
++    Node root = IRFactory.transformTree(script, string, config,
++        new TestErrorReporter(null, null));
+ 
+     return root;
+   }
+diff --git a/test/com/google/javascript/jscomp/parsing/ParserTest.java b/test/com/google/javascript/jscomp/parsing/ParserTest.java
+index e09390d28..0d7e9eb56 100644
+--- a/test/com/google/javascript/jscomp/parsing/ParserTest.java
++++ b/test/com/google/javascript/jscomp/parsing/ParserTest.java
+@@ -622,9 +622,7 @@ public class ParserTest extends BaseJSTypeTestCase {
+   }
+ 
+   public void testDestructuringAssignForbidden4() {
+-    parseError("[x, y] = foo();",
+-        "destructuring assignment forbidden",
+-        "invalid assignment target");
++    parseError("[x, y] = foo();", "destructuring assignment forbidden");
+   }
+ 
+   public void testLetForbidden() {
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD b5e3d3c34] D4J_Closure_84_PRE_FIX_REVISION
+ 9 files changed, 15 insertions(+), 96 deletions(-)
+Check out program version: Closure-84b..................................... OK
+Previous HEAD position was b5e3d3c34 D4J_Closure_84_PRE_FIX_REVISION
+HEAD is now at 1ca513e58 D4J_Closure_84_BUGGY_VERSION

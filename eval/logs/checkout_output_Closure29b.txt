@@ -1,0 +1,227 @@
+Checking out 6924915e to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure29'...
+done.
+Updating files:  30% (621/2006)Updating files:  31% (622/2006)Updating files:  32% (642/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  67% (1358/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
+Note: switching to '6924915efab89f921fd0779fe200fecc1bf80847'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 6924915ef don't try to inline properties that we don't recognize, because they may be prototype properties. This isn't a perfect fix, but should get most cases. Fixes issue 724
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure29/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure29/.git/
+[detached HEAD 41411a970] D4J_Closure_29_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Run post-checkout hook..................................................... OK
+[detached HEAD fff5eb863] D4J_Closure_29_POST_FIX_COMPILABLE
+ 2 files changed, 12 insertions(+), 12 deletions(-)
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD 265de4438] D4J_Closure_29_FIXED_VERSION
+ 5 files changed, 785 insertions(+), 79 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 test/com/google/debugging/sourcemap/Base64VLQTest.java.bak
+ create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD a3dae7599] D4J_Closure_29_BUGGY_VERSION
+ 2 files changed, 1 insertion(+), 11 deletions(-)
+Diff 6924915e:3587cc3b..................................................... OK
+diff --git a/src/com/google/javascript/jscomp/InlineObjectLiterals.java b/src/com/google/javascript/jscomp/InlineObjectLiterals.java
+index 8c3159d6d..62ff35dda 100644
+--- a/src/com/google/javascript/jscomp/InlineObjectLiterals.java
++++ b/src/com/google/javascript/jscomp/InlineObjectLiterals.java
+@@ -86,22 +86,22 @@ class InlineObjectLiterals implements CompilerPass {
+         Var v = it.next();
+ 
+         if (isVarInlineForbidden(v)) {
+-          continue;
++            continue;
+         }
+ 
+         ReferenceCollection referenceInfo = referenceMap.getReferences(v);
+ 
+         if (isInlinableObject(referenceInfo.references)) {
+-          // Blacklist the object itself, as well as any other values
+-          // that it refers to, since they will have been moved around.
+-          staleVars.add(v);
++            // Blacklist the object itself, as well as any other values
++            // that it refers to, since they will have been moved around.
++            staleVars.add(v);
+ 
+-          Reference declaration = referenceInfo.references.get(0);
+-          Reference init = referenceInfo.getInitializingReference();
++            Reference declaration = referenceInfo.references.get(0);
++            Reference init = referenceInfo.getInitializingReference();
+ 
+-          // Split up the object into individual variables if the object
+-          // is never referenced directly in full.
+-          splitObject(v, declaration, init, referenceInfo);
++            // Split up the object into individual variables if the object
++            // is never referenced directly in full.
++            splitObject(v, declaration, init, referenceInfo);
+         }
+       }
+     }
+@@ -154,7 +154,6 @@ class InlineObjectLiterals implements CompilerPass {
+      */
+     private boolean isInlinableObject(List<Reference> refs) {
+       boolean ret = false;
+-      Set<String> validProperties = Sets.newHashSet();
+       for (Reference ref : refs) {
+         Node name = ref.getNode();
+         Node parent = ref.getParent();
+@@ -170,23 +169,6 @@ class InlineObjectLiterals implements CompilerPass {
+               && gramps.getFirstChild() == parent) {
+             return false;
+           }
+-
+-          // NOTE(nicksantos): This pass's object-splitting algorithm has
+-          // a blind spot. It assumes that if a property isn't defined on an
+-          // object, then the value is undefined. This is not true, because
+-          // Object.prototype can have arbitrary properties on it.
+-          //
+-          // We short-circuit this problem by bailing out if we see a reference
+-          // to a property that isn't defined on the object literal. This
+-          // isn't a perfect algorithm, but it should catch most cases.
+-          String propName = parent.getLastChild().getString();
+-          if (!validProperties.contains(propName)) {
+-            if (NodeUtil.isVarOrSimpleAssignLhs(parent, gramps)) {
+-              validProperties.add(propName);
+-            } else {
+-              return false;
+-            }
+-          }
+           continue;
+         }
+ 
+@@ -221,9 +203,6 @@ class InlineObjectLiterals implements CompilerPass {
+             // ES5 get/set not supported.
+             return false;
+           }
+-
+-          validProperties.add(child.getString());
+-
+           Node childVal = child.getFirstChild();
+           // Check if childVal is the parent of any of the passed in
+           // references, as that is how self-referential assignments
+diff --git a/test/com/google/javascript/jscomp/InlineObjectLiteralsTest.java b/test/com/google/javascript/jscomp/InlineObjectLiteralsTest.java
+index 369fc2f4e..2e15d4f49 100644
+--- a/test/com/google/javascript/jscomp/InlineObjectLiteralsTest.java
++++ b/test/com/google/javascript/jscomp/InlineObjectLiteralsTest.java
+@@ -172,7 +172,14 @@ public class InlineObjectLiteralsTest extends CompilerTestCase {
+          "JSCompiler_object_inline_a_0=a,JSCompiler_object_inline_b_1=b,true;" +
+          "if(JSCompiler_object_inline_a_0) g(JSCompiler_object_inline_b_1)");
+     testLocal("var x = {}; var b = f(); x = {a:a, b:b}; if(x.a) g(x.b) + x.c",
+-         "var x = {}; var b = f(); x = {a:a, b:b}; if(x.a) g(x.b) + x.c");
++         "var JSCompiler_object_inline_a_0;" +
++         "var JSCompiler_object_inline_b_1;" +
++         "var JSCompiler_object_inline_c_2;" +
++         "var b=f();" +
++         "JSCompiler_object_inline_a_0=a,JSCompiler_object_inline_b_1=b," +
++         "  JSCompiler_object_inline_c_2=void 0,true;" +
++         "if(JSCompiler_object_inline_a_0) " +
++         "  g(JSCompiler_object_inline_b_1) + JSCompiler_object_inline_c_2");
+     testLocal("var x; var b = f(); x = {a:a, b:b}; x.c = c; if(x.a) g(x.b) + x.c",
+          "var JSCompiler_object_inline_a_0;" +
+          "var JSCompiler_object_inline_b_1;" +
+@@ -213,7 +220,14 @@ public class InlineObjectLiteralsTest extends CompilerTestCase {
+ 
+   public void testObject12() {
+     testLocal("var a; a = {x:1, y:2}; f(a.x, a.y2);",
+-        "var a; a = {x:1, y:2}; f(a.x, a.y2);");
++         "var JSCompiler_object_inline_x_0;" +
++         "var JSCompiler_object_inline_y_1;" +
++         "var JSCompiler_object_inline_y2_2;" +
++         "JSCompiler_object_inline_x_0=1," +
++         "JSCompiler_object_inline_y_1=2," +
++         "JSCompiler_object_inline_y2_2=void 0," +
++         "true;" +
++         "f(JSCompiler_object_inline_x_0, JSCompiler_object_inline_y2_2);");
+   }
+ 
+   public void testObject13() {
+@@ -286,7 +300,14 @@ public class InlineObjectLiteralsTest extends CompilerTestCase {
+       "}");
+ 
+     testLocal("var a; while (1) { f(a.x, a.y); a = {x:1, y:1};}",
+-        "var a; while (1) { f(a.x, a.y); a = {x:1, y:1};}");
++      "var JSCompiler_object_inline_x_0;" +
++      "var JSCompiler_object_inline_y_1;" +
++      "for(;1;) {" +
++      " f(JSCompiler_object_inline_x_0,JSCompiler_object_inline_y_1);" +
++      " JSCompiler_object_inline_x_0=1," +
++      " JSCompiler_object_inline_y_1=1," +
++      " true" +
++      "}");
+   }
+ 
+   public void testObject23() {
+@@ -340,14 +361,6 @@ public class InlineObjectLiteralsTest extends CompilerTestCase {
+     testLocal("var a; a = {}", "true");
+   }
+ 
+-  public void testIssue724() {
+-    testSameLocal(
+-        "var getType; getType = {};" +
+-        "return functionToCheck && " +
+-        "   getType.toString.apply(functionToCheck) === " +
+-        "   '[object Function]';");
+-  }
+-
+   private final String LOCAL_PREFIX = "function local(){";
+   private final String LOCAL_POSTFIX = "}";
+ 
+diff --git a/test/com/google/javascript/jscomp/IntegrationTest.java b/test/com/google/javascript/jscomp/IntegrationTest.java
+index 2a1766e69..a9e2d908e 100644
+--- a/test/com/google/javascript/jscomp/IntegrationTest.java
++++ b/test/com/google/javascript/jscomp/IntegrationTest.java
+@@ -1669,24 +1669,6 @@ public class IntegrationTest extends IntegrationTestCase {
+     assertEquals(result, lastCompiler.toSource());
+   }
+ 
+-  public void testIssue724() {
+-    CompilerOptions options = createCompilerOptions();
+-    CompilationLevel.ADVANCED_OPTIMIZATIONS
+-        .setOptionsForCompilationLevel(options);
+-    String code =
+-        "isFunction = function(functionToCheck) {" +
+-        "  var getType = {};" +
+-        "  return functionToCheck && " +
+-        "      getType.toString.apply(functionToCheck) === " +
+-        "     '[object Function]';" +
+-        "};";
+-    String result =
+-        "isFunction=function(a){var b={};" +
+-        "return a&&\"[object Function]\"===b.b.a(a)}";
+-
+-    test(options, code, result);
+-  }
+-
+   public void testCoaleseVariables() {
+     CompilerOptions options = createCompilerOptions();
+ 
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD 28214254a] D4J_Closure_29_PRE_FIX_REVISION
+ 3 files changed, 33 insertions(+), 59 deletions(-)
+Check out program version: Closure-29b..................................... OK
+Previous HEAD position was 28214254a D4J_Closure_29_PRE_FIX_REVISION
+HEAD is now at a3dae7599 D4J_Closure_29_BUGGY_VERSION

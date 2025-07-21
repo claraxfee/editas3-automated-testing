@@ -1,0 +1,176 @@
+Checking out 1dfad504 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure1'...
+done.
+Updating files:  28% (567/2006)Updating files:  29% (582/2006)Updating files:  30% (602/2006)Updating files:  31% (622/2006)Updating files:  32% (642/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  65% (1309/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
+Note: switching to '1dfad5043a207e032a78ef50c3cba50488bcd300'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 1dfad5043 In simple mode, do not remove unreferenced function arguments. Fixes issue 253
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure1/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Closure1/.git/
+[detached HEAD eecfacf95] D4J_Closure_1_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Run post-checkout hook..................................................... OK
+[detached HEAD 4d101668a] D4J_Closure_1_POST_FIX_COMPILABLE
+ 2 files changed, 14 insertions(+), 14 deletions(-)
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD f70e2ce10] D4J_Closure_1_FIXED_VERSION
+ 7 files changed, 3199 insertions(+), 94 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 test/com/google/debugging/sourcemap/Base64VLQTest.java.bak
+ create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
+ create mode 100644 test/com/google/javascript/jscomp/IntegrationTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD 2dc209a97] D4J_Closure_1_BUGGY_VERSION
+ 2 files changed, 1 insertion(+), 4 deletions(-)
+Diff 1dfad504:2353d807..................................................... OK
+diff --git a/src/com/google/javascript/jscomp/RemoveUnusedVars.java b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+index 4c84735ab..a0520d2c6 100644
+--- a/src/com/google/javascript/jscomp/RemoveUnusedVars.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+@@ -367,18 +367,7 @@ class RemoveUnusedVars
+    * @param fnScope The scope inside the function
+    */
+   private void removeUnreferencedFunctionArgs(Scope fnScope) {
+-    // Notice that removing unreferenced function args breaks
+-    // Function.prototype.length. In advanced mode, we don't really care
+-    // about this: we consider "length" the equivalent of reflecting on
+-    // the function's lexical source.
+-    //
+-    // Rather than create a new option for this, we assume that if the user
+-    // is removing globals, then it's OK to remove unused function args.
+-    //
+-    // See http://code.google.com/p/closure-compiler/issues/detail?id=253
+-    if (!removeGlobals) {
+-      return;
+-    }
++    // TODO(johnlenz): Update type registry for function signature changes.
+ 
+     Node function = fnScope.getRootNode();
+ 
+diff --git a/test/com/google/javascript/jscomp/CommandLineRunnerTest.java b/test/com/google/javascript/jscomp/CommandLineRunnerTest.java
+index 3b729294e..03437250c 100644
+--- a/test/com/google/javascript/jscomp/CommandLineRunnerTest.java
++++ b/test/com/google/javascript/jscomp/CommandLineRunnerTest.java
+@@ -151,16 +151,6 @@ public class CommandLineRunnerTest extends TestCase {
+     test("function f() { this.a = 3; }", CheckGlobalThis.GLOBAL_THIS);
+   }
+ 
+-  public void testSimpleModeLeavesUnusedParams() {
+-    args.add("--compilation_level=SIMPLE_OPTIMIZATIONS");
+-    testSame("window.f = function(a) {};");
+-  }
+-
+-  public void testAdvancedModeRemovesUnusedParams() {
+-    args.add("--compilation_level=ADVANCED_OPTIMIZATIONS");
+-    test("window.f = function(a) {};", "window.a = function() {};");
+-  }
+-
+   public void testCheckGlobalThisOffByDefault() {
+     testSame("function f() { this.a = 3; }");
+   }
+@@ -474,7 +464,7 @@ public class CommandLineRunnerTest extends TestCase {
+     args.add("--compilation_level=SIMPLE_OPTIMIZATIONS");
+     args.add("--debug=false");
+     test("function foo(a) {}",
+-         "function foo(a) {}");
++         "function foo() {}");
+   }
+ 
+   public void testDebugFlag2() {
+@@ -757,7 +747,7 @@ public class CommandLineRunnerTest extends TestCase {
+           "goog.provide('Scotch'); var x = 3;"
+          },
+          new String[] {
+-           "var beer = {}; function f(a) {}",
++           "var beer = {}; function f() {}",
+            ""
+          });
+ 
+@@ -766,7 +756,7 @@ public class CommandLineRunnerTest extends TestCase {
+           "goog.provide('beer'); /** @param {Scotch} x */ function f(x) {}"
+          },
+          new String[] {
+-           "var beer = {}; function f(a) {}",
++           "var beer = {}; function f() {}",
+            ""
+          },
+          RhinoErrorReporter.TYPE_PARSE_ERROR);
+diff --git a/test/com/google/javascript/jscomp/IntegrationTest.java b/test/com/google/javascript/jscomp/IntegrationTest.java
+index 47604bc8a..5a86db176 100644
+--- a/test/com/google/javascript/jscomp/IntegrationTest.java
++++ b/test/com/google/javascript/jscomp/IntegrationTest.java
+@@ -2356,7 +2356,7 @@ public class IntegrationTest extends IntegrationTestCase {
+     String result = "" +
+         "function some_function() {\n" +
+         "  var a, b;\n" +
+-        "  any_expression && (b = external_ref, a = function(a) {\n" +
++        "  any_expression && (b = external_ref, a = function() {\n" +
+         "    return b()\n" +
+         "  });\n" +
+         "  return{method1:function() {\n" +
+diff --git a/test/com/google/javascript/jscomp/RemoveUnusedVarsTest.java b/test/com/google/javascript/jscomp/RemoveUnusedVarsTest.java
+index 02d13de2f..aa9225709 100644
+--- a/test/com/google/javascript/jscomp/RemoveUnusedVarsTest.java
++++ b/test/com/google/javascript/jscomp/RemoveUnusedVarsTest.java
+@@ -244,20 +244,20 @@ public class RemoveUnusedVarsTest extends CompilerTestCase {
+   public void testRemoveGlobal1() {
+     removeGlobal = false;
+     testSame("var x=1");
+-    test("var y=function(x){var z;}", "var y=function(x){}");
++    test("var y=function(x){var z;}", "var y=function(){}");
+   }
+ 
+   public void testRemoveGlobal2() {
+     removeGlobal = false;
+     testSame("var x=1");
+-    test("function y(x){var z;}", "function y(x){}");
++    test("function y(x){var z;}", "function y(){}");
+   }
+ 
+   public void testRemoveGlobal3() {
+     removeGlobal = false;
+     testSame("var x=1");
+     test("function x(){function y(x){var z;}y()}",
+-         "function x(){function y(x){}y()}");
++         "function x(){function y(){}y()}");
+   }
+ 
+   public void testRemoveGlobal4() {
+@@ -286,7 +286,7 @@ public class RemoveUnusedVarsTest extends CompilerTestCase {
+          "function b(){" +
+          "  a();" +
+          "}",
+-         "function a(){(function(x){b()})(1)}" +
++         "function a(){(function(){b()})(1)}" +
+          "function b(){a()}");
+   }
+ 
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD 5c97ffd05] D4J_Closure_1_PRE_FIX_REVISION
+ 4 files changed, 9 insertions(+), 30 deletions(-)
+Check out program version: Closure-1f...................................... OK
+Previous HEAD position was 5c97ffd05 D4J_Closure_1_PRE_FIX_REVISION
+HEAD is now at f70e2ce10 D4J_Closure_1_FIXED_VERSION

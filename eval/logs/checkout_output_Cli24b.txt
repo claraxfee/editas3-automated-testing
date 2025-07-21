@@ -1,0 +1,138 @@
+Checking out 02dd7c20 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli24'...
+done.
+Note: switching to '02dd7c20646bf67dcfb6f7da6beeb7cdffc6ac22'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 02dd7c2 Switching from the IllegalStateException to trying hard to work. A better user experience and didn't end up with the code being any more evil. CLI-162
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli24/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli24/.git/
+[detached HEAD 3387d9c] D4J_Cli_24_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Copy generated Ant build file.............................................. OK
+Run post-checkout hook..................................................... OK
+[detached HEAD 6533104] D4J_Cli_24_POST_FIX_COMPILABLE
+ 8 files changed, 909 insertions(+)
+ create mode 100755 02dd7c20646bf67dcfb6f7da6beeb7cdffc6ac22/build.xml
+ create mode 100755 02dd7c20646bf67dcfb6f7da6beeb7cdffc6ac22/maven-build.properties
+ create mode 100755 02dd7c20646bf67dcfb6f7da6beeb7cdffc6ac22/maven-build.xml
+ create mode 100644 build.xml
+ create mode 100755 build.xml.bak
+ create mode 100755 maven-build.properties
+ create mode 100644 maven-build.xml
+ create mode 100755 maven-build.xml.bak
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Backing up build file: /home/cfee3/research/ssr/editas3-automated-testing/e OK
+Initialize fixed program version........................................... OK
+[detached HEAD 155f2b5] D4J_Cli_24_FIXED_VERSION
+ 7 files changed, 645 insertions(+), 23 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 src/test/org/apache/commons/cli/BugsTest.java.bak
+ create mode 100644 src/test/org/apache/commons/cli/OptionGroupTest.java.bak
+Apply patch................................................................ OK
+/usr/local/bin/defects4j/framework/projects/Cli/patches/24.src.patch:10: trailing whitespace.
+            throw new IllegalStateException("Total width is less than the width of the argument and indent " + 
+warning: 1 line adds whitespace errors.
+Initialize buggy program version........................................... OK
+[detached HEAD bfe65de] D4J_Cli_24_BUGGY_VERSION
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+Diff 02dd7c20:ac6e754e..................................................... OK
+diff --git a/src/java/org/apache/commons/cli/HelpFormatter.java b/src/java/org/apache/commons/cli/HelpFormatter.java
+index 028ff5c..9993a07 100644
+--- a/src/java/org/apache/commons/cli/HelpFormatter.java
++++ b/src/java/org/apache/commons/cli/HelpFormatter.java
+@@ -822,7 +822,8 @@ public class HelpFormatter
+         if (nextLineTabStop >= width)
+         {
+             // stops infinite loop happening
+-            nextLineTabStop = width - 1;
++            throw new IllegalStateException("Total width is less than the width of the argument and indent " + 
++                                            "- no room for the description");
+         }
+ 
+         // all following lines must be padded with nextLineTabStop space 
+diff --git a/src/test/org/apache/commons/cli/bug/BugCLI162Test.java b/src/test/org/apache/commons/cli/bug/BugCLI162Test.java
+index a6a2c20..5f76eb7 100644
+--- a/src/test/org/apache/commons/cli/bug/BugCLI162Test.java
++++ b/src/test/org/apache/commons/cli/bug/BugCLI162Test.java
+@@ -259,44 +259,14 @@ public class BugCLI162Test extends TestCase {
+                           "                      yes.\n" +
+                           "Footer\n";
+         assertEquals( "Long arguments did not split as expected", expected, sw.toString() );
+-    }
+ 
+-    public void testLongLineChunkingIndentIgnored() throws ParseException, IOException {
+-        Options options = new Options();
+-        options.addOption("x", "extralongarg", false, "This description is Long." );
+-        HelpFormatter formatter = new HelpFormatter();
+-        StringWriter sw = new StringWriter();
+-        formatter.printHelp(new PrintWriter(sw), 22, this.getClass().getName(), "Header", options, 0, 5, "Footer");
+-        String expected = "usage:\n" +
+-                          "       org.apache.comm\n" +
+-                          "       ons.cli.bug.Bug\n" +
+-                          "       CLI162Test\n" +
+-                          "Header\n" +
+-                          "-x,--extralongarg\n" +
+-                          "                     T\n" +
+-                          "                     h\n" +
+-                          "                     i\n" +
+-                          "                     s\n" +
+-                          "                     d\n" +
+-                          "                     e\n" +
+-                          "                     s\n" +
+-                          "                     c\n" +
+-                          "                     r\n" +
+-                          "                     i\n" +
+-                          "                     p\n" +
+-                          "                     t\n" +
+-                          "                     i\n" +
+-                          "                     o\n" +
+-                          "                     n\n" +
+-                          "                     i\n" +
+-                          "                     s\n" +
+-                          "                     L\n" +
+-                          "                     o\n" +
+-                          "                     n\n" +
+-                          "                     g\n" +
+-                          "                     .\n" +
+-                          "Footer\n";
+-        assertEquals( "Long arguments did not split as expected", expected, sw.toString() );
++        try {
++            formatter.printHelp(new PrintWriter(sw), 22, this.getClass().getName(), "Header", options, 0, 5, "Footer");
++            fail("IllegalStateException expected");
++        } catch(IllegalStateException ise) {
++            // expected
++        }
++
+     }
+ 
+ }
+Apply patch................................................................ OK
+/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli24/.defects4j.diff:10: trailing whitespace.
+            throw new IllegalStateException("Total width is less than the width of the argument and indent " + 
+warning: 1 line adds whitespace errors.
+Tag pre-fix revision....................................................... OK
+[detached HEAD f0a20f0] D4J_Cli_24_PRE_FIX_REVISION
+ 2 files changed, 9 insertions(+), 38 deletions(-)
+Check out program version: Cli-24b......................................... OK
+Previous HEAD position was f0a20f0 D4J_Cli_24_PRE_FIX_REVISION
+HEAD is now at bfe65de D4J_Cli_24_BUGGY_VERSION

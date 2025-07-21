@@ -1,0 +1,148 @@
+Checking out 0884a4cb to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure10'...
+done.
+Updating files:  30% (605/2006)Updating files:  31% (622/2006)Updating files:  32% (642/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  69% (1388/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
+Note: switching to '0884a4cbef1c82153ef306477a12af0480385a35'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 0884a4cbe Properly determine if any possible results may be a string. Fixes issue 821
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure10/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure10/.git/
+[detached HEAD 1afe0bca1] D4J_Closure_10_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Run post-checkout hook..................................................... OK
+[detached HEAD b23688ae6] D4J_Closure_10_POST_FIX_COMPILABLE
+ 2 files changed, 14 insertions(+), 14 deletions(-)
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD 86a2f3877] D4J_Closure_10_FIXED_VERSION
+ 7 files changed, 3110 insertions(+), 94 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 test/com/google/debugging/sourcemap/Base64VLQTest.java.bak
+ create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
+ create mode 100644 test/com/google/javascript/jscomp/IntegrationTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD deb991280] D4J_Closure_10_BUGGY_VERSION
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+Diff 0884a4cb:f681fd80..................................................... OK
+diff --git a/src/com/google/javascript/jscomp/NodeUtil.java b/src/com/google/javascript/jscomp/NodeUtil.java
+index eeb12d4bb..b95f8f8dc 100644
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -1258,39 +1258,18 @@ public final class NodeUtil {
+    * Apply the supplied predicate against
+    * all possible result Nodes of the expression.
+    */
+-  static boolean allResultsMatch(Node n, Predicate<Node> p) {
++  static boolean valueCheck(Node n, Predicate<Node> p) {
+     switch (n.getType()) {
+       case Token.ASSIGN:
+       case Token.COMMA:
+-        return allResultsMatch(n.getLastChild(), p);
++        return valueCheck(n.getLastChild(), p);
+       case Token.AND:
+       case Token.OR:
+-        return allResultsMatch(n.getFirstChild(), p)
+-            && allResultsMatch(n.getLastChild(), p);
++        return valueCheck(n.getFirstChild(), p)
++            && valueCheck(n.getLastChild(), p);
+       case Token.HOOK:
+-        return allResultsMatch(n.getFirstChild().getNext(), p)
+-            && allResultsMatch(n.getLastChild(), p);
+-      default:
+-        return p.apply(n);
+-    }
+-  }
+-
+-  /**
+-   * Apply the supplied predicate against
+-   * all possible result Nodes of the expression.
+-   */
+-  static boolean anyResultsMatch(Node n, Predicate<Node> p) {
+-    switch (n.getType()) {
+-      case Token.ASSIGN:
+-      case Token.COMMA:
+-        return anyResultsMatch(n.getLastChild(), p);
+-      case Token.AND:
+-      case Token.OR:
+-        return anyResultsMatch(n.getFirstChild(), p)
+-            || anyResultsMatch(n.getLastChild(), p);
+-      case Token.HOOK:
+-        return anyResultsMatch(n.getFirstChild().getNext(), p)
+-            || anyResultsMatch(n.getLastChild(), p);
++        return valueCheck(n.getFirstChild().getNext(), p)
++            && valueCheck(n.getLastChild(), p);
+       default:
+         return p.apply(n);
+     }
+@@ -1310,7 +1289,7 @@ public final class NodeUtil {
+    * Returns true if the result of node evaluation is always a number
+    */
+   static boolean isNumericResult(Node n) {
+-    return allResultsMatch(n, NUMBERIC_RESULT_PREDICATE);
++    return valueCheck(n, NUMBERIC_RESULT_PREDICATE);
+   }
+ 
+   static boolean isNumericResultHelper(Node n) {
+@@ -1363,7 +1342,7 @@ public final class NodeUtil {
+    * @return Whether the result of node evaluation is always a boolean
+    */
+   static boolean isBooleanResult(Node n) {
+-    return allResultsMatch(n, BOOLEAN_RESULT_PREDICATE);
++    return valueCheck(n, BOOLEAN_RESULT_PREDICATE);
+   }
+ 
+   static boolean isBooleanResultHelper(Node n) {
+@@ -1414,7 +1393,7 @@ public final class NodeUtil {
+ 
+   static boolean mayBeString(Node n, boolean recurse) {
+     if (recurse) {
+-      return anyResultsMatch(n, MAY_BE_STRING_PREDICATE);
++      return valueCheck(n, MAY_BE_STRING_PREDICATE);
+     } else {
+       return mayBeStringHelper(n);
+     }
+diff --git a/test/com/google/javascript/jscomp/PeepholeFoldConstantsTest.java b/test/com/google/javascript/jscomp/PeepholeFoldConstantsTest.java
+index e6910a79c..b5a907bb0 100644
+--- a/test/com/google/javascript/jscomp/PeepholeFoldConstantsTest.java
++++ b/test/com/google/javascript/jscomp/PeepholeFoldConstantsTest.java
+@@ -577,12 +577,6 @@ public class PeepholeFoldConstantsTest extends CompilerTestCase {
+     fold("x = '' + []", "x = ''");      // cannot fold (but nice if we can)
+   }
+ 
+-  public void testIssue821() {
+-    foldSame("var a =(Math.random()>0.5? '1' : 2 ) + 3 + 4;");
+-    foldSame("var a = ((Math.random() ? 0 : 1) ||" +
+-             "(Math.random()>0.5? '1' : 2 )) + 3 + 4;");
+-  }
+-
+   public void testFoldConstructor() {
+     fold("x = this[new String('a')]", "x = this['a']");
+     fold("x = ob[new String(12)]", "x = ob['12']");
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD db0c53bba] D4J_Closure_10_PRE_FIX_REVISION
+ 2 files changed, 9 insertions(+), 36 deletions(-)
+Check out program version: Closure-10b..................................... OK
+Previous HEAD position was db0c53bba D4J_Closure_10_PRE_FIX_REVISION
+HEAD is now at deb991280 D4J_Closure_10_BUGGY_VERSION

@@ -1,0 +1,94 @@
+Checking out 0fb76a81 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure113'...
+done.
+Updating files:  27% (556/2006)Updating files:  28% (562/2006)Updating files:  29% (582/2006)Updating files:  30% (602/2006)Updating files:  31% (622/2006)Updating files:  32% (642/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  63% (1276/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  96% (1935/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
+Note: switching to '0fb76a81bbdd8ab84a00b8be2099abfb83c88668'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 0fb76a81b This change had to be rolled-back, since it breaks some users of the Java API. See the updated comment and new test case for reasoning.
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure113/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure113/.git/
+[detached HEAD dd1a89131] D4J_Closure_113_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+ create mode 100644 .defects4j.config
+Run post-checkout hook..................................................... OK
+[detached HEAD b9084db8a] D4J_Closure_113_POST_FIX_COMPILABLE
+ 2 files changed, 14 insertions(+), 14 deletions(-)
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD 6065eafd2] D4J_Closure_113_FIXED_VERSION
+ 7 files changed, 3626 insertions(+), 111 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 test/com/google/debugging/sourcemap/Base64VLQTest.java.bak
+ create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
+ create mode 100644 test/com/google/javascript/jscomp/IntegrationTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD 496a424f5] D4J_Closure_113_BUGGY_VERSION
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+Diff 0fb76a81:fa1e469d..................................................... OK
+diff --git a/src/com/google/javascript/jscomp/ProcessClosurePrimitives.java b/src/com/google/javascript/jscomp/ProcessClosurePrimitives.java
+index 85cee7c7e..6f69dffb4 100644
+--- a/src/com/google/javascript/jscomp/ProcessClosurePrimitives.java
++++ b/src/com/google/javascript/jscomp/ProcessClosurePrimitives.java
+@@ -321,12 +321,12 @@ class ProcessClosurePrimitives extends AbstractPostOrderCallback
+       maybeAddToSymbolTable(left);
+       maybeAddStringNodeToSymbolTable(arg);
+ 
+-      // Requires should be removed before further processing.
+-      // Some clients run closure pass multiple times, first with
+-      // the checks for broken requires turned off. In these cases, we
+-      // allow broken requires to be preserved by the first run to
+-      // let them be caught in the subsequent run.
+-      if (provided != null || requiresLevel.isOn()) {
++      // Requires should be removed before runtime.  The one
++      // exception is if the type has not been provided yet, in which case,
++      // we will be doing a later pass that may error, so we can
++      // leave this here this time and let it error next time if it
++      // is still not provided.
++      if (provided != null) {
+         parent.detachFromParent();
+         compiler.reportCodeChange();
+       }
+diff --git a/test/com/google/javascript/jscomp/VarCheckTest.java b/test/com/google/javascript/jscomp/VarCheckTest.java
+index a43169aee..dbca8bcf8 100644
+--- a/test/com/google/javascript/jscomp/VarCheckTest.java
++++ b/test/com/google/javascript/jscomp/VarCheckTest.java
+@@ -365,13 +365,6 @@ public class VarCheckTest extends CompilerTestCase {
+         null, VarCheck.VAR_ARGUMENTS_SHADOWED_ERROR);
+   }
+ 
+-  public void testNoUndeclaredVarWhenUsingClosurePass() {
+-    enableClosurePass();
+-    // We don't want to get goog as an undeclared var here.
+-    test("goog.require('namespace.Class1');\n", null,
+-        ProcessClosurePrimitives.MISSING_PROVIDE_ERROR);
+-  }
+-
+   private final static class VariableTestCheck implements CompilerPass {
+ 
+     final AbstractCompiler compiler;
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD b3f59cdd9] D4J_Closure_113_PRE_FIX_REVISION
+ 2 files changed, 6 insertions(+), 13 deletions(-)
+Check out program version: Closure-113b.................................... OK
+Previous HEAD position was b3f59cdd9 D4J_Closure_113_PRE_FIX_REVISION
+HEAD is now at 496a424f5 D4J_Closure_113_BUGGY_VERSION

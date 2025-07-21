@@ -1,0 +1,225 @@
+Checking out afc13c44 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli36'...
+done.
+Note: switching to 'afc13c445a4c80432e52d735685b272fadfeeddf'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at afc13c4 CLI-266: HelpFormatter.setOptionComparator(null) doesn't display the values in inserted order. Thank you to Ravi Teja. This also closes #6 from GitHub.
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli36/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli36/.git/
+[detached HEAD f54949d] D4J_Cli_36_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Copy generated Ant build file.............................................. OK
+Run post-checkout hook..................................................... OK
+[detached HEAD ee4e757] D4J_Cli_36_POST_FIX_COMPILABLE
+ 5 files changed, 712 insertions(+)
+ create mode 100644 build.xml
+ create mode 100755 build.xml.bak
+ create mode 100755 maven-build.properties
+ create mode 100644 maven-build.xml
+ create mode 100755 maven-build.xml.bak
+Excluding broken/flaky tests............................................... OK
+Backing up build file: /home/cfee3/research/ssr/editas3-automated-testing/e OK
+Initialize fixed program version........................................... OK
+[detached HEAD f9deffa] D4J_Cli_36_FIXED_VERSION
+ 3 files changed, 19 insertions(+), 11 deletions(-)
+ create mode 100644 defects4j.build.properties
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD ef8fa61] D4J_Cli_36_BUGGY_VERSION
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+Diff afc13c44:f6af6236..................................................... OK
+diff --git a/src/changes/changes.xml b/src/changes/changes.xml
+index 38a0daf..21977bb 100644
+--- a/src/changes/changes.xml
++++ b/src/changes/changes.xml
+@@ -23,9 +23,6 @@
+   <body>
+ 
+     <release version="1.4" date="tba" description="tba">
+-      <action type="fix" dev="britter" issue="CLI-266" due-to="Ravi Teja">
+-        HelpFormatter.setOptionComparator(null) doesn't display the values in inserted order
+-      </action>
+     </release>
+ 
+     <release version="1.3.1" date="2015-06-17" description="Bug fix release for 1.3">
+diff --git a/src/main/java/org/apache/commons/cli/OptionGroup.java b/src/main/java/org/apache/commons/cli/OptionGroup.java
+index dc6d5db..322053f 100644
+--- a/src/main/java/org/apache/commons/cli/OptionGroup.java
++++ b/src/main/java/org/apache/commons/cli/OptionGroup.java
+@@ -19,8 +19,8 @@ package org.apache.commons.cli;
+ 
+ import java.io.Serializable;
+ import java.util.Collection;
++import java.util.HashMap;
+ import java.util.Iterator;
+-import java.util.LinkedHashMap;
+ import java.util.Map;
+ 
+ /**
+@@ -34,7 +34,7 @@ public class OptionGroup implements Serializable
+     private static final long serialVersionUID = 1L;
+     
+     /** hold the options */
+-    private final Map<String, Option> optionMap = new LinkedHashMap<String, Option>();
++    private final Map<String, Option> optionMap = new HashMap<String, Option>();
+ 
+     /** the name of the selected option */
+     private String selected;
+diff --git a/src/main/java/org/apache/commons/cli/Options.java b/src/main/java/org/apache/commons/cli/Options.java
+index 796fe5c..0ee4eea 100644
+--- a/src/main/java/org/apache/commons/cli/Options.java
++++ b/src/main/java/org/apache/commons/cli/Options.java
+@@ -21,6 +21,7 @@ import java.io.Serializable;
+ import java.util.ArrayList;
+ import java.util.Collection;
+ import java.util.Collections;
++import java.util.HashMap;
+ import java.util.HashSet;
+ import java.util.LinkedHashMap;
+ import java.util.List;
+@@ -57,7 +58,7 @@ public class Options implements Serializable
+     private final List<Object> requiredOpts = new ArrayList<Object>();
+ 
+     /** a map of the option groups */
+-    private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<String, OptionGroup>();
++    private final Map<String, OptionGroup> optionGroups = new HashMap<String, OptionGroup>();
+ 
+     /**
+      * Add the specified option group.
+diff --git a/src/test/java/org/apache/commons/cli/bug/BugCLI266Test.java b/src/test/java/org/apache/commons/cli/bug/BugCLI266Test.java
+deleted file mode 100644
+index 5d3a6c4..0000000
+--- a/src/test/java/org/apache/commons/cli/bug/BugCLI266Test.java
++++ /dev/null
+@@ -1,104 +0,0 @@
+-package org.apache.commons.cli.bug;
+-
+-import org.apache.commons.cli.HelpFormatter;
+-import org.apache.commons.cli.Option;
+-import org.apache.commons.cli.OptionGroup;
+-import org.apache.commons.cli.Options;
+-import org.apache.commons.cli.ParseException;
+-import org.junit.Assert;
+-import org.junit.Test;
+-
+-import java.util.ArrayList;
+-import java.util.Arrays;
+-import java.util.Collection;
+-import java.util.Collections;
+-import java.util.List;
+-
+-public class BugCLI266Test {
+-
+-    private List<String> insertedOrder  =   Arrays.asList("h", "d", "f", "x", "s", "p", "t", "w", "o");
+-    private List<String> sortOrder      =   Arrays.asList("d", "f", "h", "o", "p", "s", "t", "w", "x");
+-
+-    @Test
+-    public void testOptionComparatorDefaultOrder() throws ParseException {
+-        HelpFormatter formatter = new HelpFormatter();
+-        List<Option> options = new ArrayList<Option>(getOptions().getOptions());
+-        Collections.sort(options, formatter.getOptionComparator());
+-        int i = 0;
+-        for(Option o: options) {
+-            Assert.assertEquals(o.getOpt(), sortOrder.get(i));
+-            i++;
+-        }
+-    }
+-
+-    @Test
+-    public void testOptionComparatorInsertedOrder() throws ParseException {
+-        Collection<Option> options = getOptions().getOptions();
+-        int i = 0;
+-        for(Option o: options) {
+-            Assert.assertEquals(o.getOpt(), insertedOrder.get(i));
+-            i++;
+-        }
+-    }
+-
+-    private Options getOptions() {
+-        Options options = new Options();
+-        Option help = Option.builder("h")
+-                .longOpt("help")
+-                .desc("Prints this help message")
+-                .build();
+-        options.addOption(help);
+-
+-        buildOptionsGroup(options);
+-
+-        Option t = Option.builder("t")
+-                .required()
+-                .hasArg()
+-                .argName("file")
+-                .build();
+-        Option w = Option.builder("w")
+-                .required()
+-                .hasArg()
+-                .argName("word")
+-                .build();
+-        Option o = Option.builder("o")
+-                .hasArg()
+-                .argName("directory")
+-                .build();
+-        options.addOption(t);
+-        options.addOption(w);
+-        options.addOption(o);
+-        return options;
+-    }
+-
+-    private void buildOptionsGroup(Options options) {
+-        OptionGroup firstGroup = new OptionGroup();
+-        OptionGroup secondGroup = new OptionGroup();
+-        firstGroup.setRequired(true);
+-        secondGroup.setRequired(true);
+-
+-        firstGroup.addOption(Option.builder("d")
+-                .longOpt("db")
+-                .hasArg()
+-                .argName("table-name")
+-                .build());
+-        firstGroup.addOption(Option.builder("f")
+-                .longOpt("flat-file")
+-                .hasArg()
+-                .argName("input.csv")
+-                .build());
+-        options.addOptionGroup(firstGroup);
+-
+-        secondGroup.addOption(Option.builder("x")
+-                .hasArg()
+-                .argName("arg1")
+-                .build());
+-        secondGroup.addOption(Option.builder("s")
+-                .build());
+-        secondGroup.addOption(Option.builder("p")
+-                .hasArg()
+-                .argName("arg1")
+-                .build());
+-        options.addOptionGroup(secondGroup);
+-    }
+-}
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD 5af82bb] D4J_Cli_36_PRE_FIX_REVISION
+ 4 files changed, 4 insertions(+), 110 deletions(-)
+ delete mode 100644 src/test/java/org/apache/commons/cli/bug/BugCLI266Test.java
+Check out program version: Cli-36b......................................... OK
+Previous HEAD position was 5af82bb D4J_Cli_36_PRE_FIX_REVISION
+HEAD is now at ef8fa61 D4J_Cli_36_BUGGY_VERSION

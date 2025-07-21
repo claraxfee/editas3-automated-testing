@@ -1,0 +1,114 @@
+Checking out 6a585453 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Cli25'...
+done.
+Note: switching to '6a585453d385449dc23d90479488f92f02cd6b83'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 6a58545 Adjusting - best is to switch to an indent of 1 than do silly things like having every line have 1 character. CLI-162
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Cli25/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Cli25/.git/
+[detached HEAD 2bdfdbc] D4J_Cli_25_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Copy generated Ant build file.............................................. OK
+Run post-checkout hook..................................................... OK
+[detached HEAD 2f41675] D4J_Cli_25_POST_FIX_COMPILABLE
+ 5 files changed, 594 insertions(+)
+ create mode 100644 build.xml
+ create mode 100755 build.xml.bak
+ create mode 100755 maven-build.properties
+ create mode 100644 maven-build.xml
+ create mode 100755 maven-build.xml.bak
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Backing up build file: /home/cfee3/research/ssr/editas3-automated-testing/e OK
+Initialize fixed program version........................................... OK
+[detached HEAD 7a5b996] D4J_Cli_25_FIXED_VERSION
+ 7 files changed, 645 insertions(+), 23 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 src/test/org/apache/commons/cli/BugsTest.java.bak
+ create mode 100644 src/test/org/apache/commons/cli/OptionGroupTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD d9ea9f8] D4J_Cli_25_BUGGY_VERSION
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+Diff 6a585453:02dd7c20..................................................... OK
+diff --git a/src/java/org/apache/commons/cli/HelpFormatter.java b/src/java/org/apache/commons/cli/HelpFormatter.java
+index a46b0ec..028ff5c 100644
+--- a/src/java/org/apache/commons/cli/HelpFormatter.java
++++ b/src/java/org/apache/commons/cli/HelpFormatter.java
+@@ -822,7 +822,7 @@ public class HelpFormatter
+         if (nextLineTabStop >= width)
+         {
+             // stops infinite loop happening
+-            nextLineTabStop = 1;
++            nextLineTabStop = width - 1;
+         }
+ 
+         // all following lines must be padded with nextLineTabStop space 
+diff --git a/src/test/org/apache/commons/cli/bug/BugCLI162Test.java b/src/test/org/apache/commons/cli/bug/BugCLI162Test.java
+index 2337e40..a6a2c20 100644
+--- a/src/test/org/apache/commons/cli/bug/BugCLI162Test.java
++++ b/src/test/org/apache/commons/cli/bug/BugCLI162Test.java
+@@ -267,15 +267,34 @@ public class BugCLI162Test extends TestCase {
+         HelpFormatter formatter = new HelpFormatter();
+         StringWriter sw = new StringWriter();
+         formatter.printHelp(new PrintWriter(sw), 22, this.getClass().getName(), "Header", options, 0, 5, "Footer");
+-        System.err.println(sw.toString());
+         String expected = "usage:\n" +
+                           "       org.apache.comm\n" +
+                           "       ons.cli.bug.Bug\n" +
+                           "       CLI162Test\n" +
+                           "Header\n" +
+                           "-x,--extralongarg\n" +
+-                          " This description is\n" +
+-                          " Long.\n" +
++                          "                     T\n" +
++                          "                     h\n" +
++                          "                     i\n" +
++                          "                     s\n" +
++                          "                     d\n" +
++                          "                     e\n" +
++                          "                     s\n" +
++                          "                     c\n" +
++                          "                     r\n" +
++                          "                     i\n" +
++                          "                     p\n" +
++                          "                     t\n" +
++                          "                     i\n" +
++                          "                     o\n" +
++                          "                     n\n" +
++                          "                     i\n" +
++                          "                     s\n" +
++                          "                     L\n" +
++                          "                     o\n" +
++                          "                     n\n" +
++                          "                     g\n" +
++                          "                     .\n" +
+                           "Footer\n";
+         assertEquals( "Long arguments did not split as expected", expected, sw.toString() );
+     }
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD f7f087a] D4J_Cli_25_PRE_FIX_REVISION
+ 2 files changed, 23 insertions(+), 4 deletions(-)
+Check out program version: Cli-25f......................................... OK
+Previous HEAD position was f7f087a D4J_Cli_25_PRE_FIX_REVISION
+HEAD is now at 7a5b996 D4J_Cli_25_FIXED_VERSION

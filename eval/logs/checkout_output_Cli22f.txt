@@ -1,0 +1,169 @@
+Checking out db4a638c to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Cli22'...
+done.
+Note: switching to 'db4a638cf642fd7d031fcaebffa306b0a16ba771'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at db4a638 Fixed testStopAtExpectedArg for PosixParser
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Cli22/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Cli22/.git/
+[detached HEAD ee72b1d] D4J_Cli_22_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Run post-checkout hook..................................................... OK
+[detached HEAD b60cd83] D4J_Cli_22_POST_FIX_COMPILABLE
+ 2 files changed, 261 insertions(+), 4 deletions(-)
+ create mode 100644 build.xml.bak
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Backing up build file: /home/cfee3/research/ssr/editas3-automated-testing/e OK
+Initialize fixed program version........................................... OK
+[detached HEAD 5558fe5] D4J_Cli_22_FIXED_VERSION
+ 7 files changed, 819 insertions(+), 90 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 src/test/org/apache/commons/cli/BugsTest.java.bak
+ create mode 100644 src/test/org/apache/commons/cli/OptionGroupTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD a10ec39] D4J_Cli_22_BUGGY_VERSION
+ 2 files changed, 10 insertions(+), 14 deletions(-)
+Diff db4a638c:ae2ff1d1..................................................... OK
+diff --git a/src/java/org/apache/commons/cli/PosixParser.java b/src/java/org/apache/commons/cli/PosixParser.java
+index ca8b6c6..22846a7 100644
+--- a/src/java/org/apache/commons/cli/PosixParser.java
++++ b/src/java/org/apache/commons/cli/PosixParser.java
+@@ -37,9 +37,6 @@ public class PosixParser extends Parser
+     /** specifies if bursting should continue */
+     private boolean eatTheRest;
+ 
+-    /** holder for the current option */
+-    private Option currentOption;
+-
+     /** the command line Options */
+     private Options options;
+ 
+@@ -112,14 +109,12 @@ public class PosixParser extends Parser
+                 int pos = token.indexOf('=');
+                 String opt = pos == -1 ? token : token.substring(0, pos); // --foo
+ 
+-                if (!options.hasOption(opt))
++                if (!options.hasOption(opt) && stopAtNonOption)
+                 {
+-                    processNonOptionToken(token, stopAtNonOption);
++                    processNonOptionToken(token);
+                 }
+                 else
+                 {
+-                    currentOption = options.getOption(opt);
+-                    
+                     tokens.add(opt);
+                     if (pos != -1)
+                     {
+@@ -135,19 +130,27 @@ public class PosixParser extends Parser
+             }
+             else if (token.startsWith("-"))
+             {
+-                if (token.length() == 2 || options.hasOption(token))
++                if (token.length() == 2)
+                 {
+                     processOptionToken(token, stopAtNonOption);
+                 }
++                else if (options.hasOption(token))
++                {
++                    tokens.add(token);
++                }
+                 // requires bursting
+                 else
+                 {
+                     burstToken(token, stopAtNonOption);
+                 }
+             }
++            else if (stopAtNonOption)
++            {
++                processNonOptionToken(token);
++            }
+             else
+             {
+-                processNonOptionToken(token, stopAtNonOption);
++                tokens.add(token);
+             }
+ 
+             gobble(iter);
+@@ -179,14 +182,10 @@ public class PosixParser extends Parser
+      *
+      * @param value The current token
+      */
+-    private void processNonOptionToken(String value, boolean stopAtNonOption)
++    private void processNonOptionToken(String value)
+     {
+-        if (stopAtNonOption && (currentOption == null || !currentOption.hasArg()))
+-        {
+-            eatTheRest = true;
+-            tokens.add("--");
+-        }
+-
++        eatTheRest = true;
++        tokens.add("--");
+         tokens.add(value);
+     }
+ 
+@@ -204,16 +203,11 @@ public class PosixParser extends Parser
+      */
+     private void processOptionToken(String token, boolean stopAtNonOption)
+     {
+-        if (stopAtNonOption && !options.hasOption(token))
++        if (!options.hasOption(token) && stopAtNonOption)
+         {
+             eatTheRest = true;
+         }
+ 
+-        if (options.hasOption(token))
+-        {
+-            currentOption = options.getOption(token);
+-        }
+-
+         tokens.add(token);
+     }
+ 
+@@ -245,6 +239,8 @@ public class PosixParser extends Parser
+      */
+     protected void burstToken(String token, boolean stopAtNonOption)
+     {
++        Option currentOption;
++
+         for (int i = 1; i < token.length(); i++)
+         {
+             String ch = String.valueOf(token.charAt(i));
+@@ -263,7 +259,7 @@ public class PosixParser extends Parser
+             }
+             else if (stopAtNonOption)
+             {
+-                processNonOptionToken(token.substring(i), true);
++                processNonOptionToken(token.substring(i));
+                 break;
+             }
+             else
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD 888e325] D4J_Cli_22_PRE_FIX_REVISION
+ 1 file changed, 19 insertions(+), 23 deletions(-)
+Check out program version: Cli-22f......................................... OK
+Previous HEAD position was 888e325 D4J_Cli_22_PRE_FIX_REVISION
+HEAD is now at 5558fe5 D4J_Cli_22_FIXED_VERSION

@@ -1,0 +1,278 @@
+Checking out 78b01c3a to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure76'...
+done.
+Updating files:  34% (693/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  71% (1434/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
+Note: switching to '78b01c3a435cd175ce3ee70f97b2f8faac342cdc'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 78b01c3a4 Correct handling of conditional branches within expressions when doing dead assignment elminination. Fixes issue 384.
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure76/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure76/.git/
+[detached HEAD 4f3cc997d] D4J_Closure_76_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Run post-checkout hook..................................................... OK
+[detached HEAD 38f68591b] D4J_Closure_76_POST_FIX_COMPILABLE
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD fbf7e6d57] D4J_Closure_76_FIXED_VERSION
+ 3 files changed, 505 insertions(+), 60 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD 9232994a7] D4J_Closure_76_BUGGY_VERSION
+ 2 files changed, 7 insertions(+), 38 deletions(-)
+Diff 78b01c3a:a6ca7c19..................................................... OK
+diff --git a/src/com/google/javascript/jscomp/DeadAssignmentsElimination.java b/src/com/google/javascript/jscomp/DeadAssignmentsElimination.java
+index aaab0d625..879056f7a 100644
+--- a/src/com/google/javascript/jscomp/DeadAssignmentsElimination.java
++++ b/src/com/google/javascript/jscomp/DeadAssignmentsElimination.java
+@@ -290,47 +290,18 @@ class DeadAssignmentsElimination extends AbstractPostOrderCallback implements
+   private boolean isVariableStillLiveWithinExpression(
+       Node n, Node exprRoot, String variable) {
+     while (n != exprRoot) {
+-      VariableLiveness state = VariableLiveness.MAYBE_LIVE;
+-      switch (n.getParent().getType()) {
+-        case Token.OR:
+-        case Token.AND:
+-          // If the currently node is the first child of
+-          // AND/OR, be conservative only consider the READs
+-          // of the second operand.
+-          if (n.getNext() != null) {
+-            state = isVariableReadBeforeKill(
+-                n.getNext(), variable);
+-            if (state == VariableLiveness.KILL) {
+-              state = VariableLiveness.MAYBE_LIVE;
+-            }
++      for(Node sibling = n.getNext(); sibling != null;
++          sibling = sibling.getNext()) {
++        if (!ControlFlowGraph.isEnteringNewCfgNode(sibling)) {
++          VariableLiveness state = isVariableReadBeforeKill(sibling, variable);
++
++          // If we see a READ or KILL there is no need to continue.
++          if (state == VariableLiveness.READ) {
++            return true;
++          } else if (state == VariableLiveness.KILL) {
++            return false;
+           }
+-          break;
+-
+-        case Token.HOOK:
+-          // If current node is the condition, check each following
+-          // branch, otherwise it is a conditional branch and the
+-          // other branch can be ignored.
+-          if (n.getNext() != null && n.getNext().getNext() != null) {
+-            state = checkHookBranchReadBeforeKill(
+-                n.getNext(), n.getNext().getNext(), variable);
+-          }
+-          break;
+-
+-        default:
+-          for(Node sibling = n.getNext(); sibling != null;
+-              sibling = sibling.getNext()) {
+-            state = isVariableReadBeforeKill(sibling, variable);
+-            if (state != VariableLiveness.MAYBE_LIVE) {
+-              break;
+-            }
+-          }
+-      }
+-
+-      // If we see a READ or KILL there is no need to continue.
+-      if (state == VariableLiveness.READ) {
+-        return true;
+-      } else if (state == VariableLiveness.KILL) {
+-        return false;
++        }
+       }
+       n = n.getParent();
+     }
+@@ -351,10 +322,6 @@ class DeadAssignmentsElimination extends AbstractPostOrderCallback implements
+    */
+   private VariableLiveness isVariableReadBeforeKill(
+       Node n, String variable) {
+-    if (ControlFlowGraph.isEnteringNewCfgNode(n)) { // Not a FUNCTION
+-      return VariableLiveness.MAYBE_LIVE;
+-    }
+-
+     if (NodeUtil.isName(n) && variable.equals(n.getString())) {
+       if (NodeUtil.isLhs(n, n.getParent())) {
+         Preconditions.checkState(n.getParent().getType() == Token.ASSIGN);
+@@ -372,61 +339,16 @@ class DeadAssignmentsElimination extends AbstractPostOrderCallback implements
+       }
+     }
+ 
+-    switch (n.getType()) {
+-      // Conditionals
+-      case Token.OR:
+-      case Token.AND:
+-        VariableLiveness v1 = isVariableReadBeforeKill(
+-          n.getFirstChild(), variable);
+-        VariableLiveness v2 = isVariableReadBeforeKill(
+-          n.getLastChild(), variable);
+-        // With a AND/OR the first branch always runs, but the second is
+-        // may not.
+-        if (v1 != VariableLiveness.MAYBE_LIVE) {
+-          return v1;
+-        } else if (v2 == VariableLiveness.READ) {
+-          return VariableLiveness.READ;
+-        } else {
+-          return VariableLiveness.MAYBE_LIVE;
+-        }
+-      case Token.HOOK:
+-        VariableLiveness first = isVariableReadBeforeKill(
+-            n.getFirstChild(), variable);
+-        if (first != VariableLiveness.MAYBE_LIVE) {
+-          return first;
+-        }
+-        return checkHookBranchReadBeforeKill(
+-            n.getFirstChild().getNext(), n.getLastChild(), variable);
+-
+-      default:
+-        // Expressions are evaluated left-right, depth first.
+-        for (Node child = n.getFirstChild();
+-            child != null; child = child.getNext()) {
+-          VariableLiveness state = isVariableReadBeforeKill(child, variable);
+-          if (state != VariableLiveness.MAYBE_LIVE) {
+-            return state;
+-          }
++    // Expressions are evaluated left-right, depth first.
++    for (Node child = n.getFirstChild();
++        child != null; child = child.getNext()) {
++      if (!ControlFlowGraph.isEnteringNewCfgNode(child)) { // Not a FUNCTION
++        VariableLiveness state = isVariableReadBeforeKill(child, variable);
++        if (state != VariableLiveness.MAYBE_LIVE) {
++          return state;
+         }
++      }
+     }
+-
+     return VariableLiveness.MAYBE_LIVE;
+   }
+-
+-  private VariableLiveness checkHookBranchReadBeforeKill(
+-      Node trueCase, Node falseCase, String variable) {
+-    VariableLiveness v1 = isVariableReadBeforeKill(
+-      trueCase, variable);
+-    VariableLiveness v2 = isVariableReadBeforeKill(
+-      falseCase, variable);
+-    // With a hook it is unknown which branch will run, so
+-    // we must be conservative.  A read by either is a READ, and
+-    // a KILL is only considered if both KILL.
+-    if (v1 == VariableLiveness.READ || v2 == VariableLiveness.READ) {
+-      return VariableLiveness.READ;
+-    } else if (v1 == VariableLiveness.KILL && v2 == VariableLiveness.KILL) {
+-      return VariableLiveness.KILL;
+-    } else {
+-      return VariableLiveness.MAYBE_LIVE;
+-    }
+-  }
+ }
+diff --git a/test/com/google/javascript/jscomp/DeadAssignmentsEliminationTest.java b/test/com/google/javascript/jscomp/DeadAssignmentsEliminationTest.java
+index b66a8237f..486fe5a7a 100644
+--- a/test/com/google/javascript/jscomp/DeadAssignmentsEliminationTest.java
++++ b/test/com/google/javascript/jscomp/DeadAssignmentsEliminationTest.java
+@@ -445,76 +445,11 @@ public class DeadAssignmentsEliminationTest extends CompilerTestCase {
+   }
+ 
+ 
+-  public void testInExpression1() {
++  public void testInExpression() {
+     inFunction("var a; return a=(a=(a=3));", "var a; return 3;");
+     inFunction("var a; return a=(a=(a=a));", "var a; return a;");
+     inFunction("var a; return a=(a=(a=a+1)+1);", "var a; return a+1+1;");
+     inFunction("var a; return a=(a=(a=f(a)+1)+1);", "var a; return f(a)+1+1;");
+     inFunction("var a; return a=f(a=f(a=f(a)));", "var a; return f(f(f(a)));");
+   }
+-
+-  public void testInExpression2() {
+-    // This can be improved.  "a = 1" is dead but "a" is read in the following
+-    // expression.
+-    inFunction(
+-        "var a; a = 1; if ((a = 2) || (a = 3) || (a)) {}",
+-        "var a; a = 1; if ((    2) || (a = 3) || (a)) {}");
+-
+-    inFunction(
+-        "var a; (a = 1) || (a = 2)",
+-        "var a; 1 || 2");
+-
+-    inFunction("var a; (a = 1) || (a = 2); return a");
+-
+-    inFunction(
+-        "var a; a = 1; a ? a = 2 : a;",
+-        "var a; a = 1; a ?     2 : a;");
+-
+-    inFunction("var a; a = 1; a ? a = 2 : a; return a");
+-
+-    inFunction(
+-        "var a; a = 1; a ? a : a = 2;",
+-        "var a; a = 1; a ? a : 2;");
+-
+-    inFunction("var a; a = 1; a ? a : a =2; return a");
+-
+-    inFunction(
+-        "var a; (a = 1) ? a = 2 : a = 3;",
+-        "var a;      1  ?     2 :     3;");
+-
+-    // This can be improved.  "a = 1" is dead but "a" is read in the following
+-    // expression.
+-    inFunction("var a; (a = 1) ? a = 2 : a = 3; return a");
+-  }
+-
+-  public void testIssue384a() {
+-    inFunction(
+-            " var a, b;\n" +
+-            " if (f(b = true) || f(b = false))\n" +
+-            "   a = b;\n" +
+-            " else\n" +
+-            "   a = null;\n" +
+-            " return a;");
+-  }
+-
+-  public void testIssue384b() {
+-    inFunction(
+-            " var a, b;\n" +
+-            " (f(b = true) || f(b = false)) ? (a = b) : (a = null);\n" +
+-            " return a;");
+-  }
+-
+-  public void testIssue384c() {
+-    inFunction(
+-            " var a, b;\n" +
+-            " (a ? f(b = true) : f(b = false)) && (a = b);\n" +
+-            " return a;");
+-  }
+-
+-  public void testIssue384d() {
+-    inFunction(
+-            " var a, b;\n" +
+-            " (f(b = true) || f(b = false)) && (a = b);\n" +
+-            " return a;");
+-  }
+ }
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+[detached HEAD 74e935623] D4J_Closure_76_PRE_FIX_REVISION
+ 2 files changed, 20 insertions(+), 163 deletions(-)
+Check out program version: Closure-76b..................................... OK
+Previous HEAD position was 74e935623 D4J_Closure_76_PRE_FIX_REVISION
+HEAD is now at 9232994a7 D4J_Closure_76_BUGGY_VERSION

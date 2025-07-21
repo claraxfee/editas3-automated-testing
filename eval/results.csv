@@ -1,2 +1,7 @@
 project,bug_id,bug_catching_prefix?,bug_catching_tests,evosuite_dir,exceptional?,exception
 Time,9,1,"org.joda.time.DateTimeZone_ESTest::test29",2,1,org.joda.time.DateTimeZone_ESTest::test29: org.evosuite.runtime.mock.java.lang.MockIllegalArgumentException: Millis out of range: -2073654449
+Chart,1,1,"org.jfree.chart.renderer.category.AbstractCategoryItemRenderer_ESTest::test77",2,0,
+Chart,4,1,"org.jfree.chart.plot.XYPlot_ESTest::test085",1,0,
+Chart,5,1,"org.jfree.data.xy.XYSeries_ESTest::test24",1,0,
+Chart,8,1,"org.jfree.data.time.Week_ESTest::test00",1,1,org.jfree.data.time.Week_ESTest::test00: org.evosuite.runtime.mock.java.lang.MockIllegalArgumentException: Null 'zone' argument.
+Chart,11,1,"org.jfree.chart.util.ShapeUtilities_ESTest::test44",3,0,

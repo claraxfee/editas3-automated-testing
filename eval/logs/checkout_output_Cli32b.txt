@@ -1,0 +1,143 @@
+Checking out 777cb810 to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli32'...
+done.
+Note: switching to '777cb81088d47472df21a452edd5ba568d4b3fdf'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 777cb81 Ensure the wrap width is never exceeded and cut the words longer that the width if necessary (CLI-193)
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli32/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli32/.git/
+[detached HEAD 3842994] D4J_Cli_32_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Copy generated Ant build file.............................................. OK
+Run post-checkout hook..................................................... OK
+[detached HEAD b81b612] D4J_Cli_32_POST_FIX_COMPILABLE
+ 5 files changed, 644 insertions(+)
+ create mode 100644 build.xml
+ create mode 100755 build.xml.bak
+ create mode 100755 maven-build.properties
+ create mode 100644 maven-build.xml
+ create mode 100755 maven-build.xml.bak
+Excluding broken/flaky tests............................................... OK
+Backing up build file: /home/cfee3/research/ssr/editas3-automated-testing/e OK
+Initialize fixed program version........................................... OK
+[detached HEAD b0de89a] D4J_Cli_32_FIXED_VERSION
+ 5 files changed, 407 insertions(+), 11 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 src/test/java/org/apache/commons/cli/BugsTest.java.bak
+Apply patch................................................................ OK
+/usr/local/bin/defects4j/framework/projects/Cli/patches/32.src.patch:14: trailing whitespace.
+        }        
+warning: 1 line adds whitespace errors.
+Initialize buggy program version........................................... OK
+[detached HEAD 98e9d68] D4J_Cli_32_BUGGY_VERSION
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+Diff 777cb810:23df3834..................................................... OK
+diff --git a/src/main/java/org/apache/commons/cli/HelpFormatter.java b/src/main/java/org/apache/commons/cli/HelpFormatter.java
+index 7d8a901..91a01d9 100644
+--- a/src/main/java/org/apache/commons/cli/HelpFormatter.java
++++ b/src/main/java/org/apache/commons/cli/HelpFormatter.java
+@@ -889,8 +889,7 @@ public class HelpFormatter
+      * Finds the next text wrap position after <code>startPos</code> for the
+      * text in <code>text</code> with the column width <code>width</code>.
+      * The wrap point is the last position before startPos+width having a 
+-     * whitespace character (space, \n, \r). If there is no whitespace character
+-     * before startPos+width, it will return startPos+width.
++     * whitespace character (space, \n, \r).
+      *
+      * @param text The text being searched for the wrap position
+      * @param width width of the wrapped text
+@@ -901,8 +900,8 @@ public class HelpFormatter
+      */
+     protected int findWrapPos(String text, int width, int startPos)
+     {
+-        int pos;
+-        
++        int pos = -1;
++
+         // the line ends before the max wrap pos or a new line char found
+         if (((pos = text.indexOf('\n', startPos)) != -1 && pos <= width)
+                 || ((pos = text.indexOf('\t', startPos)) != -1 && pos <= width))
+@@ -932,10 +931,17 @@ public class HelpFormatter
+             return pos;
+         }
+         
+-        // if we didn't find one, simply chop at startPos+width
++        // must look for the first whitespace chearacter after startPos 
++        // + width
+         pos = startPos + width;
+-        
+-        return pos == text.length() ? -1 : pos;
++
++        while ((pos <= text.length()) && ((c = text.charAt(pos)) != ' ')
++               && (c != '\n') && (c != '\r'))
++        {
++            ++pos;
++        }
++
++        return (pos == text.length()) ? (-1) : pos;
+     }
+ 
+     /**
+diff --git a/src/test/java/org/apache/commons/cli/HelpFormatterTest.java b/src/test/java/org/apache/commons/cli/HelpFormatterTest.java
+index 562c829..5fd856e 100644
+--- a/src/test/java/org/apache/commons/cli/HelpFormatterTest.java
++++ b/src/test/java/org/apache/commons/cli/HelpFormatterTest.java
+@@ -46,27 +46,9 @@ public class HelpFormatterTest extends TestCase
+         // starting from 8 must give -1 - the wrap pos is after end
+         assertEquals("wrap position 2", -1, hf.findWrapPos(text, 8, 8));
+         
+-        // words longer than the width are cut
++        // if there is no a good position before width to make a wrapping look for the next one
+         text = "aaaa aa";
+-        assertEquals("wrap position 3", 3, hf.findWrapPos(text, 3, 0));
+-        
+-        // last word length is equal to the width
+-        text = "aaaaaa aaaaaa";
+-        assertEquals("wrap position 4", 6, hf.findWrapPos(text, 6, 0));
+-        assertEquals("wrap position 4", -1, hf.findWrapPos(text, 6, 7));
+-    }
+-
+-    public void testRenderWrappedTextWordCut()
+-    {
+-        int width = 7;
+-        int padding = 0;
+-        String text = "Thisisatest.";
+-        String expected = "Thisisa" + EOL + 
+-                          "test.";
+-        
+-        StringBuffer sb = new StringBuffer();
+-        new HelpFormatter().renderWrappedText(sb, width, padding, text);
+-        assertEquals("cut and wrap", expected, sb.toString());
++        assertEquals("wrap position 3", 4, hf.findWrapPos(text, 3, 0));
+     }
+ 
+     public void testRenderWrappedTextSingleLine()
+Apply patch................................................................ OK
+/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Cli32/.defects4j.diff:31: trailing whitespace.
+        // must look for the first whitespace chearacter after startPos 
+warning: 1 line adds whitespace errors.
+Tag pre-fix revision....................................................... OK
+[detached HEAD 0071f5e] D4J_Cli_32_PRE_FIX_REVISION
+ 2 files changed, 15 insertions(+), 27 deletions(-)
+Check out program version: Cli-32b......................................... OK
+Previous HEAD position was 0071f5e D4J_Cli_32_PRE_FIX_REVISION
+HEAD is now at 98e9d68 D4J_Cli_32_BUGGY_VERSION

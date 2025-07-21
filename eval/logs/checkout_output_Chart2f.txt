@@ -1348,7 +1348,7 @@ Init local repository...................................................... OK
 Initialized empty Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Chart2/.git/
 Tag post-fix revision...................................................... OK
 Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/fixed/Chart2/.git/
-[master (root-commit) 4ee3840] D4J_Chart_2_POST_FIX_REVISION
+[master (root-commit) 29874bb] D4J_Chart_2_POST_FIX_REVISION
  1208 files changed, 339063 insertions(+)
  create mode 100644 .defects4j.config
  create mode 100644 .gitignore
@@ -2560,12 +2560,12 @@ Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automa
  create mode 100644 tests/org/jfree/data/xy/junit/YWithXIntervalTests.java
 Apply patch................................................................ OK
 Run post-checkout hook..................................................... OK
-[master 609917a] D4J_Chart_2_POST_FIX_COMPILABLE
+[master a067cc2] D4J_Chart_2_POST_FIX_COMPILABLE
  1 file changed, 5 insertions(+), 5 deletions(-)
 Excluding broken/flaky tests............................................... OK
 Excluding broken/flaky tests............................................... OK
 Initialize fixed program version........................................... OK
-[master 5a9e501] D4J_Chart_2_FIXED_VERSION
+[master d87c693] D4J_Chart_2_FIXED_VERSION
  7 files changed, 2180 insertions(+), 114 deletions(-)
  create mode 100644 defects4j.build.properties
  create mode 100644 tests/org/jfree/chart/axis/junit/PeriodAxisTests.java.bak
@@ -2573,7 +2573,7 @@ Initialize fixed program version........................................... OK
  create mode 100644 tests/org/jfree/data/time/junit/TimeSeriesCollectionTests.java.bak
 Apply patch................................................................ OK
 Initialize buggy program version........................................... OK
-[master fdf516b] D4J_Chart_2_BUGGY_VERSION
+[master 54c73a7] D4J_Chart_2_BUGGY_VERSION
  2 files changed, 1 insertion(+), 15 deletions(-)
 Diff 2242:2240............................................................. OK
 Index: source/org/jfree/data/general/DatasetUtilities.java
@@ -2687,8 +2687,8 @@ Index: tests/org/jfree/data/general/junit/DatasetUtilitiesTests.java
  }
 Apply patch................................................................ OK
 Tag pre-fix revision....................................................... OK
-[detached HEAD a62668d] D4J_Chart_2_PRE_FIX_REVISION
+[detached HEAD 5a42cff] D4J_Chart_2_PRE_FIX_REVISION
  2 files changed, 63 deletions(-)
 Check out program version: Chart-2f........................................ OK
-Previous HEAD position was a62668d D4J_Chart_2_PRE_FIX_REVISION
-HEAD is now at 5a9e501 D4J_Chart_2_FIXED_VERSION
+Previous HEAD position was 5a42cff D4J_Chart_2_PRE_FIX_REVISION
+HEAD is now at d87c693 D4J_Chart_2_FIXED_VERSION

@@ -1,0 +1,1318 @@
+Checking out 6d00ac1a to /home/cfee3/research/ssr/editas3-automated-testing OK
+Cloning into '/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure100'...
+done.
+Updating files:  26% (540/2006)Updating files:  27% (542/2006)Updating files:  28% (562/2006)Updating files:  29% (582/2006)Updating files:  30% (602/2006)Updating files:  31% (622/2006)Updating files:  32% (642/2006)Updating files:  33% (662/2006)Updating files:  34% (683/2006)Updating files:  35% (703/2006)Updating files:  36% (723/2006)Updating files:  37% (743/2006)Updating files:  38% (763/2006)Updating files:  39% (783/2006)Updating files:  40% (803/2006)Updating files:  41% (823/2006)Updating files:  42% (843/2006)Updating files:  43% (863/2006)Updating files:  44% (883/2006)Updating files:  45% (903/2006)Updating files:  46% (923/2006)Updating files:  47% (943/2006)Updating files:  48% (963/2006)Updating files:  49% (983/2006)Updating files:  50% (1003/2006)Updating files:  51% (1024/2006)Updating files:  52% (1044/2006)Updating files:  53% (1064/2006)Updating files:  54% (1084/2006)Updating files:  55% (1104/2006)Updating files:  56% (1124/2006)Updating files:  57% (1144/2006)Updating files:  58% (1164/2006)Updating files:  58% (1173/2006)Updating files:  59% (1184/2006)Updating files:  60% (1204/2006)Updating files:  61% (1224/2006)Updating files:  62% (1244/2006)Updating files:  63% (1264/2006)Updating files:  64% (1284/2006)Updating files:  65% (1304/2006)Updating files:  66% (1324/2006)Updating files:  67% (1345/2006)Updating files:  68% (1365/2006)Updating files:  69% (1385/2006)Updating files:  70% (1405/2006)Updating files:  71% (1425/2006)Updating files:  72% (1445/2006)Updating files:  73% (1465/2006)Updating files:  74% (1485/2006)Updating files:  75% (1505/2006)Updating files:  76% (1525/2006)Updating files:  77% (1545/2006)Updating files:  78% (1565/2006)Updating files:  79% (1585/2006)Updating files:  80% (1605/2006)Updating files:  81% (1625/2006)Updating files:  82% (1645/2006)Updating files:  83% (1665/2006)Updating files:  84% (1686/2006)Updating files:  85% (1706/2006)Updating files:  86% (1726/2006)Updating files:  87% (1746/2006)Updating files:  88% (1766/2006)Updating files:  88% (1782/2006)Updating files:  89% (1786/2006)Updating files:  90% (1806/2006)Updating files:  91% (1826/2006)Updating files:  92% (1846/2006)Updating files:  93% (1866/2006)Updating files:  94% (1886/2006)Updating files:  95% (1906/2006)Updating files:  96% (1926/2006)Updating files:  97% (1946/2006)Updating files:  98% (1966/2006)Updating files:  99% (1986/2006)Updating files: 100% (2006/2006)Updating files: 100% (2006/2006), done.
+Note: switching to '6d00ac1a68612aade8a19d7ecc9b180f00ae5234'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 6d00ac1a6 Change on 2010/05/27 by johnlenz
+Init local repository...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure100/.git/
+Tag post-fix revision...................................................... OK
+Reinitialized existing Git repository in /home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure100/.git/
+[detached HEAD daeea2426] D4J_Closure_100_POST_FIX_REVISION
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .defects4j.config
+ create mode 100644 .gitignore
+Apply patch................................................................ OK
+Run post-checkout hook..................................................... OK
+[detached HEAD 08f7ad16b] D4J_Closure_100_POST_FIX_COMPILABLE
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+[detached HEAD 0ee069bcd] D4J_Closure_100_FIXED_VERSION
+ 3 files changed, 480 insertions(+), 60 deletions(-)
+ create mode 100644 defects4j.build.properties
+ create mode 100644 test/com/google/javascript/jscomp/CrossModuleMethodMotionTest.java.bak
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+[detached HEAD f925250bb] D4J_Closure_100_BUGGY_VERSION
+ 2 files changed, 2 insertions(+), 9 deletions(-)
+Diff 6d00ac1a:71a6f604..................................................... OK
+diff --git a/javadoc/com/google/javascript/rhino/jstype/JSTypeRegistry.ResolveMode.html b/javadoc/com/google/javascript/rhino/jstype/JSTypeRegistry.ResolveMode.html
+index f40609987..05b9e48a3 100644
+--- a/javadoc/com/google/javascript/rhino/jstype/JSTypeRegistry.ResolveMode.html
++++ b/javadoc/com/google/javascript/rhino/jstype/JSTypeRegistry.ResolveMode.html
+@@ -106,7 +106,7 @@ Enum JSTypeRegistry.ResolveMode</H2>
+ 
+ <P>
+ The type registry has three modes, which control how type ASTs are
+- converted to types in <A HREF="../../../../../com/google/javascript/rhino/jstype/JSTypeRegistry.html#createFromTypeNodes(com.google.javascript.rhino.Node, java.lang.String, com.google.javascript.rhino.jstype.StaticScope)"><CODE>JSTypeRegistry.createFromTypeNodes(com.google.javascript.rhino.Node, java.lang.String, com.google.javascript.rhino.jstype.StaticScope<com.google.javascript.rhino.jstype.JSType>)</CODE></A>.
++ converted to types in <CODE>@createFromTypeNodes</CODE>.
+ <P>
+ 
+ <P>
+diff --git a/javadoc/com/google/javascript/rhino/jstype/JSTypeRegistry.html b/javadoc/com/google/javascript/rhino/jstype/JSTypeRegistry.html
+index 0a2e95d81..29bebdc95 100644
+--- a/javadoc/com/google/javascript/rhino/jstype/JSTypeRegistry.html
++++ b/javadoc/com/google/javascript/rhino/jstype/JSTypeRegistry.html
+@@ -127,7 +127,7 @@ The type registry is used to resolve named types.
+ 
+ <BR>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The type registry has three modes, which control how type ASTs are
+- converted to types in <A HREF="../../../../../com/google/javascript/rhino/jstype/JSTypeRegistry.html#createFromTypeNodes(com.google.javascript.rhino.Node, java.lang.String, com.google.javascript.rhino.jstype.StaticScope)"><CODE>createFromTypeNodes(com.google.javascript.rhino.Node, java.lang.String, com.google.javascript.rhino.jstype.StaticScope<com.google.javascript.rhino.jstype.JSType>)</CODE></A>.</TD>
++ converted to types in <CODE>@createFromTypeNodes</CODE>.</TD>
+ </TR>
+ </TABLE>
+ &nbsp;
+diff --git a/javadoc/com/google/javascript/rhino/jstype/package-summary.html b/javadoc/com/google/javascript/rhino/jstype/package-summary.html
+index 4a7edddb7..e51fd622f 100644
+--- a/javadoc/com/google/javascript/rhino/jstype/package-summary.html
++++ b/javadoc/com/google/javascript/rhino/jstype/package-summary.html
+@@ -240,7 +240,7 @@ Provides abstractions to represent types in JavaScript.
+ <TR BGCOLOR="white" CLASS="TableRowColor">
+ <TD WIDTH="15%"><B><A HREF="../../../../../com/google/javascript/rhino/jstype/JSTypeRegistry.ResolveMode.html" title="enum in com.google.javascript.rhino.jstype">JSTypeRegistry.ResolveMode</A></B></TD>
+ <TD>The type registry has three modes, which control how type ASTs are
+- converted to types in <A HREF="../../../../../com/google/javascript/rhino/jstype/JSTypeRegistry.html#createFromTypeNodes(com.google.javascript.rhino.Node, java.lang.String, com.google.javascript.rhino.jstype.StaticScope)"><CODE>JSTypeRegistry.createFromTypeNodes(com.google.javascript.rhino.Node, java.lang.String, com.google.javascript.rhino.jstype.StaticScope<com.google.javascript.rhino.jstype.JSType>)</CODE></A>.</TD>
++ converted to types in <CODE>@createFromTypeNodes</CODE>.</TD>
+ </TR>
+ <TR BGCOLOR="white" CLASS="TableRowColor">
+ <TD WIDTH="15%"><B><A HREF="../../../../../com/google/javascript/rhino/jstype/TernaryValue.html" title="enum in com.google.javascript.rhino.jstype">TernaryValue</A></B></TD>
+diff --git a/javadoc/index-all.html b/javadoc/index-all.html
+index ccd69d9cf..b25c82367 100644
+--- a/javadoc/index-all.html
++++ b/javadoc/index-all.html
+@@ -5222,7 +5222,7 @@ Constructor for class com.google.javascript.rhino.jstype.<A HREF="./com/google/j
+ Constructor for class com.google.javascript.rhino.jstype.<A HREF="./com/google/javascript/rhino/jstype/JSTypeRegistry.html" title="class in com.google.javascript.rhino.jstype">JSTypeRegistry</A>
+ <DD>Constructs a new type registry populated with the built-in types.
+ <DT><A HREF="./com/google/javascript/rhino/jstype/JSTypeRegistry.ResolveMode.html" title="enum in com.google.javascript.rhino.jstype"><B>JSTypeRegistry.ResolveMode</B></A> - Enum in <A HREF="./com/google/javascript/rhino/jstype/package-summary.html">com.google.javascript.rhino.jstype</A><DD>The type registry has three modes, which control how type ASTs are
+- converted to types in <A HREF="./com/google/javascript/rhino/jstype/JSTypeRegistry.html#createFromTypeNodes(com.google.javascript.rhino.Node, java.lang.String, com.google.javascript.rhino.jstype.StaticScope)"><CODE>JSTypeRegistry.createFromTypeNodes(com.google.javascript.rhino.Node, java.lang.String, com.google.javascript.rhino.jstype.StaticScope<com.google.javascript.rhino.jstype.JSType>)</CODE></A>.</DL>
++ converted to types in <CODE>@createFromTypeNodes</CODE>.</DL>
+ <HR>
+ <A NAME="_K_"><!-- --></A><H2>
+ <B>K</B></H2>
+diff --git a/lib/google_common_deploy.jar b/lib/google_common_deploy.jar
+index 99dd0e3e440b2c85aa536f08a81874049c1b8bdc..3e57539a121443e64aada4a923ca8283966de03c 100755
+GIT binary patch
+delta 18061
+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
+aVMC)^SSr}Gj<ATZIGSlzuFW@FsQ&}nCa^L9
+
+delta 17315
+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
+
+diff --git a/src/com/google/javascript/jscomp/AbstractCommandLineRunner.java b/src/com/google/javascript/jscomp/AbstractCommandLineRunner.java
+index 4e0d0d8b2..dd9a87dfb 100644
+--- a/src/com/google/javascript/jscomp/AbstractCommandLineRunner.java
++++ b/src/com/google/javascript/jscomp/AbstractCommandLineRunner.java
+@@ -750,6 +750,8 @@ abstract class AbstractCommandLineRunner<A extends Compiler,
+    * exists.
+    *
+    * @param options The options to the Compiler.
++   * @param path The path of the generated file for which the source map was
++   *        created.
+    */
+   private void outputSourceMap(B options)
+       throws IOException {
+diff --git a/src/com/google/javascript/jscomp/CheckGlobalThis.java b/src/com/google/javascript/jscomp/CheckGlobalThis.java
+index 1b6c93fbb..94c941195 100644
+--- a/src/com/google/javascript/jscomp/CheckGlobalThis.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalThis.java
+@@ -26,15 +26,13 @@ import com.google.javascript.rhino.Token;
+  * Checks for certain uses of the {@code this} keyword that are considered
+  * unsafe because they are likely to reference the global {@code this} object
+  * unintentionally.
+- *
++ * 
+  * <p>A use of {@code this} is considered unsafe if it's on the left side of an
+- * assignment or a property access, and not inside one of the following:
++ * assignment and not inside one of the following:
+  * <ol>
+  * <li>a prototype method
+  * <li>a function annotated with {@code @constructor}
+  * <li>a function annotated with {@code @this}.
+- * <li>a function where there's no logical place to put a
+- *     {@code this} annotation.
+  * </ol>
+  *
+  * <p>Note that this check does not track assignments of {@code this} to
+@@ -64,7 +62,7 @@ final class CheckGlobalThis implements Callback {
+ 
+   private final AbstractCompiler compiler;
+   private final CheckLevel level;
+-  
++
+   /**
+    * If {@code assignLhsChild != null}, then the node being traversed is
+    * a descendant of the first child of an ASSIGN node. assignLhsChild's
+@@ -82,7 +80,7 @@ final class CheckGlobalThis implements Callback {
+    * is encountered, there is no reason to traverse non global contexts.
+    */
+   public boolean shouldTraverse(NodeTraversal t, Node n, Node parent) {
+-
++    
+     if (n.getType() == Token.FUNCTION) {
+       // Don't traverse functions that are constructors or have the @this
+       // annotation.
+@@ -90,21 +88,8 @@ final class CheckGlobalThis implements Callback {
+       if (jsDoc != null && (jsDoc.isConstructor() || jsDoc.hasThisType())) {
+         return false;
+       }
+-
+-      // Don't traverse functions unless they would normally
+-      // be able to have a @this annotation associated with them. e.g.,
+-      // var a = function() { }; // or
+-      // function a() {} // or
+-      // a.x = function() {};
+-      int pType = parent.getType();
+-      if (!(pType == Token.BLOCK ||
+-            pType == Token.SCRIPT ||
+-            pType == Token.NAME ||
+-            pType == Token.ASSIGN)) {
+-        return false;
+-      }
+     }
+-
++    
+     if (parent != null && parent.getType() == Token.ASSIGN) {
+       Node lhs = parent.getFirstChild();
+       Node rhs = lhs.getNext();
+@@ -130,12 +115,12 @@ final class CheckGlobalThis implements Callback {
+         }
+       }
+     }
+-
++    
+     return true;
+   }
+ 
+   public void visit(NodeTraversal t, Node n, Node parent) {
+-    if (n.getType() == Token.THIS && shouldReportThis(n, parent)) {
++    if (assignLhsChild != null && n.getType() == Token.THIS) {
+       compiler.report(t.makeError(n, level, GLOBAL_THIS));
+     }
+     if (n == assignLhsChild) {
+@@ -143,16 +128,6 @@ final class CheckGlobalThis implements Callback {
+     }
+   }
+ 
+-  private boolean shouldReportThis(Node n, Node parent) {
+-    if (assignLhsChild != null) {
+-      // Always report a THIS on the left side of an assign.
+-      return true;
+-    }
+-
+-    // Also report a THIS with a property access.
+-    return parent != null && NodeUtil.isGet(parent);
+-  }
+-
+   /**
+    * Gets a function's JSDoc information, if it has any. Checks for a few
+    * patterns (ellipses show where JSDoc would be):
+diff --git a/src/com/google/javascript/jscomp/CodingConvention.java b/src/com/google/javascript/jscomp/CodingConvention.java
+index 02148cdab..a410ed899 100644
+--- a/src/com/google/javascript/jscomp/CodingConvention.java
++++ b/src/com/google/javascript/jscomp/CodingConvention.java
+@@ -22,6 +22,7 @@ import com.google.javascript.rhino.jstype.JSTypeRegistry;
+ import com.google.javascript.rhino.jstype.ObjectType;
+ 
+ import java.util.Collection;
++import java.util.Collections;
+ import java.util.List;
+ 
+ /**
+diff --git a/src/com/google/javascript/jscomp/DefaultCodingConvention.java b/src/com/google/javascript/jscomp/DefaultCodingConvention.java
+index 82a963644..814b01c10 100644
+--- a/src/com/google/javascript/jscomp/DefaultCodingConvention.java
++++ b/src/com/google/javascript/jscomp/DefaultCodingConvention.java
+@@ -15,6 +15,7 @@
+  */
+ package com.google.javascript.jscomp;
+ 
++import com.google.javascript.jscomp.CodingConvention.AssertionFunctionSpec;
+ import com.google.javascript.rhino.Node;
+ import com.google.javascript.rhino.jstype.FunctionType;
+ import com.google.javascript.rhino.jstype.JSTypeRegistry;
+diff --git a/src/com/google/javascript/jscomp/JSModuleGraph.java b/src/com/google/javascript/jscomp/JSModuleGraph.java
+index 47e14745e..ecffc6f9a 100644
+--- a/src/com/google/javascript/jscomp/JSModuleGraph.java
++++ b/src/com/google/javascript/jscomp/JSModuleGraph.java
+@@ -290,7 +290,7 @@ public class JSModuleGraph {
+    * a symbol that is not required until a later module, then that
+    * file will be moved to the later module.
+    *
+-   * @param inputs The original list of sources. Used to ensure that the sort
++   * @param The original list of sources. Used to ensure that the sort
+    *     is stable.
+    * @return The sorted list of sources.
+    */
+diff --git a/src/com/google/javascript/jscomp/JsMessageExtractor.java b/src/com/google/javascript/jscomp/JsMessageExtractor.java
+index 7412463a5..031563554 100644
+--- a/src/com/google/javascript/jscomp/JsMessageExtractor.java
++++ b/src/com/google/javascript/jscomp/JsMessageExtractor.java
+@@ -19,6 +19,7 @@ package com.google.javascript.jscomp;
+ import com.google.common.collect.ImmutableList;
+ import com.google.common.collect.Iterables;
+ import com.google.common.collect.Lists;
++import com.google.common.collect.Sets;
+ import com.google.javascript.rhino.Node;
+ 
+ import java.io.IOException;
+diff --git a/src/com/google/javascript/jscomp/LinkedFlowScope.java b/src/com/google/javascript/jscomp/LinkedFlowScope.java
+index 3747e0982..47b0a5ebf 100644
+--- a/src/com/google/javascript/jscomp/LinkedFlowScope.java
++++ b/src/com/google/javascript/jscomp/LinkedFlowScope.java
+@@ -148,6 +148,7 @@ class LinkedFlowScope implements FlowScope {
+     return cache.getSlot(name);
+   }
+ 
++  /** @inheritDoc */
+   @Override
+   public StaticSlot<JSType> getOwnSlot(String name) {
+     throw new UnsupportedOperationException();
+diff --git a/src/com/google/javascript/jscomp/SanityCheck.java b/src/com/google/javascript/jscomp/SanityCheck.java
+index a363a9bc5..aa5542736 100644
+--- a/src/com/google/javascript/jscomp/SanityCheck.java
++++ b/src/com/google/javascript/jscomp/SanityCheck.java
+@@ -18,6 +18,7 @@ package com.google.javascript.jscomp;
+ 
+ import com.google.common.base.Preconditions;
+ import com.google.javascript.rhino.Node;
++import com.google.javascript.rhino.Token;
+ 
+ /**
+  * A compiler pass that verifies the structure of the AST conforms
+diff --git a/src/com/google/javascript/jscomp/SourceFile.java b/src/com/google/javascript/jscomp/SourceFile.java
+index 0c40f0302..f13ac2526 100644
+--- a/src/com/google/javascript/jscomp/SourceFile.java
++++ b/src/com/google/javascript/jscomp/SourceFile.java
+@@ -371,7 +371,6 @@ public abstract class SourceFile {
+     /**
+      * Gets a reader for the code in this source file.
+      */
+-    @Override
+     public Reader getCodeReader() throws IOException {
+       if (hasSourceInMemory()) {
+         return super.getCodeReader();
+diff --git a/src/com/google/javascript/jscomp/Tracer.java b/src/com/google/javascript/jscomp/Tracer.java
+index 2a137aecf..fe4229e1d 100644
+--- a/src/com/google/javascript/jscomp/Tracer.java
++++ b/src/com/google/javascript/jscomp/Tracer.java
+@@ -224,7 +224,7 @@ final class Tracer {
+   static final int MAX_TRACE_SIZE = 1000;
+ 
+   /**
+-   * For unit testing. Can't use {@link com.google.common.time.Clock} because
++   * For unit testing. Can't use {@link com.google.common.time} because
+    * this code is in base and has minimal dependencies.
+    */
+   static interface InternalClock {
+diff --git a/src/com/google/javascript/jscomp/TypedCodeGenerator.java b/src/com/google/javascript/jscomp/TypedCodeGenerator.java
+index de51a7a25..9cedd0e47 100644
+--- a/src/com/google/javascript/jscomp/TypedCodeGenerator.java
++++ b/src/com/google/javascript/jscomp/TypedCodeGenerator.java
+@@ -74,7 +74,7 @@ class TypedCodeGenerator extends CodeGenerator {
+   }
+ 
+   /**
+-   * @param fnNode A node for a function for which to generate a type annotation
++   * @param node A node for a function for which to generate a type annotation
+    */
+   private String getFunctionAnnotation(Node fnNode) {
+     Preconditions.checkState(fnNode.getType() == Token.FUNCTION);
+diff --git a/src/com/google/javascript/jscomp/deps/DependencyInfo.java b/src/com/google/javascript/jscomp/deps/DependencyInfo.java
+index 52e04cd86..e65a03fb2 100644
+--- a/src/com/google/javascript/jscomp/deps/DependencyInfo.java
++++ b/src/com/google/javascript/jscomp/deps/DependencyInfo.java
+@@ -17,6 +17,8 @@
+ package com.google.javascript.jscomp.deps;
+ 
+ import java.util.Collection;
++import java.util.Collections;
++import java.util.List;
+ 
+ /**
+  * A data structure for JS dependency information for a single .js file.
+diff --git a/src/com/google/javascript/jscomp/deps/DepsFileParser.java b/src/com/google/javascript/jscomp/deps/DepsFileParser.java
+index ef1a9d7c9..e67a6ed06 100644
+--- a/src/com/google/javascript/jscomp/deps/DepsFileParser.java
++++ b/src/com/google/javascript/jscomp/deps/DepsFileParser.java
+@@ -17,9 +17,12 @@
+ package com.google.javascript.jscomp.deps;
+ 
+ import com.google.common.base.CharMatcher;
++import com.google.common.base.Charsets;
+ import com.google.common.collect.Lists;
++import com.google.common.io.Files;
+ import com.google.javascript.jscomp.ErrorManager;
+ 
++import java.io.File;
+ import java.io.FileReader;
+ import java.io.IOException;
+ import java.io.Reader;
+diff --git a/src/com/google/javascript/jscomp/deps/JsFileLineParser.java b/src/com/google/javascript/jscomp/deps/JsFileLineParser.java
+index 06c9c1aa3..238f804ec 100644
+--- a/src/com/google/javascript/jscomp/deps/JsFileLineParser.java
++++ b/src/com/google/javascript/jscomp/deps/JsFileLineParser.java
+@@ -25,6 +25,7 @@ import com.google.javascript.jscomp.JSError;
+ import java.io.BufferedReader;
+ import java.io.IOException;
+ import java.io.Reader;
++import java.io.StringReader;
+ import java.util.List;
+ import java.util.regex.Matcher;
+ import java.util.regex.Pattern;
+diff --git a/src/com/google/javascript/jscomp/deps/JsFileParser.java b/src/com/google/javascript/jscomp/deps/JsFileParser.java
+index 0f8ab48be..a06bf81de 100644
+--- a/src/com/google/javascript/jscomp/deps/JsFileParser.java
++++ b/src/com/google/javascript/jscomp/deps/JsFileParser.java
+@@ -17,9 +17,13 @@
+ package com.google.javascript.jscomp.deps;
+ 
+ import com.google.common.base.CharMatcher;
++import com.google.common.base.Charsets;
+ import com.google.common.collect.Lists;
++import com.google.common.io.Files;
+ import com.google.javascript.jscomp.ErrorManager;
+ 
++import java.io.BufferedReader;
++import java.io.File;
+ import java.io.FileReader;
+ import java.io.IOException;
+ import java.io.Reader;
+diff --git a/src/com/google/javascript/jscomp/deps/SimpleDependencyInfo.java b/src/com/google/javascript/jscomp/deps/SimpleDependencyInfo.java
+index 8dc536487..399cc7f78 100644
+--- a/src/com/google/javascript/jscomp/deps/SimpleDependencyInfo.java
++++ b/src/com/google/javascript/jscomp/deps/SimpleDependencyInfo.java
+@@ -17,6 +17,8 @@
+ package com.google.javascript.jscomp.deps;
+ 
+ import com.google.common.base.Objects;
++import com.google.common.collect.ImmutableList;
++import com.google.common.collect.Lists;
+ 
+ import java.util.Collection;
+ import java.util.Collections;
+diff --git a/src/com/google/javascript/jscomp/deps/SortedDependencies.java b/src/com/google/javascript/jscomp/deps/SortedDependencies.java
+index adb6d81b3..60cbec8de 100644
+--- a/src/com/google/javascript/jscomp/deps/SortedDependencies.java
++++ b/src/com/google/javascript/jscomp/deps/SortedDependencies.java
+@@ -38,6 +38,8 @@ import java.util.List;
+ import java.util.Map;
+ import java.util.PriorityQueue;
+ import java.util.Set;
++import java.util.SortedSet;
++import java.util.TreeSet;
+ 
+ /**
+  * A sorted list of inputs with dependency information. Uses a stable
+diff --git a/src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java b/src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java
+index 477b28710..a0f264b23 100644
+--- a/src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java
++++ b/src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java
+@@ -1034,6 +1034,14 @@ public final class JsDocInfoParser {
+       this.string = string;
+       this.token = token;
+     }
++
++    public String getString() {
++      return string;
++    }
++
++    public JsDocToken getToken() {
++      return token;
++    }
+   }
+ 
+   /**
+diff --git a/src/com/google/javascript/jscomp/parsing/ParserRunner.java b/src/com/google/javascript/jscomp/parsing/ParserRunner.java
+index 72a666875..7007f0361 100644
+--- a/src/com/google/javascript/jscomp/parsing/ParserRunner.java
++++ b/src/com/google/javascript/jscomp/parsing/ParserRunner.java
+@@ -25,6 +25,7 @@ import com.google.javascript.jscomp.mozilla.rhino.EvaluatorException;
+ import com.google.javascript.jscomp.mozilla.rhino.Parser;
+ import com.google.javascript.jscomp.mozilla.rhino.ast.AstRoot;
+ import com.google.javascript.rhino.Node;
++import com.google.javascript.rhino.jstype.JSTypeRegistry;
+ 
+ import java.io.IOException;
+ import java.util.ResourceBundle;
+diff --git a/src/com/google/javascript/rhino/jstype/FunctionPrototypeType.java b/src/com/google/javascript/rhino/jstype/FunctionPrototypeType.java
+index b4f44feda..f1aeb7b67 100644
+--- a/src/com/google/javascript/rhino/jstype/FunctionPrototypeType.java
++++ b/src/com/google/javascript/rhino/jstype/FunctionPrototypeType.java
+@@ -39,8 +39,12 @@
+ 
+ package com.google.javascript.rhino.jstype;
+ 
++import com.google.javascript.rhino.ErrorReporter;
+ import com.google.javascript.rhino.jstype.ObjectType;
+ 
++import java.util.List;
++import java.util.Set;
++
+ /**
+  * Represents the prototype of a {@link FunctionType}.
+  * @author nicksantos@google.com (Nick Santos)
+diff --git a/src/com/google/javascript/rhino/jstype/FunctionType.java b/src/com/google/javascript/rhino/jstype/FunctionType.java
+index 48e0f0761..cbd4dc269 100644
+--- a/src/com/google/javascript/rhino/jstype/FunctionType.java
++++ b/src/com/google/javascript/rhino/jstype/FunctionType.java
+@@ -41,6 +41,8 @@ package com.google.javascript.rhino.jstype;
+ 
+ import static com.google.javascript.rhino.jstype.JSTypeNative.U2U_CONSTRUCTOR_TYPE;
+ 
++import com.google.common.annotations.VisibleForTesting;
++import com.google.common.base.Objects;
+ import com.google.common.base.Preconditions;
+ import com.google.common.collect.ImmutableList;
+ import com.google.common.collect.Iterables;
+@@ -820,6 +822,11 @@ public class FunctionType extends PrototypeObjectType {
+     return super.resolveInternal(t, scope);
+   }
+ 
++  // A helper method for creating arrow types.
++  private ArrowType createArrowType(Node parameters, JSType returnType) {
++    return registry.createArrowType(parameters, returnType);
++  }
++
+   @Override
+   public String toDebugHashCodeString() {
+     if (this == registry.getNativeType(JSTypeNative.FUNCTION_INSTANCE_TYPE)) {
+diff --git a/src/com/google/javascript/rhino/jstype/InstanceObjectType.java b/src/com/google/javascript/rhino/jstype/InstanceObjectType.java
+index 256f0147c..ba1e47bf6 100644
+--- a/src/com/google/javascript/rhino/jstype/InstanceObjectType.java
++++ b/src/com/google/javascript/rhino/jstype/InstanceObjectType.java
+@@ -41,6 +41,10 @@ package com.google.javascript.rhino.jstype;
+ 
+ 
+ import com.google.common.base.Preconditions;
++import com.google.javascript.rhino.ErrorReporter;
++
++import java.util.List;
++import java.util.Set;
+ 
+ /**
+  * An object type that is an instance of some function constructor.
+diff --git a/src/com/google/javascript/rhino/jstype/JSTypeRegistry.java b/src/com/google/javascript/rhino/jstype/JSTypeRegistry.java
+index 76dd3b6da..df73e9484 100644
+--- a/src/com/google/javascript/rhino/jstype/JSTypeRegistry.java
++++ b/src/com/google/javascript/rhino/jstype/JSTypeRegistry.java
+@@ -147,7 +147,7 @@ public class JSTypeRegistry implements Serializable {
+ 
+   /**
+    * The type registry has three modes, which control how type ASTs are
+-   * converted to types in {@link #createFromTypeNodes}.
++   * converted to types in {@link @createFromTypeNodes}.
+    */
+   public static enum ResolveMode {
+     /**
+diff --git a/src/com/google/javascript/rhino/jstype/NamedType.java b/src/com/google/javascript/rhino/jstype/NamedType.java
+index 6af723ccd..b67876c3d 100644
+--- a/src/com/google/javascript/rhino/jstype/NamedType.java
++++ b/src/com/google/javascript/rhino/jstype/NamedType.java
+@@ -110,7 +110,6 @@ class NamedType extends ProxyObjectType {
+     this.charno = charno;
+   }
+ 
+-  @Override
+   void forgiveUnknownNames() {
+     forgiving = true;
+   }
+diff --git a/src/com/google/javascript/rhino/jstype/ObjectType.java b/src/com/google/javascript/rhino/jstype/ObjectType.java
+index 78583fe1a..2fcc8cff7 100644
+--- a/src/com/google/javascript/rhino/jstype/ObjectType.java
++++ b/src/com/google/javascript/rhino/jstype/ObjectType.java
+@@ -42,11 +42,13 @@ package com.google.javascript.rhino.jstype;
+ import static com.google.javascript.rhino.jstype.TernaryValue.FALSE;
+ import static com.google.javascript.rhino.jstype.TernaryValue.UNKNOWN;
+ 
++import com.google.common.collect.ImmutableList;
+ import com.google.common.collect.ImmutableSet;
+ import com.google.common.collect.Sets;
+ import com.google.javascript.rhino.JSDocInfo;
+ 
+ import java.util.HashSet;
++import java.util.List;
+ import java.util.Set;
+ 
+ /**
+diff --git a/src/com/google/javascript/rhino/jstype/ProxyObjectType.java b/src/com/google/javascript/rhino/jstype/ProxyObjectType.java
+index bd23c71b1..8761a538d 100644
+--- a/src/com/google/javascript/rhino/jstype/ProxyObjectType.java
++++ b/src/com/google/javascript/rhino/jstype/ProxyObjectType.java
+@@ -42,6 +42,7 @@ package com.google.javascript.rhino.jstype;
+ import com.google.javascript.rhino.ErrorReporter;
+ import com.google.javascript.rhino.JSDocInfo;
+ 
++import java.util.List;
+ import java.util.Set;
+ 
+ /**
+diff --git a/src/com/google/javascript/rhino/jstype/RecordTypeBuilder.java b/src/com/google/javascript/rhino/jstype/RecordTypeBuilder.java
+index e9deda4a8..95fc08229 100644
+--- a/src/com/google/javascript/rhino/jstype/RecordTypeBuilder.java
++++ b/src/com/google/javascript/rhino/jstype/RecordTypeBuilder.java
+@@ -40,6 +40,9 @@
+ package com.google.javascript.rhino.jstype;
+ 
+ import com.google.common.collect.ImmutableMap;
++import com.google.common.collect.Maps;
++
++import java.util.Map;
+ 
+ /**
+  * A builder for record types.
+diff --git a/src/com/google/javascript/rhino/jstype/UnresolvedTypeExpression.java b/src/com/google/javascript/rhino/jstype/UnresolvedTypeExpression.java
+index e485054a0..275c75125 100644
+--- a/src/com/google/javascript/rhino/jstype/UnresolvedTypeExpression.java
++++ b/src/com/google/javascript/rhino/jstype/UnresolvedTypeExpression.java
+@@ -41,6 +41,7 @@ package com.google.javascript.rhino.jstype;
+ 
+ import com.google.common.base.Preconditions;
+ import com.google.javascript.rhino.ErrorReporter;
++import com.google.javascript.rhino.JSTypeExpression;
+ import com.google.javascript.rhino.Node;
+ 
+ /**
+diff --git a/test/com/google/javascript/jscomp/CheckGlobalThisTest.java b/test/com/google/javascript/jscomp/CheckGlobalThisTest.java
+index 74b92769a..c0fa4395b 100644
+--- a/test/com/google/javascript/jscomp/CheckGlobalThisTest.java
++++ b/test/com/google/javascript/jscomp/CheckGlobalThisTest.java
+@@ -35,7 +35,7 @@ public class CheckGlobalThisTest extends CompilerTestCase {
+   private void testFailure(String js) {
+     test(js, null, CheckGlobalThis.GLOBAL_THIS);
+   }
+-
++  
+   public void testGlobalThis1() throws Exception {
+     testSame("var a = this;");
+   }
+@@ -51,19 +51,15 @@ public class CheckGlobalThisTest extends CompilerTestCase {
+   public void testGlobalThis4() {
+     testFailure("this['foo'] = 5;");
+   }
+-
++  
+   public void testGlobalThis5() {
+     testFailure("(a = this).foo = 4;");
+   }
+-
++  
+   public void testGlobalThis6() {
+     testSame("a = this;");
+   }
+ 
+-  public void testGlobalThis7() {
+-    testFailure("var a = this.foo;");
+-  }
+-
+   public void testStaticFunction1() {
+     testSame("function a() { return this; }");
+   }
+@@ -85,15 +81,11 @@ public class CheckGlobalThisTest extends CompilerTestCase {
+   }
+ 
+   public void testStaticFunction6() {
+-    testSame("function a() { return function() { this = 8; } }");
++    testFailure("function a() { return function() { this = 8; } }");
+   }
+ 
+   public void testStaticFunction7() {
+-    testSame("var a = function() { return function() { this = 8; } }");
+-  }
+-
+-  public void testStaticFunction8() {
+-    testFailure("var a = function() { return this.foo; };");
++    testFailure("var a = function() { return function() { this = 8; } }");
+   }
+ 
+   public void testConstructor1() {
+@@ -145,11 +137,11 @@ public class CheckGlobalThisTest extends CompilerTestCase {
+   }
+ 
+   public void testStaticMethod2() {
+-    testSame("a.b = function() { return function() { this.m2 = 5; } }");
++    testFailure("a.b = function() { return function() { this.m2 = 5; } }");
+   }
+ 
+   public void testStaticMethod3() {
+-    testSame("a.b.c = function() { return function() { this.m2 = 5; } }");
++    testFailure("a.b.c = function() { return function() { this.m2 = 5; } }");
+   }
+ 
+   public void testMethodInStaticFunction() {
+@@ -166,22 +158,4 @@ public class CheckGlobalThisTest extends CompilerTestCase {
+         "    function myself() {" +
+         "      function andI() { this.m2 = 5; } } } }");
+   }
+-
+-  public void testInnerFunction1() {
+-    testFailure("function f() { function g() { return this.x; } }");
+-  }
+-
+-  public void testInnerFunction2() {
+-    testFailure("function f() { var g = function() { return this.x; } }");
+-  }
+-
+-  public void testInnerFunction3() {
+-    testFailure(
+-        "function f() { var x = {}; x.y = function() { return this.x; } }");
+-  }
+-
+-  public void testInnerFunction4() {
+-    testSame(
+-        "function f() { var x = {}; x.y(function() { return this.x; }); }");
+-  }
+ }
+diff --git a/test/com/google/javascript/jscomp/CompilerTestCase.java b/test/com/google/javascript/jscomp/CompilerTestCase.java
+index 477a91bfc..55beb9f79 100644
+--- a/test/com/google/javascript/jscomp/CompilerTestCase.java
++++ b/test/com/google/javascript/jscomp/CompilerTestCase.java
+@@ -20,6 +20,7 @@ import com.google.common.base.Joiner;
+ import com.google.common.collect.Lists;
+ import com.google.javascript.jscomp.CodeChangeHandler.RecentChange;
+ import com.google.javascript.rhino.Node;
++import com.google.javascript.rhino.Token;
+ import com.google.javascript.rhino.testing.BaseJSTypeTestCase;
+ 
+ import junit.framework.TestCase;
+diff --git a/test/com/google/javascript/jscomp/ConcreteTypeTest.java b/test/com/google/javascript/jscomp/ConcreteTypeTest.java
+index d368f0d0f..d7a7e01f2 100644
+--- a/test/com/google/javascript/jscomp/ConcreteTypeTest.java
++++ b/test/com/google/javascript/jscomp/ConcreteTypeTest.java
+@@ -244,7 +244,7 @@ public class ConcreteTypeTest extends TestCase {
+       return registry;
+     }
+ 
+-    /** {@inheritDoc} */
++    /** @inheritDoc */
+     public ConcreteFunctionType createConcreteFunction(
+         Node decl, StaticScope<ConcreteType> parent) {
+       ConcreteFunctionType funcType = functionByDeclaration.get(decl);
+@@ -258,7 +258,7 @@ public class ConcreteTypeTest extends TestCase {
+       return funcType;
+     }
+ 
+-    /** {@inheritDoc} */
++    /** @inheritDoc */
+     public ConcreteInstanceType createConcreteInstance(
+         ObjectType instanceType) {
+       ConcreteInstanceType instType = instanceByJSType.get(instanceType);
+@@ -269,17 +269,17 @@ public class ConcreteTypeTest extends TestCase {
+       return instType;
+     }
+ 
+-    /** {@inheritDoc} */
++    /** @inheritDoc */
+     public ConcreteFunctionType getConcreteFunction(FunctionType functionType) {
+       return functionByJSType.get(functionType);
+     }
+ 
+-    /** {@inheritDoc} */
++    /** @inheritDoc */
+     public ConcreteInstanceType getConcreteInstance(ObjectType instanceType) {
+       return instanceByJSType.get(instanceType);
+     }
+ 
+-    /** {@inheritDoc} */
++    /** @inheritDoc */
+     public StaticScope<ConcreteType> createFunctionScope(
+         Node decl, StaticScope<ConcreteType> parent) {
+       FakeScope scope = new FakeScope((FakeScope) parent);
+@@ -294,7 +294,7 @@ public class ConcreteTypeTest extends TestCase {
+       return scope;
+     }
+ 
+-    /** {@inheritDoc} */
++    /** @inheritDoc */
+     public StaticScope<ConcreteType> createInstanceScope(
+         ObjectType instanceType) {
+       FakeScope parentScope = null;
+@@ -321,15 +321,15 @@ public class ConcreteTypeTest extends TestCase {
+       this.parent = parent;
+     }
+ 
+-    /** {@inheritDoc} */
++    /** @inheritDoc */
+     public StaticScope<ConcreteType> getParentScope() { return parent; }
+ 
+-    /** {@inheritDoc} */
++    /** @inheritDoc */
+     public StaticSlot<ConcreteType> getOwnSlot(String name) {
+       return slots.get(name);
+     }
+ 
+-    /** {@inheritDoc} */
++    /** @inheritDoc */
+     public StaticSlot<ConcreteType> getSlot(String name) {
+       if (slots.containsKey(name)) {
+         return slots.get(name);
+@@ -340,7 +340,7 @@ public class ConcreteTypeTest extends TestCase {
+       }
+     }
+ 
+-    /** {@inheritDoc} */
++    /** @inheritDoc */
+     public ConcreteType getTypeOfThis() { return ConcreteType.ALL; }
+ 
+     void addSlot(String name) {
+@@ -356,13 +356,13 @@ public class ConcreteTypeTest extends TestCase {
+       this.name = name;
+     }
+ 
+-    /* {@inheritDoc} */
++    /* @inheritDoc */
+     public String getName() { return name; }
+ 
+-    /* {@inheritDoc} */
++    /* @inheritDoc */
+     public ConcreteType getType() { return ConcreteType.ALL; }
+ 
+-    /* {@inheritDoc} */
++    /* @inheritDoc */
+     public boolean isTypeInferred() { return true; }
+   }
+ }
+diff --git a/test/com/google/javascript/jscomp/DataFlowAnalysisTest.java b/test/com/google/javascript/jscomp/DataFlowAnalysisTest.java
+index fc4fa2256..a7036ccd7 100644
+--- a/test/com/google/javascript/jscomp/DataFlowAnalysisTest.java
++++ b/test/com/google/javascript/jscomp/DataFlowAnalysisTest.java
+@@ -338,7 +338,14 @@ public class DataFlowAnalysisTest extends TestCase {
+      * Constructor.
+      *
+      * @param isTop To define if the lattice is top.
++     * @param constMap A map from name to constant variable.
+      */
++    ConstPropLatticeElement(
++        boolean isTop, Map<Variable, Integer> constMap) {
++      this.isTop = isTop;
++      this.constMap = constMap;
++    }
++
+     ConstPropLatticeElement(boolean isTop) {
+       this.isTop = isTop;
+       this.constMap = Maps.newHashMap();
+diff --git a/test/com/google/javascript/jscomp/InferJSDocInfoTest.java b/test/com/google/javascript/jscomp/InferJSDocInfoTest.java
+index ce273b7d4..683241951 100644
+--- a/test/com/google/javascript/jscomp/InferJSDocInfoTest.java
++++ b/test/com/google/javascript/jscomp/InferJSDocInfoTest.java
+@@ -24,6 +24,8 @@ import com.google.javascript.jscomp.ScopeCreator;
+ import com.google.javascript.rhino.Node;
+ import com.google.javascript.rhino.jstype.FunctionType;
+ import com.google.javascript.rhino.jstype.JSType;
++import com.google.javascript.rhino.jstype.JSTypeNative;
++import com.google.javascript.rhino.jstype.JSTypeRegistry;
+ import com.google.javascript.rhino.jstype.ObjectType;
+ 
+ import java.util.Deque;
+@@ -38,6 +40,7 @@ import java.util.Deque;
+ // assertions about type information.
+ public class InferJSDocInfoTest extends CompilerTestCase {
+ 
++  private JSTypeRegistry registry;
+   private Scope globalScope;
+ 
+   @Override
+@@ -63,6 +66,7 @@ public class InferJSDocInfoTest extends CompilerTestCase {
+ 
+   @Override
+   public CompilerPass getProcessor(final Compiler compiler) {
++    registry = compiler.getTypeRegistry();
+     return new CompilerPass() {
+       public void process(Node externs, Node root) {
+         ScopeCreator scopeCreator =
+@@ -213,4 +217,12 @@ public class InferJSDocInfoTest extends CompilerTestCase {
+     }
+     return null;
+   }
++
++  private JSType getNativeType(JSTypeNative type) {
++    return registry.getNativeType(type);
++  }
++
++  private ObjectType getNativeObjectType(JSTypeNative type) {
++    return (ObjectType) registry.getNativeType(type);
++  }
+ }
+diff --git a/test/com/google/javascript/rhino/jstype/FunctionTypeTest.java b/test/com/google/javascript/rhino/jstype/FunctionTypeTest.java
+index e58037d7d..76eb0133e 100644
+--- a/test/com/google/javascript/rhino/jstype/FunctionTypeTest.java
++++ b/test/com/google/javascript/rhino/jstype/FunctionTypeTest.java
+@@ -38,6 +38,7 @@
+ 
+ package com.google.javascript.rhino.jstype;
+ 
++import com.google.javascript.rhino.Node;
+ import com.google.javascript.rhino.testing.BaseJSTypeTestCase;
+ 
+ 
+diff --git a/test/com/google/javascript/rhino/jstype/JSTypeRegistryTest.java b/test/com/google/javascript/rhino/jstype/JSTypeRegistryTest.java
+index 8d3f2cecc..04338c2f6 100644
+--- a/test/com/google/javascript/rhino/jstype/JSTypeRegistryTest.java
++++ b/test/com/google/javascript/rhino/jstype/JSTypeRegistryTest.java
+@@ -46,6 +46,7 @@ import com.google.javascript.rhino.testing.Asserts;
+ 
+ import junit.framework.TestCase;
+ 
++
+ /**
+  * Tests {@link JSTypeRegistry}.
+  *
+diff --git a/test/com/google/javascript/rhino/jstype/JSTypeTest.java b/test/com/google/javascript/rhino/jstype/JSTypeTest.java
+index f26fa455c..eb429f852 100644
+--- a/test/com/google/javascript/rhino/jstype/JSTypeTest.java
++++ b/test/com/google/javascript/rhino/jstype/JSTypeTest.java
+@@ -4863,8 +4863,7 @@ public class JSTypeTest extends BaseJSTypeTestCase {
+   }
+ 
+   /**
+-   * Tests
+-   * {@link JSTypeRegistry#getGreatestSubtypeWithProperty(JSType, String)}.
++   * Tests {@link JSTypeRegistry#getGreatestSubtypeWithProperty(JSType)}.
+    */
+   public void testGreatestSubtypeWithProperty() {
+     ObjectType foo = registry.createObjectType("foo", null, OBJECT_TYPE);
+@@ -5265,6 +5264,10 @@ public class JSTypeTest extends BaseJSTypeTestCase {
+     return registry.createArrowType(params);
+   }
+ 
++  private ArrowType createArrowType(Node params, JSType retType) {
++    return registry.createArrowType(params, retType);
++  }
++
+   private void assertTypeEquals(JSType a, JSType b) {
+     Asserts.assertTypeEquals(a, b);
+   }
+Apply patch................................................................ OK
+/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure100/.defects4j.diff:493: trailing whitespace.
+ * 
+/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure100/.defects4j.diff:520: trailing whitespace.
+    
+/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure100/.defects4j.diff:543: trailing whitespace.
+    
+/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure100/.defects4j.diff:552: trailing whitespace.
+    
+/home/cfee3/research/ssr/editas3-automated-testing/eval/checked_out/buggy/Closure100/.defects4j.diff:954: trailing whitespace.
+  
+warning: squelched 2 whitespace errors
+warning: 7 lines add whitespace errors.
+Tag pre-fix revision....................................................... OK
+[detached HEAD a857e2bfc] D4J_Closure_100_PRE_FIX_REVISION
+ 41 files changed, 114 insertions(+), 90 deletions(-)
+Check out program version: Closure-100b.................................... OK
+Previous HEAD position was a857e2bfc D4J_Closure_100_PRE_FIX_REVISION
+HEAD is now at f925250bb D4J_Closure_100_BUGGY_VERSION
