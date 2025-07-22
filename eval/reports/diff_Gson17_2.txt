@@ -1,0 +1,2 @@
+1a2
+>   - com.google.gson.DefaultDateTypeAdapter_ESTest::test8
