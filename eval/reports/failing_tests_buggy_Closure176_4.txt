@@ -1,2 +1,0 @@
-  - com.google.javascript.jscomp.TypeInference_ESTest::test04
-  - com.google.javascript.jscomp.TypeInference_ESTest::test07
