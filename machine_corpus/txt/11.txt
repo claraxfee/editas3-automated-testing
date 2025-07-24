@@ -1,0 +1,1 @@
+void test20()  throws Throwable  {       Short short0 = new Short((short) (-215));       POJONode pOJONode0 = new POJONode(short0);       JsonFactory jsonFactory0 = new JsonFactory();       MockFile mockFile0 = new MockFile(JSON");       JsonEncoding jsonEncoding0 = JsonEncoding.UTF16_LE;       JsonGenerator jsonGenerator0 = jsonFactory0.createGenerator((File) mockFile0\

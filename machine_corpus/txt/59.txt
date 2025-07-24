@@ -1,0 +1,1 @@
+void test10()  throws Throwable  {       Set<IDKey> set0 = HashCodeBuilder.getRegistry();       int int0 = HashCodeBuilder.reflectionHashCode((Object) set0);    <AssertPlaceHolder>" ; }  "<FocalMethod>" public static int reflectionHashCode(int initialNonZeroOddNumber\

@@ -1,0 +1,1 @@
+void test7()  throws Throwable  {       XmlTreeBuilder xmlTreeBuilder0 = new XmlTreeBuilder();       Document document0 = xmlTreeBuilder0.parse(!<?!0R;*u"\

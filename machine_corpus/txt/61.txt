@@ -1,0 +1,1 @@
+void test2()  throws Throwable  {       File file0 = MockFile.createTempFile(hkAL/9(1S17"\

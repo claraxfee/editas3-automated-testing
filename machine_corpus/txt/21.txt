@@ -1,0 +1,1 @@
+void test6()  throws Throwable  {       HashMap<MockDateFormat\, Object> hashMap0 = new HashMap<MockDateFormat\, Object>();       ExtendedMessageFormat extendedMessageFormat0 = new ExtendedMessageFormat(T '4`i.i%~+O*a{"\

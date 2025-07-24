@@ -7,57 +7,69 @@ EditAs2 workflow
 	** clone the Artifact-of-Assertion-ICSE22 repo first 
 	** config.txt, clean_data.py, prepare_data.py, etc in /home/edinella/Artifact-of-Assertion-ICSE22 on abox1
 
-0. setup
-
-	$ cd Artifact-of-Assertion-ICSE22
-	
-	$ unzip Result/NewDataSet.zip
-
 
 1. information retrieval (find the prefix&assertion most similar to method under test & evosuite prefix) 
 
-
-	1. put information into math1.txt 
+	1. put information into .txt files in txt/ folder (ALREADY COMPLETE)
 		1. evosuite prefix with "<AssertPlaceHolder>"; instead of assertion 
 			** if has a try-catch, remove all try-catch information i
 			** remove modifer, @Test
 			** close prefix with bracket   
 		2. <"FocalMethod">
 		3. method under test
+	
+	2. copy over and cd to IR directory
+		
+		$ cp txt/*.txt  ../../Artifact-of-Assertion-ICSE22/
+		$ cd  ../../Artifact-of-Assertion-ICSE22/
 
-	2. clean with clean_data.py 
+	3. clean all <num>.txt files with clean_data.py 
 		
-		$ python clean_data.py math1.txt > query_math1.txt
+		$ python clean_data.py 1.txt > query_1.txt
+		$ python clean_data.py 2.txt > query_2.txt
+		... etc until 87.txt (there is no 88.txt)
 
-	3. change the query filename in config.txt to query_math1.txt 
+	4. for every <num>.txt file: 
 		
-	4. run information retrieval, use tmux bc it takes forever
-		
-		$ mkdir out_math1
-		$ tmux 
-		
-			** this makes new tmux session, ctrl+b then press $ to rename it "ir" 
-
-		$ python Retrieval/IR.py config.txt out_math1
+		1. change the query filename in config.txt to query_<num>.txt
 			
-			** ctrl+b then d to detatch / exit tmux session 
-
-	5. results will be in out_math1/IRResultTest.txt 
-
-
-2. EditAs2 
-
-	1. copy IRResultTest.txt from IR artifact to EditAs2 repo 
+		---> config.txt looks like this: 
+			
+			Result/MachineDataSet/prefix_focal.txt
+			query_1.txt
+			Result/MachineDataSet/assert.txt
+			gold.txt
+			Result/NewDataSet/Validation/testMethods.txt
+			Result/NewDataSet/Validation/assertLines.txt	 
 		
-		$ cp out_math1/IRResultTest.txt ../EditAs2/dataset 
-
-	2. prepare data to json file 
+		---> change the second line to query_<num>.txt	
 		
-		$ prepare_data.py > sample.jsonl
+		2. run information retrieval
+		
+			$ mkdir out_<num>
+		
+			$ python Retrieval/IR.py config.txt out_<num>
+			
+		3. copy over results; result file will be in out_<num>/IRResultTest.txt 
 
-	3. run editAs2
+			$ cp out_<num>/IRResultTest.txt ../EditAs2/dataset
 
-		$ cd ../scripts/ && bash test.sh && cd ../dataset  
+
+		2. run EditAs2 
+
+			1. cd and prepare data
+		
+				$ cd ../EditAs2/dataset
+
+				$ python prepare_data.py > sample.jsonl
+
+			2. run editAs2
+
+				$ cd ../scripts/ && bash test.sh > out.txt && cp out.txt ../dataset && cd ../dataset
+
+			3. grab the second to last line of out.txt and append it to results.csv
+
+				$   
 
 
 

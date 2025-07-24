@@ -1,0 +1,1 @@
+void test03()  throws Throwable  {       byte[] byteArray0 = new byte[1];       byte[] byteArray1 = QuotedPrintableCodec.encodeQuotedPrintable((BitSet) null\, byteArray0);    <AssertPlaceHolder>" ; }  "<FocalMethod>" private static final void encodeQuotedPrintable(int b\

@@ -1,0 +1,1 @@
+void test06()  throws Throwable  {       Fraction fraction0 = new Fraction(Integer.MIN_VALUE\, 1685.1374867173388\, Integer.MIN_VALUE);       // Undeclared exception!       try {          fraction0.negate();         fail(Expecting exception: ArithmeticException");       } catch(ArithmeticException e) {          //          // overflow in fraction -2\

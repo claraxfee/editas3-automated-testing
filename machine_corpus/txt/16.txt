@@ -1,0 +1,1 @@
+void test00()  throws Throwable  {       char[] charArray0 = new char[4];       try {          NumberInput.parseBigDecimal(charArray0);         fail(Expecting exception: NumberFormatException");       } catch(NumberFormatException e) {          //          // no message in exception (getMessage() returned null)          //          verifyException("java.math.BigDecimal"\

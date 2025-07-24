@@ -1,0 +1,1 @@
+void test12()  throws Throwable  {       byte[] byteArray0 = new byte[38];       byteArray0[17] = (byte)1;       int int0 = TarUtils.formatLongOctalOrBinaryBytes(0L\, byteArray0\, (byte)1\, (byte)1);       long long0 = TarUtils.parseOctal(byteArray0\, (byte)1\, 23);    <AssertPlaceHolder>" ; }  "<FocalMethod>" public static long parseOctal(final byte[] buffer\

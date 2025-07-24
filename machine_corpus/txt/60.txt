@@ -1,0 +1,1 @@
+void test00()  throws Throwable  {       Compiler compiler0 = new Compiler();       CheckLevel checkLevel0 = CheckLevel.WARNING;       CheckGlobalThis checkGlobalThis0 = new CheckGlobalThis(compiler0\, checkLevel0);       Node node0 = Node.newString(105\, >ZwH/j_]_q0=IhtG"\

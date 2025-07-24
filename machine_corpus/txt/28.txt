@@ -1,0 +1,1 @@
+void test06()  throws Throwable  {       MaybeReachingVariableUse.ReachingUses maybeReachingVariableUse_ReachingUses0 = new MaybeReachingVariableUse.ReachingUses();       Node node0 = Node.newString(<QqS$:BGgy\

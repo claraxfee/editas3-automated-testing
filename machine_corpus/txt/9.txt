@@ -1,0 +1,1 @@
+void test05()  throws Throwable  {       TokenQueue tokenQueue0 = new TokenQueue(q| 13HX4Ff`8|@X");       tokenQueue0.addFirst("q| 13HX4Ff`8|@X");       tokenQueue0.chompBalanced('q'\

@@ -1,0 +1,1 @@
+void test00()  throws Throwable  {       MockDate mockDate0 = new MockDate();       Week week0 = new Week(mockDate0\, (TimeZone) null);    <AssertPlaceHolder>" ; }  "<FocalMethod>" public Week() {         this(new Date());     }/**      * Creates a new time period for the week in which the current system      * date/time falls.      */"

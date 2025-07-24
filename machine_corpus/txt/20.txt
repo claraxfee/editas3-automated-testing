@@ -1,0 +1,1 @@
+void test044()  throws Throwable  {       Node node0 = Node.newString(13\, Array");       CompilerOptions compilerOptions0 = new CompilerOptions();       boolean boolean0 = NodeUtil.isValidDefineValue(node0\

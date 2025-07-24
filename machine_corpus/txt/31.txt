@@ -1,0 +1,1 @@
+void test160()  throws Throwable  {       LinkedList<Node> linkedList0 = new LinkedList<Node>();       Node node0 = Node.newString(MVK*3#:F$kUa5");       FunctionNode functionNode0 = NodeUtil.newFunctionNode("MVK*3#:F$kUa5"\

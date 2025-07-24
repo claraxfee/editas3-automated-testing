@@ -1,0 +1,1 @@
+void test31()  throws Throwable  {       Compiler compiler0 = new Compiler();       Node node0 = compiler0.parseSyntheticCode(com.google.common.collet.Multimaps$CustomSetMultimap"\

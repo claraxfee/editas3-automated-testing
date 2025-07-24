@@ -1,0 +1,1 @@
+void test00()  throws Throwable  {       TimeZone timeZone0 = TimeZone.getTimeZone(GMTCAT");       Locale locale0 = Locale.GERMANY;       FastDateParser fastDateParser0 = new FastDateParser("D+|E+|F+|G+|H+|K+|M+|S+|W+|Z+|a+|d+|h+|k+|m+|s+|w+|y+|z+|''|'[^']++(''[^']*+)*+'|[^'A-Za-z]++"\

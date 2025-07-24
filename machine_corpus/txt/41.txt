@@ -1,0 +1,1 @@
+void test0()  throws Throwable  {       Compiler compiler0 = new Compiler();       FlowSensitiveInlineVariables flowSensitiveInlineVariables0 = new FlowSensitiveInlineVariables(compiler0);       Node node0 = Node.newNumber(0.0);       flowSensitiveInlineVariables0.process(node0\, node0);    <AssertPlaceHolder>" ; }  "<FocalMethod>" public void process(Node externs\
