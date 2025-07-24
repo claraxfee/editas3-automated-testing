@@ -114,14 +114,14 @@ def process_csv(input_file, output_file):
         output_df = pd.DataFrame(processed_data)
         
         # Save full output file (with both fields)
-        output_df.to_csv(output_file, index=False, quoting=csv.QUOTE_NONE, escapechar='\\')
+        output_df.to_csv(output_file, index=False)
         print(f"\nFull processed data saved to: {output_file}")
         print(f"Full output shape: {output_df.shape}")
         
         # Create and save test-only output file (only the processed_test field)
         test_only_df = pd.DataFrame({'processed_test': output_df['processed_test']})
         test_only_file = output_file.replace('.csv', '_test_only.csv')
-        test_only_df.to_csv(test_only_file, index=False)
+        test_only_df.to_csv(test_only_file, index=False, quoting=csv.QUOTE_NONE, escapechar='\\')
         print(f"Test-only data saved to: {test_only_file}")
         print(f"Test-only output shape: {test_only_df.shape}")
         
@@ -145,7 +145,7 @@ def process_csv(input_file, output_file):
 
 if __name__ == "__main__":
     # Default file names - modify these as needed
-    input_file = "inputs_exceptional_no_split.csv"  # Change this to your deduplicated file name
+    input_file = "inputs_exceptional_split.csv"  # Change this to your deduplicated file name
     output_file = "processed_inputs_editas2.csv"  # Change this to your desired output file name
     
     # You can also pass file names as command line arguments

@@ -63,7 +63,7 @@ def deduplicate_csv(input_file, output_file):
 
 if __name__ == "__main__":
     # Default file names - modify these as needed
-    input_file = "input.csv"  # Change this to your input file name
+    input_file = "inputs_exceptional_split.csv"  # Change this to your input file name
     output_file = "deduplicated_output.csv"  # Change this to your desired output file name
     
     # You can also pass file names as command line arguments
