@@ -145,7 +145,7 @@ def process_csv(input_file, output_file):
 
 if __name__ == "__main__":
     # Default file names - modify these as needed
-    input_file = "inputs_editas2.csv"  # Change this to your deduplicated file name
+    input_file = "inputs_exceptional_no_split.csv"  # Change this to your deduplicated file name
     output_file = "processed_inputs_editas2.csv"  # Change this to your desired output file name
     
     # You can also pass file names as command line arguments
