@@ -259,7 +259,8 @@ def split_test(test, line_nums, assert_line_no=None):
     # split by asserts
     split_tests = []
     split_test_line_nums = []
-
+    
+    
     relevant_lines = []
     relevant_line_nums = []
     for line, line_no in zip(test_method.split('\n'), line_nums):
@@ -285,9 +286,10 @@ def split_test(test, line_nums, assert_line_no=None):
         else: # non assert line
             relevant_lines += [line]
             relevant_line_nums += [line_no]
-
+    
     split_tests += ['\n'.join(relevant_lines)]
     split_test_line_nums += [relevant_line_nums]
+    
 
     return split_tests, split_test_line_nums
 
@@ -304,6 +306,17 @@ def find_java_file(src_root, class_name):
             return os.path.join(root, target_filename)
     return None
 
+def format_field(field):
+
+    field_str = str(field).strip()
+    # Replace newlines and carriage returns with spaces to keep everything on one line
+    field_str = field_str.replace('\n', ' ').replace('\r', ' ')
+    
+    # Only remove quotes if they exist at BOTH the beginning AND end
+    if field_str.startswith('"') and field_str.endswith('"'):
+        field_str = field_str[1:-1]  # Remove first and last character only
+    
+    return field_str
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -316,7 +329,6 @@ if __name__ == "__main__":
     parser.add_argument('--bug_list_file', help='Path to file containing list of bugs (one per line: PROJECT:BUG_NUM)')
     args = parser.parse_args()
     
-    # only target these bugs 
     specific_bugs = set()
     if args.specific_bugs:
         for bug_spec in args.specific_bugs:
@@ -343,9 +355,12 @@ if __name__ == "__main__":
     bug_tests_df.bug_num = bug_tests_df.bug_num.astype(str)
 
     test_ids = bug_tests_df.project + bug_tests_df.bug_num + bug_tests_df.test_name
-    bug_tests_df = bug_tests_df.set_index(test_ids, drop=True)
+    bug_tests_df = bug_tests_df.set_index(test_ids, drop=True) #index by test_id (project+bug_num+test_name)
 
-    bug_ids = set(bug_tests_df.project + bug_tests_df.bug_num)
+    bug_ids = set(bug_tests_df.project + bug_tests_df.bug_num) 
+
+    #bug_tests_df is now: (key, value) / (test_id, <all the fields from the csv>)
+    #bug_ids is now: [Chart1, Math17, ...]
 
     input_data = []
     metadata = []
@@ -355,11 +370,12 @@ if __name__ == "__main__":
             if not f.endswith("_ESTest.java"): 
                 continue
             full_fname = os.path.join(root, f)
-            print("PROCESSING FILE:", os.path.join(root, f))
+            print("\nPROCESSING TEST FILE: ", os.path.join(root, f))
 
             match = path_re.search(full_fname)
             if not match:
                 errs['file_name_not_matched'] += 1
+                print("ERR: file name doesn't match path_re")
                 continue
             project = match.group(1)
             bug_num = match.group(2)
@@ -372,10 +388,8 @@ if __name__ == "__main__":
                 continue
 
             if bug_tests_only and not project + bug_num in bug_ids:
-                print("this bug was not found in bug_ids", project + bug_num)
+                print("\nBUG NOT FOUND IN BUG_IDS (WHICH IS FROM BUG_CATCHING_TEST.CSV:", project + bug_num)
                 continue
-
-            print("FULL_FNAME: ", full_fname)
 
             d4j_project_dir = d4j_path+'/framework/projects/' + project
 
@@ -398,11 +412,11 @@ if __name__ == "__main__":
             project_dir = os.path.abspath(f"checked_out/buggy/{project}{bug_num}")
             src_root = os.path.join(project_dir, src_dir)
             # class_path currently contains something like 'org/jfree/data/DefaultKeyedValues'
-            # We want just the class name part (e.g., 'DefaultKeyedValues')
+            # we want just the class name part (e.g., 'DefaultKeyedValues')
             class_name = os.path.basename(class_path)
-
+            
             full_class_path = find_java_file(src_root, class_name)
-            print("found this java file:", full_class_path)
+            print("FOUND THIS JAVA FILE TO LOOK FOR FOCAL METHODS:", full_class_path)
             if not full_class_path:
                 errs['cannot_find_focal_unit_file'] += 1
                 print('ERROR: cannot find file for:', class_name)
@@ -414,7 +428,7 @@ if __name__ == "__main__":
                 class_dec, class_text = get_class_dec(full_fname)
             except Exception as e:
                 errs['err_parse_test_file'] += 1
-                print("ERROR:couldn't parse test_class", full_fname)
+                print("ERROR: couldn't parse test_class / couldn't run get_class_dec function", full_fname)
                 continue
 
 
@@ -423,7 +437,7 @@ if __name__ == "__main__":
                 focal_dec_text_pairs = get_classes_with_inherited(full_class_path, src_path)
             except Exception as e:
                 errs['err_parse_focal_file'] += 1
-                print("ERROR:couldn't parse focal class", project, bug_num, full_class_path)
+                print("ERROR:couldn't parse focal class / couldn't run get_classes_with_inherited", project, bug_num, full_class_path)
                 continue
 
 
@@ -438,35 +452,36 @@ if __name__ == "__main__":
             # no longer using tree sitter
 
             # assert len(class_test_methods) == 1
+            # ^ idk what this was for, ensuring there was only one class per test file ?? 
 
             #class_name, _ = list(class_test_methods.items())[0]
             class_name_from_parser = class_dec.name
 
-
+            
             test_methods = extract_all_methods(class_dec, class_text)
             split_test_methods = []
             split_test_line_nums = []
+            
+            success_test_found = False
+
             for obj, test_method, line_nums, _ in test_methods:
                 m2 = test_name_re.search(test_method)
                 if not m2:
                     errs['test_name_not_matched'] += 1
+                    print("\n ERROR: TEST NAME DIDNT MATCH TEST_NAME_RE")
                     continue
-                test_name = m2.group(1)
-                #full_test_name = package +'.' + class_name_from_parser + '::' + test_name
-                #full_test_id = project+str(bug_num)+full_test_name
                 
-                #full_test_id = project + str(bug_num) + test_name
-                full_test_id = project + str(bug_num) + package + '.' + class_name_from_parser + '::' + test_name 
+                original_test_name = m2.group(1)
                 
-
-                bug_test_ids = set(test_ids)  # add this line near the top if needed
-                print("Considering test ID:", full_test_id)
-                print("Bug test IDs:", list(bug_test_ids)[:5])
-
+                full_test_name = package +'.' + class_name_from_parser + '::' + original_test_name
+                
+                full_test_id = project + str(bug_num) + package + '.' + class_name_from_parser + '::' + original_test_name 
 
                 if bug_tests_only and full_test_id not in bug_tests_df.index:
-                    print(f"Skipping {full_test_id}, not in bug tests")
                     continue
+                
+                success_test_found = True
+                print(f"\nSUCCESS: {full_test_id} WAS FOUND IN BUG_TESTS_DF.INDEX")
 
                 split_tests, split_test_lines = split_test(test_method, line_nums)
 
@@ -474,19 +489,23 @@ if __name__ == "__main__":
 
                 split_test_methods += split_tests
                 split_test_line_nums += split_test_lines
-
+            
+            if not success_test_found:
+                print(f"\nFAILURE: NO TEST IDS WERE FOUND IN BUG_TESTS_DF.INDEX FOR THIS BUG")
+            print("\nDONE ITERATING THROUGH TEST FILE TO LOOK FOR TESTS")
 
             focal_class_methods = [extract_all_methods(fdec, ftxt) for fdec, ftxt in focal_dec_text_pairs]
             focal_methods = extract_focal_methods(class_dec, split_test_methods, focal_class_methods)
 
-            assert(len(split_test_methods) == len(focal_methods))
-            assert(len(split_test_methods) == len(split_test_line_nums))
+            #assert(len(split_test_methods) == len(focal_methods))
+            #assert(len(split_test_methods) == len(split_test_line_nums))
 
             for test_method, focal_method_docstring, test_lines in zip(split_test_methods, focal_methods, split_test_line_nums):
                 focal_method, docstring = "", ""
                 if focal_method_docstring:
                     focal_method, docstring = focal_method_docstring
-
+                
+                #get assertion from the test
                 assertion = ''
                 try:
                     m = assert_re.search(test_method)
@@ -500,53 +519,51 @@ if __name__ == "__main__":
                 m2 = test_name_re.search(test_method)
                 test_name = m2.group(1)
 
-                full_test_name = package +'.' + class_name_from_parser + '::' + test_name
-                test_id = project+str(bug_num)+full_test_name
-
                 exception_lbl = bool(fail_catch_re.search(test_method))
+
                 assertion_lbl = assertion
 
                 # get bug metadata
                 assertion_bug = 0
                 exception_bug = 0
                 error = ''
-                if test_id in bug_tests_df.index:
-                    bug_meta = bug_tests_df.loc[test_id]
-                    if bug_meta.line_no in test_lines:
-                        error = bug_meta.error
-                        if bug_meta.bug_type == 'assertion':
-                            assertion_bug = 1
-                        elif bug_meta.bug_type == 'exception' and exception_lbl == 0:
-                            exception_bug = 1
-                        elif bug_meta.bug_type == 'expected_exception' and exception_lbl == 1:
-                            exception_bug = 1
+                if full_test_id in bug_tests_df.index:
+                    print("FULL TEST ID IN BUG_TESTS_DF.INDEX")
+                    bug_meta = bug_tests_df.loc[full_test_id]
+                    error = bug_meta.error
+                    if bug_meta.bug_type == 'assertion':
+                        assertion_bug = 1
+                    elif bug_meta.bug_type == 'exception' and exception_lbl == 0:
+                        exception_bug = 1
+                    elif bug_meta.bug_type == 'expected_exception' and exception_lbl == 1:
+                        exception_bug = 1
                 
-                print("Checking:", full_test_id)
-                print("Index sample:", list(bug_tests_df.index)[:3])
+                #idk what this check is for 
+                #if bug_tests_only and not (assertion_bug or exception_bug):
+                    #print(f"SKIPPING: {full_test_id} not assertion bug or exception bug")
+                    #continue
 
-                if bug_tests_only and not (assertion_bug or exception_bug):
-                    print("SKIPPING: {full_test_id} not assertion bug or exception bug")
-                    continue
-
-
+                print("writing this test: ", project, bug_num, full_test_name)
                 metadata += [(project, bug_num, full_test_name, exception_bug, assertion_bug, exception_lbl, assertion_lbl, error)]
-                input_data += [(focal_method, test_method, docstring)]
+                input_data += [(1, test_method, focal_method, docstring, project, bug_num, full_test_name)]
     
     print(f"Number of extracted input entries: {len(input_data)}")
     print(f"Number of metadata entries: {len(metadata)}")
 
-
-    print('collected inputs:', len(input_data))
     print(f'writing to {args.output_dir}/inputs.csv and {args.output_dir}/meta.csv')
 
     with open(args.output_dir + '/inputs.csv', 'w') as f1, open(args.output_dir + '/meta.csv', 'w') as f2:
-        input_w = csv.writer(f1)
-        meta_w = csv.writer(f2)
-
-        input_w.writerow(['focal_method', 'test_prefix', 'docstring'])
+        
+        input_w = csv.writer(f1, quoting=csv.QUOTE_NONNUMERIC)
+        meta_w = csv.writer(f2) 
+        
+        #write headers
+        input_w.writerow(['label', 'test_prefix', 'focal_method', 'docstring', 'project', 'bug_num', 'full_test_name'])
         meta_w.writerow('project,bug_num,test_name,exception_bug,assertion_bug,exception_lbl,assertion_lbl,assert_err'.split(','))
-
+        #write content
         for input_pair, meta in zip(input_data, metadata):
-            input_w.writerow(input_pair)
+            label = input_pair[0]  # Keep label as-is (always 1)
+            formatted_fields = [format_field(field) for field in input_pair[1:]]
+            formatted_row = [label] + formatted_fields
+            input_w.writerow(formatted_row)
             meta_w.writerow(meta)
-
