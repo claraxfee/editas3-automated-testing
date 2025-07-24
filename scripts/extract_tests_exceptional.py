@@ -287,10 +287,11 @@ def split_test(test, line_nums, assert_line_no=None):
             relevant_lines += [line]
             relevant_line_nums += [line_no]
     
+
     split_tests += ['\n'.join(relevant_lines)]
     split_test_line_nums += [relevant_line_nums]
     
-
+     
     return split_tests, split_test_line_nums
 
 
@@ -487,8 +488,11 @@ if __name__ == "__main__":
 
                 assert(split_tests) # should always have at least one
 
-                split_test_methods += split_tests
-                split_test_line_nums += split_test_lines
+                #split_test_methods += split_tests
+                #split_test_line_nums += split_test_lines
+
+                split_test_methods.append(split_tests[-1])
+                split_test_line_nums.append(split_test_lines[-1])
             
             if not success_test_found:
                 print(f"\nFAILURE: NO TEST IDS WERE FOUND IN BUG_TESTS_DF.INDEX FOR THIS BUG")

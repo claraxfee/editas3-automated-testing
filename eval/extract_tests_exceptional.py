@@ -19,6 +19,7 @@ whitespace_re = re.compile(r'\s+')
 test_name_re = re.compile("public void (test[0-9]*)\(\)")
 extract_package_re = re.compile(r'package\s+(\S+);')
 fail_catch_re = re.compile(r"fail\(.*\).*}\s*catch", re.MULTILINE|re.DOTALL)
+fail_catch_extract_re = re.compile(r'try\s*{(.*;).*fail\(.*\)\s*;\s*}\s*catch', re.DOTALL)
 
 errs = defaultdict(int)
 
@@ -260,7 +261,7 @@ def split_test(test, line_nums, assert_line_no=None):
     split_tests = []
     split_test_line_nums = []
     
-    """
+    
     relevant_lines = []
     relevant_line_nums = []
     for line, line_no in zip(test_method.split('\n'), line_nums):
@@ -287,12 +288,11 @@ def split_test(test, line_nums, assert_line_no=None):
             relevant_lines += [line]
             relevant_line_nums += [line_no]
     
+
     split_tests += ['\n'.join(relevant_lines)]
     split_test_line_nums += [relevant_line_nums]
-    """
-
-    split_tests += [test]
-    split_test_line_nums += [line_nums]
+    
+     
     return split_tests, split_test_line_nums
 
 
@@ -319,6 +319,62 @@ def format_field(field):
         field_str = field_str[1:-1]  # Remove first and last character only
     
     return field_str
+
+"""
+def get_prefix(test):
+    open_curly = test.find('{')
+    if not 'throws ' in test[:open_curly]:
+        test = test[:open_curly] + ' throws Exception ' + test[open_curly:]
+
+    test = test.replace('// Undeclared exception!', '')
+    m_try_catch = fail_catch_extract_re.search(test)
+    m_assert = assert_re.search(test)
+    loc = len(test)
+    if m_try_catch:
+        print(f"\n\n\nFOUND TRY CATCH\n\n\n")
+        loc = m_try_catch.span()[0]
+        try_content = " " + m_try_catch.group(0).strip()
+        return test[0:loc] + try_content
+    elif m_assert:
+        try:
+            assert m_assert
+        except AssertionError:
+            print("no assertion or try catch in", test)
+        loc = m_assert.span()[0]
+        return test[0:loc]
+    else:
+        return test[0:test.rfind('}')]
+"""
+
+def get_prefix(test):
+    open_curly = test.find('{')
+    if open_curly == -1:
+        print("WARNING: No opening curly brace found!")
+        return test
+
+    if 'throws ' not in test[:open_curly]:
+        test = test[:open_curly] + ' throws Exception ' + test[open_curly:]
+
+    test = test.replace('// Undeclared exception!', '')
+
+    # Match try { ... } catch (...) { ... } and keep only the try-body
+    m_try_catch = fail_catch_extract_re.search(test)
+    if m_try_catch:
+        print(f"\n\n\nFOUND TRY CATCH\n\n\n")
+        try_block = m_try_catch.group(0)
+
+        # Extract only the contents of the `try` block
+        m_try_body = re.search(r'try\s*\{(.*?)\}\s*catch\s*\([^\)]*\)\s*\{.*?\}', try_block, re.DOTALL)
+        if m_try_body:
+            extracted = m_try_body.group(1).strip()
+            test = test[:m_try_catch.span()[0]] + extracted + test[m_try_catch.span()[1]:]
+
+    # Return everything up to the last closing brace
+    return test[:test.rfind('}') + 1]
+
+
+
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -483,15 +539,22 @@ if __name__ == "__main__":
                     continue
                 
                 success_test_found = True
-                print(f"\nSUCCESS: {full_test_id} WAS FOUND IN BUG_TESTS_DF.INDEX")
+                                
+                prefix = get_prefix(test_method)
 
-                split_tests, split_test_lines = split_test(test_method, line_nums)
+                print(f"\n\n\nPREFIX: {prefix}\n\n\n")
+
+                split_tests, split_test_lines = split_test(prefix, line_nums)
 
                 assert(split_tests) # should always have at least one
 
-                split_test_methods += split_tests
-                split_test_line_nums += split_test_lines
-            
+                #split_test_methods += split_tests
+                #split_test_line_nums += split_test_lines
+
+                split_test_methods.append(split_tests[-1])
+                split_test_line_nums.append(split_test_lines[-1])
+
+
             if not success_test_found:
                 print(f"\nFAILURE: NO TEST IDS WERE FOUND IN BUG_TESTS_DF.INDEX FOR THIS BUG")
             print("\nDONE ITERATING THROUGH TEST FILE TO LOOK FOR TESTS")
@@ -503,6 +566,9 @@ if __name__ == "__main__":
             #assert(len(split_test_methods) == len(split_test_line_nums))
 
             for test_method, focal_method_docstring, test_lines in zip(split_test_methods, focal_methods, split_test_line_nums):
+                
+                
+
                 focal_method, docstring = "", ""
                 if focal_method_docstring:
                     focal_method, docstring = focal_method_docstring
@@ -541,13 +607,15 @@ if __name__ == "__main__":
                         exception_bug = 1
                 
                 #idk what this check is for 
-                #if bug_tests_only and not (assertion_bug or exception_bug):
-                    #print(f"SKIPPING: {full_test_id} not assertion bug or exception bug")
+                if bug_tests_only and not (assertion_bug or exception_bug):
+                    print(f"SKIPPING: {full_test_id} not assertion bug or exception bug")
                     #continue
 
                 print("writing this test: ", project, bug_num, full_test_name)
                 metadata += [(project, bug_num, full_test_name, exception_bug, assertion_bug, exception_lbl, assertion_lbl, error)]
                 input_data += [(1, test_method, focal_method, docstring, project, bug_num, full_test_name)]
+
+                print(f"TEST METHOD: {test_method}")
     
     print(f"Number of extracted input entries: {len(input_data)}")
     print(f"Number of metadata entries: {len(metadata)}")
