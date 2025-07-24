@@ -42,7 +42,7 @@ def process_test_field(test_str, fm_str, docstring_str):
     # Step 4: Add the hardcoded string exactly as specified
     test_str += ' "<AssertPlaceHolder>" ; }  "<FocalMethod>" '
     
-    # Step 5: Concatenate fm and docstring
+
     test_str += fm_str + docstring_str
     
     return test_str
@@ -105,16 +105,20 @@ def process_csv(input_file, output_file):
                 str(row['full_test_name'])
             )
             
+            test_id = f'"{test_id}"'
+            processed_test = f'"{processed_test}"'
+
             processed_data.append({
                 'processed_test': processed_test,
                 'test_id': test_id
             })
+
         
         # Create new dataframe with both fields
         output_df = pd.DataFrame(processed_data)
         
         # Save full output file (with both fields)
-        output_df.to_csv(output_file, index=False)
+        output_df.to_csv(output_file, index=False, quoting=csv.QUOTE_NONE,escapechar='\\')
         print(f"\nFull processed data saved to: {output_file}")
         print(f"Full output shape: {output_df.shape}")
         
