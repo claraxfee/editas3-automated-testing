@@ -83,7 +83,8 @@ def extract_focal_methods(class_dec, tests, all_focal_class_methods):
                 if isinstance(n, javalang.tree.ClassCreator):
                     focal_method_name = n.type.name
                     fm_names += [focal_method_name]
-
+     
+            #correct up to here
             added = False
             for focal_method_name in fm_names:
                 for focal_class_methods in all_focal_class_methods:
@@ -292,21 +293,42 @@ def split_test(test, line_nums, assert_line_no=None):
     split_tests += ['\n'.join(relevant_lines)]
     split_test_line_nums += [relevant_line_nums]
     
+    #split_tests += [test]
+    #split_test_line_nums += [relevant_line_nums]
      
     return split_tests, split_test_line_nums
 
 
 
-def find_java_file(src_root, class_name):
+def find_java_file(src_root, class_name, package):
     """
     Recursively search src_root for a .java file matching class_name + ".java".
     Returns the full path if found, else None.
     """
     target_filename = class_name + ".java"
+    candidates = []
+
     for root, dirs, files in os.walk(src_root):
         if target_filename in files:
-            return os.path.join(root, target_filename)
-    return None
+            candidates.append(os.path.join(root, target_filename))
+
+    if len(candidates) == 1:
+        return candidates[0]
+
+    for filepath in candidates:
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith("package "):
+                        declared_package = line[len("package "):].rstrip(';').strip()
+                        if declared_package == package:
+                            return filepath
+                        break  # No need to check further lines
+        except Exception as e:
+            continue  # Skip files that can't be read
+
+    return None  # No matching package found
 
 def format_field(field):
 
@@ -319,32 +341,6 @@ def format_field(field):
         field_str = field_str[1:-1]  # Remove first and last character only
     
     return field_str
-
-"""
-def get_prefix(test):
-    open_curly = test.find('{')
-    if not 'throws ' in test[:open_curly]:
-        test = test[:open_curly] + ' throws Exception ' + test[open_curly:]
-
-    test = test.replace('// Undeclared exception!', '')
-    m_try_catch = fail_catch_extract_re.search(test)
-    m_assert = assert_re.search(test)
-    loc = len(test)
-    if m_try_catch:
-        print(f"\n\n\nFOUND TRY CATCH\n\n\n")
-        loc = m_try_catch.span()[0]
-        try_content = " " + m_try_catch.group(0).strip()
-        return test[0:loc] + try_content
-    elif m_assert:
-        try:
-            assert m_assert
-        except AssertionError:
-            print("no assertion or try catch in", test)
-        loc = m_assert.span()[0]
-        return test[0:loc]
-    else:
-        return test[0:test.rfind('}')]
-"""
 
 def get_prefix(test):
     open_curly = test.find('{')
@@ -360,7 +356,6 @@ def get_prefix(test):
     # Match try { ... } catch (...) { ... } and keep only the try-body
     m_try_catch = fail_catch_extract_re.search(test)
     if m_try_catch:
-        print(f"\n\n\nFOUND TRY CATCH\n\n\n")
         try_block = m_try_catch.group(0)
 
         # Extract only the contents of the `try` block
@@ -415,7 +410,7 @@ if __name__ == "__main__":
     test_ids = bug_tests_df.project + bug_tests_df.bug_num + bug_tests_df.test_name
     bug_tests_df = bug_tests_df.set_index(test_ids, drop=True) #index by test_id (project+bug_num+test_name)
 
-    bug_ids = set(bug_tests_df.project + bug_tests_df.bug_num) 
+    bug_ids = set(bug_tests_df.project + bug_tests_df.bug_num)
 
     #bug_tests_df is now: (key, value) / (test_id, <all the fields from the csv>)
     #bug_ids is now: [Chart1, Math17, ...]
@@ -428,12 +423,10 @@ if __name__ == "__main__":
             if not f.endswith("_ESTest.java"): 
                 continue
             full_fname = os.path.join(root, f)
-            print("\nPROCESSING TEST FILE: ", os.path.join(root, f))
 
             match = path_re.search(full_fname)
             if not match:
                 errs['file_name_not_matched'] += 1
-                print("ERR: file name doesn't match path_re")
                 continue
             project = match.group(1)
             bug_num = match.group(2)
@@ -446,7 +439,6 @@ if __name__ == "__main__":
                 continue
 
             if bug_tests_only and not project + bug_num in bug_ids:
-                print("\nBUG NOT FOUND IN BUG_IDS (WHICH IS FROM BUG_CATCHING_TEST.CSV:", project + bug_num)
                 continue
 
             d4j_project_dir = d4j_path+'/framework/projects/' + project
@@ -469,11 +461,16 @@ if __name__ == "__main__":
 
             project_dir = os.path.abspath(f"checked_out/buggy/{project}{bug_num}")
             src_root = os.path.join(project_dir, src_dir)
-            # class_path currently contains something like 'org/jfree/data/DefaultKeyedValues'
-            # we want just the class name part (e.g., 'DefaultKeyedValues')
             class_name = os.path.basename(class_path)
             
-            full_class_path = find_java_file(src_root, class_name)
+             
+            trimmed = re.sub(r'^.*?_exceptional/', '', full_fname)
+            package_path = os.path.dirname(trimmed)
+            java_package = package_path.replace("/", ".")
+
+            
+
+            full_class_path = find_java_file(src_root, class_name, java_package)
             print("FOUND THIS JAVA FILE TO LOOK FOR FOCAL METHODS:", full_class_path)
             if not full_class_path:
                 errs['cannot_find_focal_unit_file'] += 1
@@ -540,9 +537,7 @@ if __name__ == "__main__":
                 
                 success_test_found = True
                                 
-                prefix = get_prefix(test_method)
-
-                print(f"\n\n\nPREFIX: {prefix}\n\n\n")
+                prefix = test_method
 
                 split_tests, split_test_lines = split_test(prefix, line_nums)
 
@@ -550,14 +545,13 @@ if __name__ == "__main__":
 
                 #split_test_methods += split_tests
                 #split_test_line_nums += split_test_lines
+                
+
+                print(f"SPLIT_TESTS[-1]: {split_tests[-1]}")
 
                 split_test_methods.append(split_tests[-1])
                 split_test_line_nums.append(split_test_lines[-1])
 
-
-            if not success_test_found:
-                print(f"\nFAILURE: NO TEST IDS WERE FOUND IN BUG_TESTS_DF.INDEX FOR THIS BUG")
-            print("\nDONE ITERATING THROUGH TEST FILE TO LOOK FOR TESTS")
 
             focal_class_methods = [extract_all_methods(fdec, ftxt) for fdec, ftxt in focal_dec_text_pairs]
             focal_methods = extract_focal_methods(class_dec, split_test_methods, focal_class_methods)
@@ -596,7 +590,6 @@ if __name__ == "__main__":
                 exception_bug = 0
                 error = ''
                 if full_test_id in bug_tests_df.index:
-                    print("FULL TEST ID IN BUG_TESTS_DF.INDEX")
                     bug_meta = bug_tests_df.loc[full_test_id]
                     error = bug_meta.error
                     if bug_meta.bug_type == 'assertion':
@@ -615,7 +608,6 @@ if __name__ == "__main__":
                 metadata += [(project, bug_num, full_test_name, exception_bug, assertion_bug, exception_lbl, assertion_lbl, error)]
                 input_data += [(1, test_method, focal_method, docstring, project, bug_num, full_test_name)]
 
-                print(f"TEST METHOD: {test_method}")
     
     print(f"Number of extracted input entries: {len(input_data)}")
     print(f"Number of metadata entries: {len(metadata)}")

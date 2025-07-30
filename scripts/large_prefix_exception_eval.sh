@@ -3,7 +3,7 @@
 
 #Chart Cli Closure Codec Collections Compress Csv Gson JacksonCore JacksonDatabind JacksonXml Jsoup JxPath Lang Math Mockito Time
 
-PROJECTS=(Time)
+PROJECTS=("$@")
 
 for PROJECT in "${PROJECTS[@]}"; do
 

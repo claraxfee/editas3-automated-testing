@@ -4,7 +4,7 @@
 
 #PROJECTS=(Chart Cli Closure Codec Collections Compress Csv Gson JacksonCore JacksonDatabind JacksonXml Jsoup JxPath Lang Math Mockito Time)
 
-PROJECTS=(Collections)
+PROJECTS=(Collections, Cli)
 
 for PROJECT in "${PROJECTS[@]}"; do
 

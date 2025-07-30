@@ -17,7 +17,7 @@ EXCEPTIONAL=0
 EXCEPTION_MSG=""
 
 #loop over editas2 evosuite sets 1 thru 10
-for EVOTEST_DIR in {1..5}; do 
+for EVOTEST_DIR in {1..10}; do 
 	
 	echo ""
 	echo ""

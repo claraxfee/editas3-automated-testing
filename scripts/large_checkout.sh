@@ -2,7 +2,7 @@
 
 
 
-PROJECTS=(Cli)
+PROJECTS=(Collections)
 
 for PROJECT in "${PROJECTS[@]}"; do
 
