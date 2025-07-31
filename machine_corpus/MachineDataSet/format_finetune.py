@@ -1,7 +1,7 @@
 import csv
 import json
 
-input_csv = 'inputs_exceptional_no_split.csv'
+input_csv = 'inputs_all_no_split.csv'
 output_jsonl = 'output_exceptional.jsonl'
 
 SYSTEM_MESSAGE = (

@@ -1,4 +1,5 @@
 import os, re, csv, argparse, sys
+import numpy as np
 import javalang
 import pandas as pd
 import subprocess as sp
@@ -10,13 +11,13 @@ SAMPLE_PROJECTS = ('Chart', 'Cli', 'Csv', 'Gson', 'Lang')
 
 
 assert_re = re.compile("assert\w*\(.*\)")
-# Modified regex for SF110 structure
-sf110_path_re = re.compile(r"(\d+_\w+).*?([^/]+)EvoSuiteTest\.java$")
+path_re = re.compile(r"(\d+_\w+).*?([^/]+)EvoSuiteTest\.java$") # changed for my path style
 whitespace_re = re.compile(r'\s+')
 
 test_name_re = re.compile("public void (test[0-9]*)\(\)")
 extract_package_re = re.compile(r'package\s+(\S+);')
 fail_catch_re = re.compile(r"fail\(.*\).*}\s*catch", re.MULTILINE|re.DOTALL)
+fail_catch_extract_re = re.compile(r'try\s*{(.*;).*fail\(.*\)\s*;\s*}\s*catch', re.DOTALL)
 
 errs = defaultdict(int)
 
@@ -29,67 +30,30 @@ def find_sf110_projects(sf110_dir):
             projects.append(item)
     return projects
 
-# NEW: Get Evosuite test files  
-def get_evosuite_test_files(project_dir):
-    """Find all *EvoSuiteTest.java files in evosuite-tests/"""
-    test_files = []
-    evosuite_dir = os.path.join(project_dir, 'evosuite-tests')
-    if os.path.exists(evosuite_dir):
-        for root, dirs, files in os.walk(evosuite_dir):
-            for f in files:
-                if f.endswith('EvoSuiteTest.java'):
-                    test_files.append(os.path.join(root, f))
-    return test_files
+def checkout_project(project, bug_num):
+    outpath = "/tmp/{}_{}_buggy/".format(project, bug_num)
+    if os.path.isdir(outpath): return outpath
 
-# NEW: Resolve source path from test path
-def resolve_source_path(test_file_path, project_dir):
-    """Convert test file path to corresponding source file path"""
-    # Extract package from test file
-    with open(test_file_path) as f:
-        content = f.read()
-    
-    package = ''
-    for line in content.split('\n'):
-        if m := extract_package_re.match(line.strip()):
-            package = m[1]
-            break
-    
-    # Get class name without EvoSuiteTest suffix
-    class_name = os.path.basename(test_file_path).replace('EvoSuiteTest.java', '')
-    
-    # Build source path
-    if package:
-        package_path = package.replace('.', '/')
-        source_path = os.path.join(project_dir, 'src/main/java', package_path, class_name + '.java')
-    else:
-        source_path = os.path.join(project_dir, 'src/main/java', class_name + '.java')
-    
-    return source_path
+    print("checking out {} {} into {}".format(project, bug_num, outpath))
+    sp.call(["defects4j", "checkout", "-p", project, "-v", bug_num + "b", "-w", outpath])
 
-# NEW: Normalize code with spaces between tokens
-def normalize_code(code_text, remove_access_modifiers=False, remove_semicolon=False):
-    """Format code with space between tokens"""
-    if not code_text or not code_text.strip():
-        return code_text
-        
-    try:
-        tokens = javalang.tokenizer.tokenize(code_text)
-        normalized = ' '.join(token.value for token in tokens)
-        
-        if remove_access_modifiers:
-            normalized = re.sub(r'\b(public|private|protected)\s+', '', normalized)
-        
-        if remove_semicolon:
-            normalized = normalized.rstrip(' ;')
-            
-        return normalized
-    except:
-        return code_text  # fallback to original if tokenization fails
+    return outpath
 
-# REMOVED: checkout_project, get_active_bugs, get_project_layout (Defects4J specific)
+
+def get_active_bugs(d4j_project_dir):
+    active_bugs_df = pd.read_csv(d4j_project_dir + '/active-bugs.csv', index_col=0)
+    bug_scm_hashes = active_bugs_df[['revision.id.buggy', 'revision.id.fixed']].to_dict()
+    return active_bugs_df.index.to_list(), bug_scm_hashes
+
+
+def get_project_layout(d4j_project_dir):
+    project_layout_df = pd.read_csv(d4j_project_dir + '/dir-layout.csv',index_col=0,
+                                    names=['src_dir', 'test_dir'])
+    return project_layout_df.to_dict()
+
 
 def extract_focal_class(class_dec):
-    return class_dec.name.strip("EvoSuiteTest")
+    return class_dec.name.strip("_ESTest")
 
 
 def extract_focal_methods(class_dec, tests, all_focal_class_methods):
@@ -126,7 +90,8 @@ def extract_focal_methods(class_dec, tests, all_focal_class_methods):
                 if isinstance(n, javalang.tree.ClassCreator):
                     focal_method_name = n.type.name
                     fm_names += [focal_method_name]
-
+     
+            #correct up to here
             added = False
             for focal_method_name in fm_names:
                 for focal_class_methods in all_focal_class_methods:
@@ -149,7 +114,7 @@ def extract_focal_methods(class_dec, tests, all_focal_class_methods):
     return focal_methods
 
 
-# returns tuple of method declaration, method body, and line numbers of the original method 
+
 def get_method_txt(lines, start_line):
     """
     lines: lines of file, assume each ends with \n
@@ -213,8 +178,7 @@ def get_method_txt(lines, start_line):
 
 
 
-# get class declaration from single test file 
-# returns javalang.tree.ClassDeclaration object, with attributes incl .name etc 
+
 def get_class_dec(test_file):
     try:
         with open(test_file) as f:
@@ -274,10 +238,9 @@ def get_classes_with_inherited(full_class_path, src_path):
     return ret_list
 
 # returns array of tuples, each represents one method, quadruple of the method as a string, definition, line numbers, and documentation
-# like this: 
+# like this:
 # [
-#     (method_obj, method_def, line_nums, documentation),
-#     (method_obj, method_def, line_nums, documentation),
+#     (method_obj, method_def, line_nums, documentation),                                                                   #     (method_obj, method_def, line_nums, documentation),
 #     ...
 # ]
 def extract_all_methods(class_dec, class_lines):
@@ -305,10 +268,11 @@ def split_test(test, line_nums, assert_line_no=None):
     # split by asserts
     split_tests = []
     split_test_line_nums = []
-
+    
+    
     relevant_lines = []
     relevant_line_nums = []
-    for line, line_no in zip(test.split('\n'), line_nums):
+    for line, line_no in zip(test_method.split('\n'), line_nums):
         if not line.strip():
             continue
 
@@ -331,145 +295,250 @@ def split_test(test, line_nums, assert_line_no=None):
         else: # non assert line
             relevant_lines += [line]
             relevant_line_nums += [line_no]
+    
 
     split_tests += ['\n'.join(relevant_lines)]
     split_test_line_nums += [relevant_line_nums]
-
+    
     return split_tests, split_test_line_nums
+
+
+
+def find_java_file(src_root, class_name, package):
+    """
+    Recursively search src_root for a .java file matching class_name + ".java".
+    Returns the full path if found, else None.
+    """
+    target_filename = class_name + ".java"
+    candidates = []
+
+    for root, dirs, files in os.walk(src_root):
+        if target_filename in files:
+            candidates.append(os.path.join(root, target_filename))
+
+    if len(candidates) == 1:
+        return candidates[0]
+
+    for filepath in candidates:
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith("package "):
+                        declared_package = line[len("package "):].rstrip(';').strip()
+                        if declared_package == package:
+                            return filepath
+                        break  # No need to check further lines
+        except Exception as e:
+            continue  # Skip files that can't be read
+
+    return None  # No matching package found
+
+def format_field(field):
+
+    field_str = str(field).strip()
+    # Replace newlines and carriage returns with spaces to keep everything on one line
+    field_str = field_str.replace('\n', ' ').replace('\r', ' ')
+    
+    # Only remove quotes if they exist at BOTH the beginning AND end
+    if field_str.startswith('"') and field_str.endswith('"'):
+        field_str = field_str[1:-1]  # Remove first and last character only
+    
+    return field_str
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('sf110_dir', help='Path to SF110 directory')  # CHANGED from test_corpus_dir
-    parser.add_argument('--bug_tests_only', action='store_true')  # KEPT but not used
+    parser.add_argument('test_corpus_dir')
+    parser.add_argument('--projects', nargs='+', help='filter specific projects')
+    parser.add_argument('--bug_tests_only', action='store_true')
     parser.add_argument('--sample_5projects', action='store_true')
-    parser.add_argument('--projects', nargs='+', help='Filter to specific project names')  # NEW
+    parser.add_argument('--d4j_path', default='../defects4j/')
     parser.add_argument('-o', '--output_dir', default='.')
+    parser.add_argument('--specific_bugs', nargs='+', help='Specify bugs as PROJECT:BUG_NUM (e.g., Chart:1 Lang:5)')
+    parser.add_argument('--bug_list_file', help='Path to file containing list of bugs (one per line: PROJECT:BUG_NUM)')
     args = parser.parse_args()
 
-    sf110_dir = args.sf110_dir  # CHANGED
 
     # NEW: Find all SF110 projects
     projects = find_sf110_projects(sf110_dir)
-    
+
     # Filter projects if specified
     if args.projects:
         projects = [p for p in projects if any(proj_name in p for proj_name in args.projects)]
-    
-    if args.sample_5projects:
-        projects = [p for p in projects if any(sample in p for sample in SAMPLE_PROJECTS)]
-
     print(f"Found {len(projects)} projects to process")
 
-    # NEW: Open output files
-    assert_file = open(os.path.join(args.output_dir, 'assert.txt'), 'w')
-    prefix_focal_file = open(os.path.join(args.output_dir, 'prefix_focal.txt'), 'w')
+    specific_bugs = set()
+    if args.specific_bugs:
+        for bug_spec in args.specific_bugs:
+            if ':' in bug_spec:
+                proj, bug_num = bug_spec.split(':', 1)
+                specific_bugs.add(proj + bug_num)
+            else:
+                print(f"Warning: Invalid bug specification '{bug_spec}'. Use PROJECT:BUG_NUM format")
+
+    if args.bug_list_file:
+        with open(args.bug_list_file, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line and ':' in line:
+                    proj, bug_num = line.split(':', 1)
+                    specific_bugs.add(proj + bug_num)
+
+    test_corpus_dir = args.test_corpus_dir
+    bug_tests_only = args.bug_tests_only
+    d4j_path = args.d4j_path
+
+    if bug_tests_only:
+
+        bug_tests_df = pd.read_csv(test_corpus_dir+'/bug_catching_tests.csv')
+        bug_tests_df.bug_num = bug_tests_df.bug_num.astype(str)
+
+        test_ids = bug_tests_df.project + bug_tests_df.bug_num + bug_tests_df.test_name
+        bug_tests_df = bug_tests_df.set_index(test_ids, drop=True) #index by test_id (project+bug_num+test_name)
+    
+
+        bug_ids = set(bug_tests_df.project + bug_tests_df.bug_num)
+
+        #bug_tests_df is now: (key, value) / (test_id, <all the fields from the csv>)
+        #bug_ids is now: [Chart1, Math17, ...]
 
     input_data = []
     metadata = []
+    found_count = 0
+    success_test_found = False
+    for root, dirs, files in os.walk(test_corpus_dir):
+        for f in files:
+            if not f.endswith("EvoSuiteTest.java"): 
+                continue
+            full_fname = os.path.join(root, f)
 
-    # CHANGED
-    # for each project
-    for project in projects:
-        project_dir = os.path.join(sf110_dir, project)
-        print(f"Processing project: {project}")
-        
-        test_files = get_evosuite_test_files(project_dir)
-        print(f"Found {len(test_files)} test files")
-        
-
-        # for each test file in that project 
-        for full_fname in test_files:
-            # extract based on 1_projectname structure 
-            match = sf110_path_re.search(full_fname)
+            match = path_re.search(full_fname)
             if not match:
                 errs['file_name_not_matched'] += 1
                 continue
-            project_name = match.group(1)
-            class_name = match.group(2)
+            project = match.group(1)
+            bug_num = match.group(2)
+            class_path = match.group(3)
 
-            print(full_fname)
-
-            # CHANGED: Resolve source file path directly
-            full_class_path = resolve_source_path(full_fname, project_dir)
-            if not os.path.exists(full_class_path):
-                errs['cannot_find_focal_unit_file'] += 1
-                print('ERROR: cannot get file:')
-                print(full_class_path)
+            if args.sample_5projects and not project in SAMPLE_PROJECTS:
+                continue
+            
+            if specific_bugs and not (project + bug_num) in specific_bugs:
                 continue
 
+            if bug_tests_only and not project + bug_num in bug_ids:
+                continue
+
+
+            project_dir = os.path.abspath(f"{project}")
+            src_root = os.path.join(project_dir, src_dir)
+            class_name = os.path.basename(class_path)
+            
+             
+            package_path = os.path.dirname(full_fname)
+            java_package = package_path.replace("/", ".")
+
+            
+
+            full_class_path = find_java_file(src_root, class_name, java_package)
+            #print("FOUND THIS JAVA FILE TO LOOK FOR FOCAL METHODS:", full_class_path)
+            if not full_class_path:
+                errs['cannot_find_focal_unit_file'] += 1
+                print('ERROR: cannot find file for:', class_name)
+                print(f"Looked under {src_root}")
+                continue
+
+            """
             try:
-                class_dec, class_text = get_class_dec(full_fname) # uses javalang to get class declaration of test file 
+                class_dec, class_text = get_class_dec(full_fname)
             except Exception as e:
                 errs['err_parse_test_file'] += 1
-                print("ERROR:couldn't parse test_class", full_fname)
+                print("ERROR: couldn't parse test_class / couldn't run get_class_dec function", full_fname)
                 continue
 
+
             try:
-                src_path = os.path.join(project_dir, 'src/main/java')  # CHANGED: Standard Maven structure
+                src_path = os.path.join(project_dir, src_dir)
                 focal_dec_text_pairs = get_classes_with_inherited(full_class_path, src_path)
             except Exception as e:
                 errs['err_parse_focal_file'] += 1
-                print("ERROR:couldn't parse focal class", project_name, full_class_path)
+                print("ERROR:couldn't parse focal class / couldn't run get_classes_with_inherited", project, bug_num, full_class_path)
                 continue
-            
-            # loop over all the lines in class_text, check if matches predefined package pattern, if so store it in package var
+
+
             package = ''
             for line in class_text:
                 if m := extract_package_re.match(line.strip()):
                     package = m[1]
                     break
             
-            # formerly used tree sitter here just to get class names 
-            # get_all_method_bodies returned like this: 
-            # class_test_methods = {
-                # "ClassNameEvoSuiteTest": [method1_body, method2_body, ...]
-                # "AnotherClassName ....
+            # no longer using tree sitter
 
             #jp.parse_file(full_fname)
             #class_test_methods = jp.get_all_method_bodies()
+            #class_name, _ = list(class_test_methods.items())[0]
 
-            # also deleted check if len(class_test_methods) != 1, i.e. if more than one class in the file
+            # assert len(class_test_methods) == 1
+            # ^ idk what this was for, ensuring there was only one class per test file ?? 
 
-            # class_name_from_parser, _ = list(class_test_methods.items())[0]
             class_name_from_parser = class_dec.name
 
+            
             test_methods = extract_all_methods(class_dec, class_text)
             split_test_methods = []
             split_test_line_nums = []
+            
             for obj, test_method, line_nums, _ in test_methods:
                 m2 = test_name_re.search(test_method)
                 if not m2:
                     errs['test_name_not_matched'] += 1
+                    print("\n ERROR: TEST NAME DIDNT MATCH TEST_NAME_RE")
                     continue
-                test_name = m2.group(1)
-                full_test_name = package +'.' + class_name_from_parser + '::' + test_name
-
-                split_tests, split_test_lines = split_test(test_method, line_nums)
-
-                if not split_tests: # should always have at least one
-                    errs['no_split_tests'] += 1
+                
+                original_test_name = m2.group(1)
+                
+                full_test_name = package +'.' + class_name_from_parser + '::' + original_test_name
+                
+                full_test_id = project + str(bug_num) + package + '.' + class_name_from_parser + '::' + original_test_name 
+                
+                if bug_tests_only and full_test_id not in bug_tests_df.index:
                     continue
+                else:
+                
+                    success_test_found = True
+                                
+                    prefix = test_method
 
-                split_test_methods += split_tests
-                split_test_line_nums += split_test_lines
+                    split_tests, split_test_lines = split_test(prefix, line_nums)
 
+                    assert(split_tests) # should always have at least one
+
+                    #split_test_methods += split_tests
+                    #split_test_line_nums += split_test_lines
+                
+
+                    #print(f"SPLIT_TESTS[-1]: {split_tests[-1]}")
+
+                    split_test_methods.append(split_tests[-1])
+                    split_test_line_nums.append(split_test_lines[-1])
+                    break
+
+            
             focal_class_methods = [extract_all_methods(fdec, ftxt) for fdec, ftxt in focal_dec_text_pairs]
             focal_methods = extract_focal_methods(class_dec, split_test_methods, focal_class_methods)
 
-            if len(split_test_methods) != len(focal_methods):
-                errs['length_mismatch'] += 1
-                continue
-            if len(split_test_methods) != len(split_test_line_nums):
-                errs['length_mismatch'] += 1
-                continue
+            #assert(len(split_test_methods) == len(focal_methods))
+            #asseClosure7com.google.javascript.jscomp.type.ChainableReverseAbstractInterpreter_ESTest::test59rt(len(split_test_methods) == len(split_test_line_nums))
+            
 
-            for test_method, focal_method_docstring, test_lines in zip(split_test_methods, focal_methods, split_test_line_nums):
+            for test_method, focal_method_docstring, test_lines in zip(split_test_methods, focal_methods, split_test_line_nums): 
+
                 focal_method, docstring = "", ""
                 if focal_method_docstring:
                     focal_method, docstring = focal_method_docstring
-
-                # Extract assertion using original logic
+                
+                #get assertion from the test
                 assertion = ''
                 try:
                     m = assert_re.search(test_method)
@@ -479,60 +548,63 @@ if __name__ == "__main__":
                     raise e
                 if m:
                     assertion = m[0]
-                
-                if not assertion:
-                    errs['no_assertion'] += 1
-                    continue
-
-                # Extract prefix (everything before the assertion)
-                prefix = test_method[:test_method.find(assertion)] if assertion else test_method
 
                 m2 = test_name_re.search(test_method)
-                if not m2:
-                    errs['test_name_not_matched_in_split'] += 1
-                    continue
                 test_name = m2.group(1)
 
-                full_test_name = package +'.' + class_name_from_parser + '::' + test_name
-
-                # NEW: Normalize code parts
-                norm_prefix = normalize_code(prefix, remove_access_modifiers=True)
-                norm_assertion = normalize_code(assertion, remove_semicolon=True)
-                norm_focal = normalize_code(focal_method)
-
-                # NEW: Write to output files
-                assert_file.write(norm_assertion + '\n')
-                
-                combined = f'{norm_prefix} "<AssertPlaceHolder>" ; }} "<FocalMethod>" {norm_focal}\n'
-                prefix_focal_file.write(combined)
-
-                # Keep original data structure for compatibility
                 exception_lbl = bool(fail_catch_re.search(test_method))
+
                 assertion_lbl = assertion
 
-                metadata += [(project_name, '0', full_test_name, 0, 0, exception_lbl, assertion_lbl, '')]
-                input_data += [(focal_method, test_method, docstring)]
+                # get bug metadata
+                label = 2
+                assertion_bug = 0
+                exception_bug = 0
+                error = ''
+                print(f"\n\nCHECKING FULL_TEST_ID {full_test_id}")
+                if full_test_id in bug_tests_df.index:
+                    
+                    found_count = found_count + 1
 
-    # Close output files
-    assert_file.close()
-    prefix_focal_file.close()
+                    bug_meta = bug_tests_df.loc[full_test_id]
 
-    print('collected inputs:', len(input_data))
+                    error = bug_meta.error
+                    if bug_meta.bug_type == 'assertion':
+                        assertion_bug = 1
+                        label = 0
+                    elif bug_meta.bug_type == 'exception':
+                        exception_bug = 1
+                        label = 1
+
+                #idk what this check is for 
+                #if bug_tests_only and not (assertion_bug or exception_bug):
+                    #print(f"SKIPPING: {full_test_id} not assertion bug or exception bug")
+                    #continue
+
+                #print("writing this test: ", project, bug_num, full_test_name)
+                metadata += [(project, bug_num, full_test_name, exception_bug, assertion_bug, exception_lbl, assertion_lbl, error)]
+                input_data += [(label, test_method, focal_method, docstring, project, bug_num, full_test_name)]
+
+    """
+    print(f"Number of extracted input entries: {len(input_data)}")
+    print(f"Number of metadata entries: {len(metadata)}")
+
+    print(f"found_count: {found_count}")
+
     print(f'writing to {args.output_dir}/inputs.csv and {args.output_dir}/meta.csv')
 
-    # KEPT: Original CSV output for compatibility
     with open(args.output_dir + '/inputs.csv', 'w') as f1, open(args.output_dir + '/meta.csv', 'w') as f2:
-        input_w = csv.writer(f1)
-        meta_w = csv.writer(f2)
-
-        input_w.writerow(['focal_method', 'test_prefix', 'docstring'])
+        
+        input_w = csv.writer(f1, quoting=csv.QUOTE_NONNUMERIC)
+        meta_w = csv.writer(f2) 
+        
+        #write headers
+        input_w.writerow(['label', 'test_prefix', 'focal_method', 'docstring', 'project', 'bug_num', 'full_test_name'])
         meta_w.writerow('project,bug_num,test_name,exception_bug,assertion_bug,exception_lbl,assertion_lbl,assert_err'.split(','))
-
+        #write content
         for input_pair, meta in zip(input_data, metadata):
-            input_w.writerow(input_pair)
+            label = input_pair[0]  # Keep label as-is (always 1)
+            formatted_fields = [format_field(field) for field in input_pair[1:]]
+            formatted_row = [label] + formatted_fields
+            input_w.writerow(formatted_row)
             meta_w.writerow(meta)
-
-    # Print error statistics
-    print("\nError Statistics:")
-    for error_type, count in errs.items():
-        print(f"{error_type}: {count}")
