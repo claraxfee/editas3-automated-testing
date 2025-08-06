@@ -49,7 +49,8 @@ def extract_focal_class(class_dec):
     return class_dec.name.strip("_ESTest")
 
 
-def extract_focal_methods(class_dec, tests, all_focal_class_methods):
+def extract_focal_methods(class_dec, tests, all_focal_class_methods, full_test_id):
+    print(f"\nLOOKING FOR FM FOR {full_test_id}")
     focal_class_name = extract_focal_class(class_dec)
     focal_methods = []
 
@@ -66,7 +67,7 @@ def extract_focal_methods(class_dec, tests, all_focal_class_methods):
                 print(test_txt)
                 errs['unable_to_parse_test'] += 1
 
-                focal_methods += [('', '')]
+                #focal_methods += [('', '')] #unsure why
                 continue
 
             nodes = [n for n in test_obj]
@@ -83,13 +84,16 @@ def extract_focal_methods(class_dec, tests, all_focal_class_methods):
                 if isinstance(n, javalang.tree.ClassCreator):
                     focal_method_name = n.type.name
                     fm_names += [focal_method_name]
-     
-            #correct up to here
+            
+          
+            print(f"\nHALFWAY: FM_NAMES = {fm_names}") # this is correct
             added = False
             for focal_method_name in fm_names:
                 for focal_class_methods in all_focal_class_methods:
                     for (f_method_dec, f_method_text, line_nums, docstring) in focal_class_methods:
-
+                        
+                        print(f"\nF_METHOD_DEC.NAME: {f_method_dec.name}")
+                        print(f"\nCOMPARING TO FOCAL_METHOD_NAME: {focal_method_name}")
                         if f_method_dec.name == focal_method_name:
                             focal_methods += [(f_method_text, docstring)]
                             added = True
@@ -99,11 +103,12 @@ def extract_focal_methods(class_dec, tests, all_focal_class_methods):
                 if added: break
 
             if not added:
-                focal_methods += [('', '')]
+                #focal_methods += [('', '')]
+                print("\nERR: NOT ADDED")
         except Exception as e:
             added = False
             raise e
-
+    
     return focal_methods
 
 
@@ -227,7 +232,12 @@ def get_classes_with_inherited(full_class_path, src_path):
             if extend_cls in imports:
                 extend_full_cls = imports[extend_cls]
                 full_class_path = src_path +'/'+ extend_full_cls.replace('.', '/') + '.java'
-
+    
+    for rets in ret_list:
+        methods = [m for m in rets[0].body if isinstance(m, javalang.tree.MethodDeclaration)]
+        for method in methods:
+            print(method.name)
+    #here the ret_list is missing focal methods for those 4 bugs 
     return ret_list
 
 # returns array of tuples, each represents one method, quadruple of the method as a string, definition, line numbers, and documentation
@@ -236,7 +246,9 @@ def get_classes_with_inherited(full_class_path, src_path):
 #     (method_obj, method_def, line_nums, documentation),                                                                   #     (method_obj, method_def, line_nums, documentation),
 #     ...
 # ]
-def extract_all_methods(class_dec, class_lines):
+def extract_all_methods(class_dec, class_lines, full_test_id):
+    
+    
     methods = []
 
     for method in class_dec.constructors:
@@ -252,7 +264,6 @@ def extract_all_methods(class_dec, class_lines):
             continue
 
         methods.append((method, method_def, line_nums, method.documentation))
-
 
     return methods
 
@@ -471,13 +482,13 @@ if __name__ == "__main__":
             
 
             full_class_path = find_java_file(src_root, class_name, java_package)
-            print("FOUND THIS JAVA FILE TO LOOK FOR FOCAL METHODS:", full_class_path)
+            print("\nFOUND THIS JAVA FILE TO LOOK FOR FOCAL METHODS:", full_class_path)
             if not full_class_path:
                 errs['cannot_find_focal_unit_file'] += 1
                 print('ERROR: cannot find file for:', class_name)
                 print(f"Looked under {src_root}")
                 continue
-
+            #how to continue searching if no focal methods returned from this file ???
 
             try:
                 class_dec, class_text = get_class_dec(full_fname)
@@ -493,6 +504,7 @@ if __name__ == "__main__":
             except Exception as e:
                 errs['err_parse_focal_file'] += 1
                 print("ERROR:couldn't parse focal class / couldn't run get_classes_with_inherited", project, bug_num, full_class_path)
+                print(e)
                 continue
 
 
@@ -513,7 +525,7 @@ if __name__ == "__main__":
             class_name_from_parser = class_dec.name
 
             
-            test_methods = extract_all_methods(class_dec, class_text)
+            test_methods = extract_all_methods(class_dec, class_text, "blah")
             split_test_methods = []
             split_test_line_nums = []
             
@@ -534,39 +546,39 @@ if __name__ == "__main__":
 
                 if bug_tests_only and full_test_id not in bug_tests_df.index:
                     continue
-                
-                success_test_found = True
+                else:
+                    success_test_found = True
                                 
-                prefix = test_method
+                    prefix = test_method
 
-                split_tests, split_test_lines = split_test(prefix, line_nums)
+                    split_tests, split_test_lines = split_test(prefix, line_nums)
 
-                assert(split_tests) # should always have at least one
+                    assert(split_tests) # should always have at least one
 
-                #split_test_methods += split_tests
-                #split_test_line_nums += split_test_lines
+                    #split_test_methods += split_tests
+                    #split_test_line_nums += split_test_lines
                 
 
-                print(f"SPLIT_TESTS[-1]: {split_tests[-1]}")
-
-                split_test_methods.append(split_tests[-1])
-                split_test_line_nums.append(split_test_lines[-1])
+                    split_test_methods.append(split_tests[-1])
+                    split_test_line_nums.append(split_test_lines[-1])
 
 
-            focal_class_methods = [extract_all_methods(fdec, ftxt) for fdec, ftxt in focal_dec_text_pairs]
-            focal_methods = extract_focal_methods(class_dec, split_test_methods, focal_class_methods)
+            focal_class_methods = [extract_all_methods(fdec, ftxt, full_test_id) for fdec, ftxt in focal_dec_text_pairs] #for 4 bugs not finding the right focal methods
+            focal_methods = extract_focal_methods(class_dec, split_test_methods, focal_class_methods, full_test_id)
 
             #assert(len(split_test_methods) == len(focal_methods))
             #assert(len(split_test_methods) == len(split_test_line_nums))
-
+            
+            if len(focal_methods) < 1:
+                print(f"SKIPPING: {full_test_id}")
+                continue
+                
             for test_method, focal_method_docstring, test_lines in zip(split_test_methods, focal_methods, split_test_line_nums):
                 
                 
-
                 focal_method, docstring = "", ""
                 if focal_method_docstring:
                     focal_method, docstring = focal_method_docstring
-                
                 #get assertion from the test
                 assertion = ''
                 try:
@@ -600,8 +612,8 @@ if __name__ == "__main__":
                         exception_bug = 1
                 
                 #idk what this check is for 
-                if bug_tests_only and not (assertion_bug or exception_bug):
-                    print(f"SKIPPING: {full_test_id} not assertion bug or exception bug")
+                #if bug_tests_only and not (assertion_bug or exception_bug):
+                    #print(f"SKIPPING: {full_test_id} not assertion bug or exception bug")
                     #continue
 
                 print("writing this test: ", project, bug_num, full_test_name)
@@ -620,7 +632,7 @@ if __name__ == "__main__":
         meta_w = csv.writer(f2) 
         
         #write headers
-        input_w.writerow(['label', 'test_prefix', 'focal_method', 'docstring', 'project', 'bug_num', 'full_test_name'])
+        input_w.writerow(['label', 'test', 'fm', 'docstring', 'project', 'bug_num', 'full_test_name'])
         meta_w.writerow('project,bug_num,test_name,exception_bug,assertion_bug,exception_lbl,assertion_lbl,assert_err'.split(','))
         #write content
         for input_pair, meta in zip(input_data, metadata):
