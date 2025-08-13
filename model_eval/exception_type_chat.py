@@ -28,6 +28,10 @@ json_format= {
             "type":"integer",
             "enum": [0,1],
             "description": "1 if an exception is expected to occur in this prefix. 0 if an exception is NOT expected to occur in this prefix."
+        },
+        "exception_type": {
+            "type":"string",
+            "description": "The exception type, if it is expected. An empty string if not expected."
         }
     },
     "required": ["reasoning", "answer"]
@@ -41,15 +45,19 @@ You are an expert Java software developer specializing in unit testing.
 Given a method, docstring, and test prefix, your task is to determine if the developer who wrote the method under test intended for an exception to occur under the conditions of the prefix.
 
 
-You will output your answer in a Json scheme with two fields: one for your reasoning, and one for your answer.
+You will output your answer in a Json scheme with three fields: one for your reasoning, one for your answer, and one for the exception type if it is expected.
 
 First, think through the task step by step. Then, output your full thought process into the reasoning field. Ensure you output your full thought process, but keep it short and concise--remember that each output token comes with a cost.
 
-Then, output your answer as either a 1 or 0 in the answer field:
+Second, output your answer as either a 1 or 0 in the answer field:
     If an exception is expected to occur when the prefix is executed, output a 1. 
     If an exception is NOT expected to occur when the prefix is executed, output a 0. 
     No other answers are accepted for the "answer" field.
 
+Third, output the expected exception type into the "exception-type" field:
+    If an exception is expected to occur when the prefix is executed, specify the exception type (e.g. NullArguementException).
+    If an exception is NOT expected to occur when the prefix is executed, output an empty string.
+    
 
 Here are two brief examples of the task. 
 
@@ -66,16 +74,19 @@ Example #1:
         "The method getRestrictedByTypeOfResult is designed to return a restricted JSType based on the result of a typeof operation. The test case passes an ObjectType, the string ""function"", and false for resultEqualsValue. According to the docstring, when resultEqualsValue is false, the method should return null if no version of the type matches the restriction. Since the ObjectType does not implement [[Call]], its typeof result is ""object"", which does not equal ""function"". Therefore, the method should return null, and no exception is expected."
 
     Final answer: 0
-
+    
+    Exception type: "" 
 
 
 Example #2:
                                                                                                                                 Information:                                                                                                                                                                                                                                                Test prefix:                                                                                                                    public void test03()  throws Throwable  {       Frequency frequency0 = new Frequency();       Object object0 = new Object();                        frequency0.addValue(object0);         ;       }    }
 
         Method under test:
-            public void addValue(Object v) {             addValue((Comparable<?>) v);                 },                                                                                                                                                        Docstring for method under test:                                                                                                /**      * Adds 1 to the frequency count for v.      * <p>      * If other objects have already been added to this Frequency, v must      * be comparable to those that have already been added.      * </p>      *       * @param v the value to add.      * @throws IllegalArgumentException if <code>v</code> is not Comparable,       *         or is not comparable with previous entries      * @deprecated use {@link #addValue(Comparable)} instead      */                                                                                                                                                                 Reasoning based on this information:                                                                                            "The method addValue(Object v) calls addValue((Comparable<?>) v), which expects v to be a Comparable. The test passes an Object, which is not Comparable, leading to a ClassCastException. The docstring warns of IllegalArgumentException, but the actual exception is a ClassCastException, indicating an unexpected exception."
+            public void addValue(Object v) {             addValue((Comparable<?>) v);                 },                                                                                                                                                        Docstring for method under test:                                                                                                /**      * Adds 1 to the frequency count for v.      * <p>      * If other objects have already been added to this Frequency, v must      * be comparable to those that have already been added.      * </p>      *       * @param v the value to add.      * @throws IllegalArgumentException if <code>v</code> is not Comparable,       *         or is not comparable with previous entries      * @deprecated use {@link #addValue(Comparable)} instead      */                                                                                                                                                                 Reasoning based on this information:                                                                                            "The method addValue(Object v) calls addValue((Comparable<?>) v), which expects v to be a Comparable. The test passes an Object, which is not Comparable, leading to a MockIllegalArguementException. The docstring warns of IllegalArgumentException, but the actual exception is a MockIllegalArgumentException, indicating an unexpected exception."
 
     Final answer: 1
+    
+    Exception type: "MockIllegalArgumentException"
 """
 
 
@@ -132,6 +143,7 @@ with open(input_csv, newline='', encoding='utf-8') as infile, \
                     parsed_response = json.loads(response)
                     reasoning_only = parsed_response["reasoning"]
                     answer_only = parsed_response["answer"]
+                    exception_type = parsed_response["exception_type"]
                 except json.JSONDecodeError as e:
                     print(f"JSON parsing error: {e}")
                     print(f"Raw response: {repr(response)}")
@@ -149,7 +161,7 @@ with open(input_csv, newline='', encoding='utf-8') as infile, \
                 print()
                 print(idx)
                 print()
-                writer.writerow(row + [answer_only] + [reasoning_only])
+                writer.writerow(row + [answer_only] + [reasoning_only] + [exception_type])
                 idx += 1
                 
 

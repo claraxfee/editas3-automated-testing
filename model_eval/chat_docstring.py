@@ -1,5 +1,3 @@
-# for http requesting qwen, already started via vllm in cli
-
 import openai
 import json
 import csv
@@ -7,15 +5,10 @@ import os
 import sys
 import time
 
-
-
 client = openai.OpenAI(
     base_url="http://localhost:8000/v1",
     api_key="dummy"
 )
-
-
-
 
 json_format= {
     "type": "object",
@@ -33,25 +26,20 @@ json_format= {
     "required": ["reasoning", "answer"]
 }
 
-
-
-
 system_prompt = """
-You are an expert Java software developer specializing in unit testing. 
+You are an expert Java software developer specializing in unit testing.
 Given a method, docstring, and test prefix, your task is to determine if the developer who wrote the method under test intended for an exception to occur under the conditions of the prefix.
-
 
 You will output your answer in a Json scheme with two fields: one for your reasoning, and one for your answer.
 
 First, think through the task step by step. Then, output your full thought process into the reasoning field. Ensure you output your full thought process, but keep it short and concise--remember that each output token comes with a cost.
 
 Then, output your answer as either a 1 or 0 in the answer field:
-    If an exception is expected to occur when the prefix is executed, output a 1. 
-    If an exception is NOT expected to occur when the prefix is executed, output a 0. 
+    If an exception is expected to occur when the prefix is executed, output a 1.
+    If an exception is NOT expected to occur when the prefix is executed, output a 0.
     No other answers are accepted for the "answer" field.
 
-
-Here are two brief examples of the task. 
+Here are two brief examples of the task.
 
 Example #1:
 
@@ -67,8 +55,6 @@ Example #1:
 
     Final answer: 0
 
-
-
 Example #2:
                                                                                                                                 Information:                                                                                                                                                                                                                                                Test prefix:                                                                                                                    public void test03()  throws Throwable  {       Frequency frequency0 = new Frequency();       Object object0 = new Object();                        frequency0.addValue(object0);         ;       }    }
 
@@ -78,9 +64,27 @@ Example #2:
     Final answer: 1
 """
 
+def generate_synthetic_docstring(client, method):
+    """
+    Generate a synthetic docstring for the given Java method.
+    """
+    docstring_prompt = f"You are an expert Java software developer. You have been tasked by your supervisor to write docstrings for Java methods. Please generate a descriptive Java docstring for this focal method:\n\n{method}"
+    
+    try:
+        response = client.chat.completions.create(
+            model="deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+            messages=[
+                {"role": "user", "content": docstring_prompt}
+            ],
+            max_tokens=1000,
+            temperature=0
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"Error generating synthetic docstring: {e}")
+        return "DOCSTRING_GENERATION_ERROR"
 
 def prompt_model(client, prompt):
-
     response = client.chat.completions.create(
         model="deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
         messages=[
@@ -95,61 +99,78 @@ def prompt_model(client, prompt):
     )
     return response.choices[0].message.content.strip()
 
+def process_response(response):
+    """
+    Parse the JSON response and extract reasoning and answer.
+    """
+    try:
+        parsed_response = json.loads(response)
+        reasoning_only = parsed_response["reasoning"]
+        answer_only = parsed_response["answer"]
+        return answer_only, reasoning_only
+    except json.JSONDecodeError as e:
+        print(f"JSON parsing error: {e}")
+        print(f"Raw response: {repr(response)}")
+        return "JSON_ERROR", "JSON_ERROR"
+    except KeyError as e:
+        print(f"Missing field in JSON: {e}")
+        print(f"Parsed response: {parsed_response}")
+        return "MISSING_FIELD", "MISSING_FIELD"
 
-
-
-
-#main
-
-
+# Main execution
 if len(sys.argv) < 3:
-    print("pass in input and output files as command line arguements")
+    print("pass in input and output files as command line arguments")
+    sys.exit(1)
 
 input_csv = sys.argv[1]
-
 output_csv = sys.argv[2]
 
 with open(input_csv, newline='', encoding='utf-8') as infile, \
         open(output_csv, newline='', mode='w', encoding='utf-8') as outfile:
 
-            reader = csv.reader(infile)
-            writer = csv.writer(outfile)
+    reader = csv.reader(infile)
+    writer = csv.writer(outfile)
 
-            header = next(reader)
-            writer.writerow(header + ["chatgpt_response"] + ["reasoning"])
-            
-            idx = 0
+    header = next(reader)
+    # Updated header to include both original and synthetic results
+    new_header = header + [
+        "original_chatgpt_response", "original_reasoning",
+        "synthetic_docstring", "synthetic_chatgpt_response", "synthetic_reasoning"
+    ]
+    writer.writerow(new_header)
 
-            for idx, row in enumerate(reader):
+    for idx, row in enumerate(reader):
+        test_prefix, fm, docstring = row[1:4]
 
-                test_prefix, fm, docstring = row[1:4]
-
-                prompt = f"Based on the following information, is an exception expected to occur when the unit test is executed? \n\nHere is the information: \n\n Method: {fm} \n\n Docstring: {docstring} \n\n Test prefix: {test_prefix}"
-
-                response = prompt_model(client, prompt)
-
-                try: 
-                    parsed_response = json.loads(response)
-                    reasoning_only = parsed_response["reasoning"]
-                    answer_only = parsed_response["answer"]
-                except json.JSONDecodeError as e:
-                    print(f"JSON parsing error: {e}")
-                    print(f"Raw response: {repr(response)}")
-                    answer_only = "JSON_ERROR"
-                    reasoning_only = "JSON_ERROR"
-                    #input("Press Enter to continue...")
-                except KeyError as e:
-                    print(f"Missing field in JSON: {e}")
-                    print(f"Parsed response: {parsed_response}")
-                    answer_only = "MISSING_FIELD"
-                    #input("Press Enter to continue...")
-                
-                time.sleep(1)
-                print()
-                print()
-                print(idx)
-                print()
-                writer.writerow(row + [answer_only] + [reasoning_only])
-                idx += 1
-                
-
+        print(f"\nProcessing row {idx}")
+        
+        # First query: Original docstring
+        original_prompt = f"Based on the following information, is an exception expected to occur when the unit test is executed? \n\nHere is the information: \n\n Method: {fm} \n\n Docstring: {docstring} \n\n Test prefix: {test_prefix}"
+        
+        print("Making original query...")
+        original_response = prompt_model(client, original_prompt)
+        original_answer, original_reasoning = process_response(original_response)
+        
+        time.sleep(1)  # Rate limiting
+        
+        # Generate synthetic docstring
+        print("Generating synthetic docstring...")
+        synthetic_docstring = generate_synthetic_docstring(client, fm)
+        
+        time.sleep(1)  # Rate limiting
+        
+        # Second query: Synthetic docstring
+        synthetic_prompt = f"Based on the following information, is an exception expected to occur when the unit test is executed? \n\nHere is the information: \n\n Method: {fm} \n\n Docstring: {synthetic_docstring} \n\n Test prefix: {test_prefix}"
+        
+        print("Making synthetic query...")
+        synthetic_response = prompt_model(client, synthetic_prompt)
+        synthetic_answer, synthetic_reasoning = process_response(synthetic_response)
+        
+        # Write results
+        writer.writerow(row + [
+            original_answer, original_reasoning,
+            synthetic_docstring, synthetic_answer, synthetic_reasoning
+        ])
+        
+        time.sleep(1)  # Rate limiting
+        print(f"Completed row {idx}")
