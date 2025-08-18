@@ -1,0 +1,25 @@
+--- com.google.gson.DefaultDateTypeAdapter_ESTest::test4
+com.google.gson.JsonSyntaxException: Thursday, January 1, 1970 12:00:00 AM GMT
+	at com.google.gson.DefaultDateTypeAdapter.deserializeToDate(DefaultDateTypeAdapter.java:126)
+	at com.google.gson.DefaultDateTypeAdapter.read(DefaultDateTypeAdapter.java:102)
+	at com.google.gson.DefaultDateTypeAdapter_ESTest.test4(DefaultDateTypeAdapter_ESTest.java:59)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: java.text.ParseException: Failed to parse date ["Thursday, January 1, 1970 12:00:00 AM GMT']: Invalid number: Thur
+	at com.google.gson.internal.bind.util.ISO8601Utils.parse(ISO8601Utils.java:274)
+	at com.google.gson.DefaultDateTypeAdapter.deserializeToDate(DefaultDateTypeAdapter.java:124)
+	... 14 more
+Caused by: java.lang.NumberFormatException: Invalid number: Thur
+	at com.google.gson.internal.bind.util.ISO8601Utils.parseInt(ISO8601Utils.java:311)
+	at com.google.gson.internal.bind.util.ISO8601Utils.parse(ISO8601Utils.java:129)
+	... 15 more

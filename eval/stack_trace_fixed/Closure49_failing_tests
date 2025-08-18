@@ -1,0 +1,28 @@
+--- com.google.javascript.jscomp.MakeDeclaredNamesUnique_ESTest::test01
+org.evosuite.runtime.mock.java.lang.MockRuntimeException: INTERNAL COMPILER ERROR.
+Please report this problem.
+null
+	at com.google.javascript.jscomp.Compiler.throwInternalError(Compiler.java:1837)
+	at com.google.javascript.jscomp.NodeTraversal.throwUnexpectedException(NodeTraversal.java:257)
+	at com.google.javascript.jscomp.NodeTraversal.traverse(NodeTraversal.java:280)
+	at com.google.javascript.jscomp.NodeTraversal.traverse(NodeTraversal.java:455)
+	at com.google.javascript.jscomp.MakeDeclaredNamesUnique_ESTest.test01(MakeDeclaredNamesUnique_ESTest.java:50)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: java.lang.NullPointerException
+	at com.google.javascript.jscomp.NodeUtil.isVarDeclaration(NodeUtil.java:1552)
+	at com.google.javascript.jscomp.MakeDeclaredNamesUnique.findDeclaredNames(MakeDeclaredNamesUnique.java:218)
+	at com.google.javascript.jscomp.MakeDeclaredNamesUnique.shouldTraverse(MakeDeclaredNamesUnique.java:137)
+	at com.google.javascript.jscomp.NodeTraversal.traverseBranch(NodeTraversal.java:479)
+	at com.google.javascript.jscomp.NodeTraversal.traverse(NodeTraversal.java:277)
+	... 14 more
