@@ -259,11 +259,8 @@ def extract_all_methods(class_dec, class_lines):
 
 
 def split_test(test, line_nums, assert_line_no=None):
-    # split by asserts
     split_tests = []
     split_test_line_nums = []
-    
-    
     relevant_lines = []
     relevant_line_nums = []
     for line, line_no in zip(test_method.split('\n'), line_nums):
@@ -290,10 +287,8 @@ def split_test(test, line_nums, assert_line_no=None):
             relevant_lines += [line]
             relevant_line_nums += [line_no]
     
-
     split_tests += ['\n'.join(relevant_lines)]
     split_test_line_nums += [relevant_line_nums]
-    
     return split_tests, split_test_line_nums
 
 
@@ -530,8 +525,14 @@ if __name__ == "__main__":
 
                     #print(f"SPLIT_TESTS[-1]: {split_tests[-1]}")
 
-                    split_test_methods.append(split_tests[-1])
+                    
+                    if len(split_tests) >= 2:
+                        split_test_methods.append(split_tests[-2])  # Last assertion
+                    else:
+                        split_test_methods.append(split_tests[0])   # Only assertion
+
                     split_test_line_nums.append(split_test_lines[-1])
+                    
                     break
 
             
